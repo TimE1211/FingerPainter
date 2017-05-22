@@ -18,12 +18,12 @@ class ViewController: UIViewController
   var start: CGPoint?
   var end: CGPoint?
   
-  let colorService = ColorServiceManager()
+  let pointService = PointServiceManager()
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    colorService.delegate = self
+    pointService.delegate = self
   }
   
   override func didReceiveMemoryWarning()
@@ -34,7 +34,7 @@ class ViewController: UIViewController
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
   {
     start = touches.first?.location(in: canvas)
-    //    pointService.send(point: start)
+    pointService.send(point: start!)
   }
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -43,7 +43,7 @@ class ViewController: UIViewController
     {
       end = touch.location(in: canvas)
       
-      //    pointService.send(point: end)
+      pointService.send(point: end!)
       
       if let start = self.start
       {
@@ -82,16 +82,16 @@ class ViewController: UIViewController
   }
 }
 
-extension ViewController : ColorServiceManagerDelegate
+extension ViewController : PointServiceManagerDelegate
 {
-  func connectedDevicesChanged(manager: ColorServiceManager, connectedDevices: [String])
+  func connectedDevicesChanged(manager: PointServiceManager, connectedDevices: [String])
   {
     //    OperationQueue.main.addOperation {
     //      self.connectionsLabel.text = "Connections: \(connectedDevices)"
     //    }
   }
   
-  func colorChanged(manager: ColorServiceManager, colorString: String)
+  func pointChanged(manager: PointServiceManager, point: CGPoint)
   {
     OperationQueue.main.addOperation {
       self.drawFromPoint(start: self.start!, toPoint: self.end!)

@@ -6,28 +6,20 @@
 //  Copyright © 2017 Timothy Hang. All rights reserved.
 //
 
-//
-//  ColorServiceManager.swift
-//  ConnectedColors
-//
-//  Created by Timothy Hang on 5/15/17.
-//  Copyright © 2017 Timothy Hang. All rights reserved.
-//
-
 //https://www.ralfebert.de/tutorials/ios-swift-multipeer-connectivity/
 
-protocol ColorServiceManagerDelegate
+protocol PointServiceManagerDelegate
 {
-  func connectedDevicesChanged(manager : ColorServiceManager, connectedDevices: [String])
-  func colorChanged(manager : ColorServiceManager, colorString: String)
+  func connectedDevicesChanged(manager : PointServiceManager, connectedDevices: [String])
+  func pointChanged(manager : PointServiceManager, point: CGPoint)
 }
 
 import Foundation
 import MultipeerConnectivity
 
-class ColorServiceManager : NSObject
+class PointServiceManager : NSObject
 {
-  private let ColorServiceType = "example-color"
+  private let PointServiceType = "example-point"
   
   private let myPeerId = MCPeerID(displayName: UIDevice.current.name)
   
@@ -40,12 +32,12 @@ class ColorServiceManager : NSObject
     return session
   }()
   
-  var delegate : ColorServiceManagerDelegate?
+  var delegate : PointServiceManagerDelegate?
   
   override init()
   {
-    self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: ColorServiceType)
-    self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: ColorServiceType)
+    self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: PointServiceType)
+    self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: PointServiceType)
     
     super.init()
     
@@ -62,15 +54,16 @@ class ColorServiceManager : NSObject
     self.serviceBrowser.stopBrowsingForPeers()
   }
   
-  func send(colorName : String)
+  func send(point : CGPoint)
   {
-    NSLog("%@", "sendColor: \(colorName) to \(session.connectedPeers.count) peers")
+    NSLog("%@", "sendPoint: \(point) to \(session.connectedPeers.count) peers")
     
     if session.connectedPeers.count > 0
     {
       do
       {
-        try self.session.send(colorName.data(using: .utf8)!, toPeers: session.connectedPeers, with: .reliable)
+        let pointString = String("\(point.x) + \(point.y)")
+        try self.session.send((pointString?.data(using: .utf8)!)!, toPeers: session.connectedPeers, with: .reliable)
       }
       catch let error
       {
@@ -80,7 +73,7 @@ class ColorServiceManager : NSObject
   }
 }
 
-extension ColorServiceManager : MCNearbyServiceAdvertiserDelegate
+extension PointServiceManager : MCNearbyServiceAdvertiserDelegate
 {
   func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error)
   {
@@ -94,7 +87,7 @@ extension ColorServiceManager : MCNearbyServiceAdvertiserDelegate
   }
 }
 
-extension ColorServiceManager : MCNearbyServiceBrowserDelegate
+extension PointServiceManager : MCNearbyServiceBrowserDelegate
 {
   func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error)
   {
@@ -113,7 +106,7 @@ extension ColorServiceManager : MCNearbyServiceBrowserDelegate
   }
 }
 
-extension ColorServiceManager : MCSessionDelegate
+extension PointServiceManager : MCSessionDelegate
 {
   func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState)
   {
@@ -125,7 +118,11 @@ extension ColorServiceManager : MCSessionDelegate
   {
     NSLog("%@", "didReceiveData: \(data.count) bytes")
     let str = String(data: data, encoding: .utf8)!
-    self.delegate?.colorChanged(manager: self, colorString: str)
+    let xValue =
+    let yValue =
+    let pt = CGPoint(x: xValue,y: yValue)
+    self.delegate?.pointChanged(manager: self, point: pt)
+    //???????????????????????????? ^need to convert point into data 
   }
   
   func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
