@@ -11,19 +11,39 @@
 
 import UIKit
 
+enum DrawingStatus {
+  case started
+  case drawing
+  case ended
+  case none
+}
+
 class ViewController: UIViewController
 {
   @IBOutlet weak var canvas: UIImageView!
   
   var start: CGPoint?
   var end: CGPoint?
+  var apiController = APIController()
+  
+  var status: DrawingStatus = .none {
+    didSet{ didSet(status: status) }
+  }
   
   let pointService = PointServiceManager()
+  
+  func didSet(status: DrawingStatus) {
+    if status == .ended {
+      //api call
+      //status = .none
+    }
+  }
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
     pointService.delegate = self
+    apiController.delegate = self
   }
   
   override func didReceiveMemoryWarning()
@@ -35,10 +55,12 @@ class ViewController: UIViewController
   {
     start = touches.first?.location(in: canvas)
     pointService.send(point: start!)
+    status = .started
   }
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
   {
+    status = .drawing
     if let touch = touches.first
     {
       end = touch.location(in: canvas)
@@ -52,6 +74,11 @@ class ViewController: UIViewController
       self.start = end
       self.end = nil
     }
+  }
+  
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
+  {
+    status = .ended
   }
   
   func drawFromPoint(start: CGPoint, toPoint end: CGPoint)
@@ -93,9 +120,18 @@ extension ViewController : PointServiceManagerDelegate
   
   func pointChanged(manager: PointServiceManager, point: CGPoint)
   {
+    apiController.getPoints()
     OperationQueue.main.addOperation {
       self.drawFromPoint(start: self.start!, toPoint: self.end!)
     }
+  }
+}
+
+extension ViewController : APIControllerDelegate
+{
+  func pointsReceived(_ points: CGPoint)
+  {
+    self.drawFromPoint(start: start!, toPoint: end!)
   }
 }
 
