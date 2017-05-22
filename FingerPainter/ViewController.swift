@@ -6,18 +6,26 @@
 //  Copyright © 2017 Timothy Hang. All rights reserved.
 //
 
+//from a tutorial ben gave me
+//https://www.ralfebert.de/tutorials/ios-swift-multipeer-connectivity/
+
 import UIKit
 
 class ViewController: UIViewController
 {
   @IBOutlet weak var canvas: UIImageView!
+  
   var start: CGPoint?
+  var end: CGPoint?
+  
+  let colorService = ColorServiceManager()
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    colorService.delegate = self
   }
-
+  
   override func didReceiveMemoryWarning()
   {
     super.didReceiveMemoryWarning()
@@ -26,22 +34,26 @@ class ViewController: UIViewController
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
   {
     start = touches.first?.location(in: canvas)
+    //    pointService.send(point: start)
   }
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
   {
     if let touch = touches.first
     {
-      let end = touch.location(in: canvas)
+      end = touch.location(in: canvas)
+      
+      //    pointService.send(point: end)
       
       if let start = self.start
       {
-        drawFromPoint(start: start, toPoint: end)
+        drawFromPoint(start: start, toPoint: end!)
       }
       self.start = end
+      self.end = nil
     }
   }
-
+  
   func drawFromPoint(start: CGPoint, toPoint end: CGPoint)
   {
     if let context = UIGraphicsGetCurrentContext()
@@ -68,12 +80,32 @@ class ViewController: UIViewController
   {
     canvas.image = nil
   }
-  
-  
-  
-  
-  
-  
-  
 }
+
+extension ViewController : ColorServiceManagerDelegate
+{
+  func connectedDevicesChanged(manager: ColorServiceManager, connectedDevices: [String])
+  {
+    //    OperationQueue.main.addOperation {
+    //      self.connectionsLabel.text = "Connections: \(connectedDevices)"
+    //    }
+  }
+  
+  func colorChanged(manager: ColorServiceManager, colorString: String)
+  {
+    OperationQueue.main.addOperation {
+      self.drawFromPoint(start: self.start!, toPoint: self.end!)
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
