@@ -58,6 +58,9 @@ class ViewController: UIViewController
       UIGraphicsEndImageContext()
       
       canvas.image = newImage
+      //make api post here maybe as you draw is pushing every few .1 s and other device is pulling the same interval somewhere else in the code
+      //when am i going to get api data
+      
     }
   }
   
