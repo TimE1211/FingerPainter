@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2047F5461ED38C96004F1E73 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047F5451ED38C96004F1E73 /* ServiceManager.swift */; };
 		2047F5481ED39D59004F1E73 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047F5471ED39D59004F1E73 /* APIController.swift */; };
 		2047F54A1ED4602C004F1E73 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047F5491ED4602C004F1E73 /* Point.swift */; };
 		20C47F5B1ECA07BB00C223C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C47F5A1ECA07BB00C223C2 /* AppDelegate.swift */; };
@@ -15,12 +14,10 @@
 		20C47F601ECA07BB00C223C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20C47F5E1ECA07BB00C223C2 /* Main.storyboard */; };
 		20C47F621ECA07BB00C223C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C47F611ECA07BB00C223C2 /* Assets.xcassets */; };
 		20C47F651ECA07BB00C223C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20C47F631ECA07BB00C223C2 /* LaunchScreen.storyboard */; };
-		20CB33F11ECE1FD700D4072D /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CB33F01ECE1FD700D4072D /* CanvasView.swift */; };
 		C9DF93E1FC65BD122F17FD55 /* Pods_FingerPainter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B92F20EDF4EA76080C28C0E /* Pods_FingerPainter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2047F5451ED38C96004F1E73 /* ServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		2047F5471ED39D59004F1E73 /* APIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		2047F5491ED4602C004F1E73 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		20C47F571ECA07BB00C223C2 /* FingerPainter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FingerPainter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,7 +27,6 @@
 		20C47F611ECA07BB00C223C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		20C47F641ECA07BB00C223C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		20C47F661ECA07BB00C223C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		20CB33F01ECE1FD700D4072D /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		3B92F20EDF4EA76080C28C0E /* Pods_FingerPainter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FingerPainter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97030C4E9E8E6A3527506DB3 /* Pods-FingerPainter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FingerPainter.release.xcconfig"; path = "Pods/Target Support Files/Pods-FingerPainter/Pods-FingerPainter.release.xcconfig"; sourceTree = "<group>"; };
 		99954EBE3729120906F999EA /* Pods-FingerPainter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FingerPainter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FingerPainter/Pods-FingerPainter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -82,8 +78,6 @@
 				20C47F5C1ECA07BB00C223C2 /* ViewController.swift */,
 				2047F5491ED4602C004F1E73 /* Point.swift */,
 				2047F5471ED39D59004F1E73 /* APIController.swift */,
-				2047F5451ED38C96004F1E73 /* ServiceManager.swift */,
-				20CB33F01ECE1FD700D4072D /* CanvasView.swift */,
 				20C47F5E1ECA07BB00C223C2 /* Main.storyboard */,
 				20C47F611ECA07BB00C223C2 /* Assets.xcassets */,
 				20C47F631ECA07BB00C223C2 /* LaunchScreen.storyboard */,
@@ -227,8 +221,6 @@
 				20C47F5D1ECA07BB00C223C2 /* ViewController.swift in Sources */,
 				20C47F5B1ECA07BB00C223C2 /* AppDelegate.swift in Sources */,
 				2047F54A1ED4602C004F1E73 /* Point.swift in Sources */,
-				20CB33F11ECE1FD700D4072D /* CanvasView.swift in Sources */,
-				2047F5461ED38C96004F1E73 /* ServiceManager.swift in Sources */,
 				2047F5481ED39D59004F1E73 /* APIController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

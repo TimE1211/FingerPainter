@@ -31,7 +31,6 @@ class ViewController: UIViewController
     didSet{ didSet(status: status) }
   }
   
-//  let pointService = PointServiceManager()
   
   func didSet(status: DrawingStatus)
   {
@@ -45,7 +44,6 @@ class ViewController: UIViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-//    pointService.delegate = self
     apiController.delegate = self
   }
   
@@ -56,9 +54,8 @@ class ViewController: UIViewController
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
   {
-    start = touches.first?.location(in: canvas)
+    start = touches.first?.location(in: view)
     apiController.send(point: start!)
-//    pointService.send(point: start!)
     status = .started
   }
   
@@ -67,10 +64,9 @@ class ViewController: UIViewController
     status = .drawing
     if let touch = touches.first
     {
-      end = touch.location(in: canvas)
+      end = touch.location(in: view)
       
       apiController.send(point: end!)
-//      pointService.send(point: end!)
       
       if let start = self.start
       {
@@ -114,27 +110,9 @@ class ViewController: UIViewController
   }
 }
 
-//extension ViewController : PointServiceManagerDelegate
-//{
-//  func connectedDevicesChanged(manager: PointServiceManager, connectedDevices: [String])
-//  {
-//    //    OperationQueue.main.addOperation {
-//    //      self.connectionsLabel.text = "Connections: \(connectedDevices)"
-//    //    }
-//  }
-//  
-//  func pointChanged(manager: PointServiceManager, point: CGPoint)
-//  {
-//    apiController.getPoints()
-//    OperationQueue.main.addOperation {
-//      self.drawFromPoint(start: self.start!, toPoint: self.end!)
-//    }
-//  }
-//}
-
 extension ViewController : APIControllerDelegate
 {
-  func pointsReceived(_ points: CGPoint)
+  func pointReceived(_ point: CGPoint)
   {
     self.drawFromPoint(start: start!, toPoint: end!)
   }

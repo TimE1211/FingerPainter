@@ -12,7 +12,7 @@ import SwiftyJSON
 
 protocol APIControllerDelegate
 {
-  func pointsReceived(_ points: CGPoint)
+  func pointReceived(_ point: CGPoint)
 }
 
 class APIController
@@ -32,7 +32,7 @@ class APIController
           let aPoint = CGPoint(x: 1, y: 1)
           self.point = aPoint
         }
-        self.delegate?.pointsReceived(self.point!)
+        self.delegate?.pointReceived(self.point!)
       }
     }
   }
