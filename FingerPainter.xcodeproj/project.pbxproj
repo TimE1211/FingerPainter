@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2047F5461ED38C96004F1E73 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047F5451ED38C96004F1E73 /* ServiceManager.swift */; };
 		2047F5481ED39D59004F1E73 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047F5471ED39D59004F1E73 /* APIController.swift */; };
+		2047F54A1ED4602C004F1E73 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047F5491ED4602C004F1E73 /* Point.swift */; };
 		20C47F5B1ECA07BB00C223C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C47F5A1ECA07BB00C223C2 /* AppDelegate.swift */; };
 		20C47F5D1ECA07BB00C223C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C47F5C1ECA07BB00C223C2 /* ViewController.swift */; };
 		20C47F601ECA07BB00C223C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20C47F5E1ECA07BB00C223C2 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		2047F5451ED38C96004F1E73 /* ServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		2047F5471ED39D59004F1E73 /* APIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
+		2047F5491ED4602C004F1E73 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		20C47F571ECA07BB00C223C2 /* FingerPainter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FingerPainter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C47F5A1ECA07BB00C223C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20C47F5C1ECA07BB00C223C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			children = (
 				20C47F5A1ECA07BB00C223C2 /* AppDelegate.swift */,
 				20C47F5C1ECA07BB00C223C2 /* ViewController.swift */,
+				2047F5491ED4602C004F1E73 /* Point.swift */,
 				2047F5471ED39D59004F1E73 /* APIController.swift */,
 				2047F5451ED38C96004F1E73 /* ServiceManager.swift */,
 				20CB33F01ECE1FD700D4072D /* CanvasView.swift */,
@@ -223,6 +226,7 @@
 			files = (
 				20C47F5D1ECA07BB00C223C2 /* ViewController.swift in Sources */,
 				20C47F5B1ECA07BB00C223C2 /* AppDelegate.swift in Sources */,
+				2047F54A1ED4602C004F1E73 /* Point.swift in Sources */,
 				20CB33F11ECE1FD700D4072D /* CanvasView.swift in Sources */,
 				2047F5461ED38C96004F1E73 /* ServiceManager.swift in Sources */,
 				2047F5481ED39D59004F1E73 /* APIController.swift in Sources */,

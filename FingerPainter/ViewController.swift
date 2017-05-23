@@ -11,7 +11,8 @@
 
 import UIKit
 
-enum DrawingStatus {
+enum DrawingStatus
+{
   case started
   case drawing
   case ended
@@ -30,19 +31,21 @@ class ViewController: UIViewController
     didSet{ didSet(status: status) }
   }
   
-  let pointService = PointServiceManager()
+//  let pointService = PointServiceManager()
   
-  func didSet(status: DrawingStatus) {
-    if status == .ended {
-      //api call
-      //status = .none
+  func didSet(status: DrawingStatus)
+  {
+    if status == .ended
+    {
+      apiController.getPoint()
+//      status = .none
     }
   }
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    pointService.delegate = self
+//    pointService.delegate = self
     apiController.delegate = self
   }
   
@@ -54,7 +57,8 @@ class ViewController: UIViewController
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
   {
     start = touches.first?.location(in: canvas)
-    pointService.send(point: start!)
+    apiController.send(point: start!)
+//    pointService.send(point: start!)
     status = .started
   }
   
@@ -65,7 +69,8 @@ class ViewController: UIViewController
     {
       end = touch.location(in: canvas)
       
-      pointService.send(point: end!)
+      apiController.send(point: end!)
+//      pointService.send(point: end!)
       
       if let start = self.start
       {
@@ -109,23 +114,23 @@ class ViewController: UIViewController
   }
 }
 
-extension ViewController : PointServiceManagerDelegate
-{
-  func connectedDevicesChanged(manager: PointServiceManager, connectedDevices: [String])
-  {
-    //    OperationQueue.main.addOperation {
-    //      self.connectionsLabel.text = "Connections: \(connectedDevices)"
-    //    }
-  }
-  
-  func pointChanged(manager: PointServiceManager, point: CGPoint)
-  {
-    apiController.getPoints()
-    OperationQueue.main.addOperation {
-      self.drawFromPoint(start: self.start!, toPoint: self.end!)
-    }
-  }
-}
+//extension ViewController : PointServiceManagerDelegate
+//{
+//  func connectedDevicesChanged(manager: PointServiceManager, connectedDevices: [String])
+//  {
+//    //    OperationQueue.main.addOperation {
+//    //      self.connectionsLabel.text = "Connections: \(connectedDevices)"
+//    //    }
+//  }
+//  
+//  func pointChanged(manager: PointServiceManager, point: CGPoint)
+//  {
+//    apiController.getPoints()
+//    OperationQueue.main.addOperation {
+//      self.drawFromPoint(start: self.start!, toPoint: self.end!)
+//    }
+//  }
+//}
 
 extension ViewController : APIControllerDelegate
 {
