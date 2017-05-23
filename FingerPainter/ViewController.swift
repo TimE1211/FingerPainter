@@ -27,7 +27,8 @@ class ViewController: UIViewController
   var end: CGPoint?
   var apiController = APIController()
   
-  var status: DrawingStatus = .none {
+  var status: DrawingStatus = .none
+  {
     didSet{ didSet(status: status) }
   }
   
@@ -36,8 +37,8 @@ class ViewController: UIViewController
   {
     if status == .ended
     {
-      apiController.getPoint()
-//      status = .none
+      apiController.getEndingPoint()
+      status = .none
     }
   }
   
@@ -55,7 +56,7 @@ class ViewController: UIViewController
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
   {
     start = touches.first?.location(in: view)
-    apiController.send(point: start!)
+    apiController.send(startingPoint: start!)
     status = .started
   }
   
@@ -66,7 +67,7 @@ class ViewController: UIViewController
     {
       end = touch.location(in: view)
       
-      apiController.send(point: end!)
+      apiController.send(endingPoint: end!)
       
       if let start = self.start
       {
@@ -112,10 +113,20 @@ class ViewController: UIViewController
 
 extension ViewController : APIControllerDelegate
 {
-  func pointReceived(_ point: CGPoint)
+  func apiControllerDidReceive(startPointDictionary: [String : Any])
   {
-    self.drawFromPoint(start: start!, toPoint: end!)
+    let aPoint = Point(pointDictionary: startPointDictionary)
+    let startPoint = CGPoint(x: aPoint.x, y: aPoint.y)
   }
+  
+  func apiControllerDidReceive(endPointDictionary: [String : Any])
+  {
+    let aPoint = Point(pointDictionary: endPointDictionary)
+    let endPoint = CGPoint(x: aPoint.x, y: aPoint.y)
+    
+  }
+  
+  
 }
 
 

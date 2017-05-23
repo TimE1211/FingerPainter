@@ -76,8 +76,8 @@
 			children = (
 				20C47F5A1ECA07BB00C223C2 /* AppDelegate.swift */,
 				20C47F5C1ECA07BB00C223C2 /* ViewController.swift */,
-				2047F5491ED4602C004F1E73 /* Point.swift */,
 				2047F5471ED39D59004F1E73 /* APIController.swift */,
+				2047F5491ED4602C004F1E73 /* Point.swift */,
 				20C47F5E1ECA07BB00C223C2 /* Main.storyboard */,
 				20C47F611ECA07BB00C223C2 /* Assets.xcassets */,
 				20C47F631ECA07BB00C223C2 /* LaunchScreen.storyboard */,

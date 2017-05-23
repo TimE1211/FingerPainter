@@ -12,55 +12,77 @@ import SwiftyJSON
 
 protocol APIControllerDelegate
 {
-  func pointReceived(_ point: CGPoint)
+  func apiControllerDidReceive(endPointDictionary: [String: Any])
+  func apiControllerDidReceive(startPointDictionary: [String: Any])
 }
 
 class APIController
 {
   var delegate: APIControllerDelegate?
   var point: CGPoint?
+  let url = "localhost:8080"
 
-  func getPoint()
+  func getStartingPoint()
   {
-    let sessionURL = "localhost:8080"
+    let sessionURL = "\(url)/getStartingPoint"
     Alamofire.request(sessionURL).responseJSON { responseData in
-      if((responseData.result.value) != nil)
+      if let value = responseData.result.value
       {
-        let pointDictionary = JSON(responseData.result.value!)
-        for _ in pointDictionary["points"].arrayValue
-        {
-          let aPoint = CGPoint(x: 1, y: 1)
-          self.point = aPoint
-        }
-        self.delegate?.pointReceived(self.point!)
+        let pointDictionary = value as! [String: Any]
+        self.delegate?.apiControllerDidReceive(startPointDictionary: pointDictionary)
       }
     }
   }
   
-  func send(point: CGPoint)
+  func getEndingPoint()
   {
-
-    let sessionURL = "localhost:8080"
+    let sessionURL = "\(url)/getEndingPoint"
+    Alamofire.request(sessionURL).responseJSON { responseData in
+      if let value = responseData.result.value
+      {
+        let pointDictionary = value as! [String: Any]
+        self.delegate?.apiControllerDidReceive(endPointDictionary: pointDictionary)
+      }
+    }
+  }
+  
+  func send(startingPoint: CGPoint)
+  {
+    let sessionURL = "\(url)/saveStartingPoint"
     
-//    let parameters: [String: Any] = [
-//      "":
-//    ]
+    let parameters: [String: Any] = [
+      "x": point!.x,
+      "y": point!.y
+    ]
     
     Alamofire.request(
       sessionURL,
       method: .post,
-//      parameters: parameters,
+      parameters: parameters,
       encoding: JSONEncoding.default,
       headers: nil
       ).responseJSON(completionHandler: { responseData in
         debugPrint(responseData)
-        
-//        if let value = responseData.result.value
-//        {
-//          let addWatchListDictionary = JSON(value)
-//          let addedBool = addWatchListDictionary["watchlist"].boolValue
-//          self.watchDelegate?.sendingWatchList(addedBool)
-//        }
+      })
+  }
+  
+  func send(endingPoint: CGPoint)
+  {
+    let sessionURL = "\(url)/saveEndingPoint"
+    
+    let parameters: [String: Any] = [
+      "x": point!.x,
+      "y": point!.y
+    ]
+    
+    Alamofire.request(
+      sessionURL,
+      method: .post,
+      parameters: parameters,
+      encoding: JSONEncoding.default,
+      headers: nil
+      ).responseJSON(completionHandler: { responseData in
+        debugPrint(responseData)
       })
   }
 }

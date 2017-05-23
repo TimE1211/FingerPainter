@@ -12,9 +12,10 @@ class Point
 {
   var x: Double
   var y: Double
-  init(x: Double, y: Double)
+  
+  init(pointDictionary: [String: Any])
   {
-    self.x = x
-    self.y = y
+    x = pointDictionary["x"] as! Double
+    y = pointDictionary["y"] as! Double
   }
 }
