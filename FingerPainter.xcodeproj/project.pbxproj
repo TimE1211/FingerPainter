@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		201CA5CA1ED4A40900344E9B /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201CA5C91ED4A40900344E9B /* LoginScreenViewController.swift */; };
+		201CA5CC1ED4ABF000344E9B /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201CA5CB1ED4ABF000344E9B /* JSON.swift */; };
 		2047F5481ED39D59004F1E73 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047F5471ED39D59004F1E73 /* APIController.swift */; };
 		2047F54A1ED4602C004F1E73 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047F5491ED4602C004F1E73 /* Point.swift */; };
 		20C47F5B1ECA07BB00C223C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C47F5A1ECA07BB00C223C2 /* AppDelegate.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		201CA5C91ED4A40900344E9B /* LoginScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
+		201CA5CB1ED4ABF000344E9B /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		2047F5471ED39D59004F1E73 /* APIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		2047F5491ED4602C004F1E73 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		20C47F571ECA07BB00C223C2 /* FingerPainter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FingerPainter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,8 +79,10 @@
 			isa = PBXGroup;
 			children = (
 				20C47F5A1ECA07BB00C223C2 /* AppDelegate.swift */,
+				201CA5C91ED4A40900344E9B /* LoginScreenViewController.swift */,
 				20C47F5C1ECA07BB00C223C2 /* ViewController.swift */,
 				2047F5471ED39D59004F1E73 /* APIController.swift */,
+				201CA5CB1ED4ABF000344E9B /* JSON.swift */,
 				2047F5491ED4602C004F1E73 /* Point.swift */,
 				20C47F5E1ECA07BB00C223C2 /* Main.storyboard */,
 				20C47F611ECA07BB00C223C2 /* Assets.xcassets */,
@@ -221,6 +227,8 @@
 				20C47F5D1ECA07BB00C223C2 /* ViewController.swift in Sources */,
 				20C47F5B1ECA07BB00C223C2 /* AppDelegate.swift in Sources */,
 				2047F54A1ED4602C004F1E73 /* Point.swift in Sources */,
+				201CA5CC1ED4ABF000344E9B /* JSON.swift in Sources */,
+				201CA5CA1ED4A40900344E9B /* LoginScreenViewController.swift in Sources */,
 				2047F5481ED39D59004F1E73 /* APIController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

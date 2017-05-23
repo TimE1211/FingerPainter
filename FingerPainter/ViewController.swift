@@ -26,19 +26,17 @@ class ViewController: UIViewController
   var start: CGPoint?
   var end: CGPoint?
   var apiController = APIController()
+  var username = String()
+  var password = String()
   
   var status: DrawingStatus = .none
   {
-    didSet{ didSet(status: status) }
-  }
-  
-  
-  func didSet(status: DrawingStatus)
-  {
-    if status == .ended
-    {
-      apiController.getEndingPoint()
-      status = .none
+    didSet {
+      if status == .ended
+      {
+        apiController.getEndingPoint()
+        status = .none
+      }
     }
   }
   

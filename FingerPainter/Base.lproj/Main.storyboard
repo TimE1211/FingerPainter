@@ -66,5 +66,59 @@
             </objects>
             <point key="canvasLocation" x="90" y="139"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Sh8-Ye-Si2">
+            <objects>
+                <viewController id="1ms-Ui-MiY" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fi1-db-zaS"/>
+                        <viewControllerLayoutGuide type="bottom" id="DvV-5h-AjW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TeN-JV-AK6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ExU-Vv-hRN">
+                                <rect key="frame" x="82" y="281" width="212" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to DrawnTogether" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPA-6u-Xp8">
+                                <rect key="frame" x="81" y="180" width="212" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSw-Hd-JBi">
+                                <rect key="frame" x="168" y="461" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gQu-7T-nTe">
+                                <rect key="frame" x="82" y="226" width="212" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ExU-Vv-hRN" firstAttribute="width" secondItem="EPA-6u-Xp8" secondAttribute="width" id="EYy-au-gox"/>
+                            <constraint firstItem="ExU-Vv-hRN" firstAttribute="top" secondItem="gQu-7T-nTe" secondAttribute="bottom" constant="25" id="MkR-lF-tCw"/>
+                            <constraint firstItem="uSw-Hd-JBi" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="P3A-Q9-Z6U"/>
+                            <constraint firstItem="ExU-Vv-hRN" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="Q1m-Xz-6Qm"/>
+                            <constraint firstItem="EPA-6u-Xp8" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="T3l-MP-V9Z"/>
+                            <constraint firstItem="gQu-7T-nTe" firstAttribute="width" secondItem="EPA-6u-Xp8" secondAttribute="width" id="XSw-qa-gf3"/>
+                            <constraint firstItem="uSw-Hd-JBi" firstAttribute="top" secondItem="ExU-Vv-hRN" secondAttribute="bottom" constant="150" id="bvR-f1-Ir3"/>
+                            <constraint firstItem="gQu-7T-nTe" firstAttribute="top" secondItem="EPA-6u-Xp8" secondAttribute="bottom" constant="25" id="byV-Py-xZr"/>
+                            <constraint firstItem="gQu-7T-nTe" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="tqV-eT-DcZ"/>
+                            <constraint firstItem="EPA-6u-Xp8" firstAttribute="top" secondItem="Fi1-db-zaS" secondAttribute="bottom" constant="160" id="wXQ-7c-ym9"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jUB-jB-TsV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="90" y="-671"/>
+        </scene>
     </scenes>
 </document>
