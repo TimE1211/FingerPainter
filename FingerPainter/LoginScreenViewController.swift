@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginScreenViewController: UIViewController
+class LoginScreenViewController: UIViewController, UITextFieldDelegate
 {
   @IBOutlet weak var usernameTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
@@ -24,7 +24,18 @@ class LoginScreenViewController: UIViewController
     super.didReceiveMemoryWarning()
   }
   
-  
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool
+  {
+    if textField == usernameTextField
+    {
+      passwordTextField.becomeFirstResponder()
+    }
+    else if textField == passwordTextField
+    {
+      passwordTextField.resignFirstResponder()
+      loginTapped(UIButton)
+    }
+  }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)
   {
@@ -59,6 +70,10 @@ class LoginScreenViewController: UIViewController
     }
   }
   
+  @IBAction func loginTapped(_ sender: UIButton)
+  {
+    
+  }
 }
 
 extension LoginScreenViewController

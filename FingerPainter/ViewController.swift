@@ -10,6 +10,7 @@
 //https://www.ralfebert.de/tutorials/ios-swift-multipeer-connectivity/
 
 import UIKit
+import RealmSwift
 
 enum DrawingStatus
 {
@@ -25,9 +26,13 @@ class ViewController: UIViewController
   
   var start: CGPoint?
   var end: CGPoint?
+  
   var apiController = APIController()
+  
   var username = String()
   var password = String()
+  var sessionID = Int()
+  var 
   
   var status: DrawingStatus = .none
   {
@@ -107,6 +112,12 @@ class ViewController: UIViewController
   {
     canvas.image = nil
   }
+  
+  @IBAction func saveTapped(_ sender: UIBarButtonItem)
+  {
+    
+  }
+  
 }
 
 extension ViewController : APIControllerDelegate

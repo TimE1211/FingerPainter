@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -34,11 +35,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pUH-rG-utC">
-                        <barButtonItem key="rightBarButtonItem" title="Clear" id="LTF-n0-0vj">
-                            <connections>
-                                <action selector="clearTapped:" destination="BYZ-38-t0r" id="jwt-kX-FuB"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Save" id="raA-zN-rKD">
+                                <connections>
+                                    <action selector="saveTapped:" destination="BYZ-38-t0r" id="9iW-1J-AO3"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Clear" id="LTF-n0-0vj">
+                                <connections>
+                                    <action selector="clearTapped:" destination="BYZ-38-t0r" id="jwt-kX-FuB"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="canvas" destination="2JT-bE-9Ik" id="Oaj-4g-Siz"/>
@@ -46,7 +54,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="138.98050974512745"/>
+            <point key="canvasLocation" x="2876" y="139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="j5s-FT-EZo">
@@ -59,17 +67,17 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="2Ec-mc-VAu"/>
+                        <segue destination="1ms-Ui-MiY" kind="show" id="DZL-yu-BAm"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wsu-PM-7bF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="90" y="139"/>
         </scene>
-        <!--View Controller-->
+        <!--Login Screen View Controller-->
         <scene sceneID="Sh8-Ye-Si2">
             <objects>
-                <viewController id="1ms-Ui-MiY" sceneMemberID="viewController">
+                <viewController id="1ms-Ui-MiY" customClass="LoginScreenViewController" customModule="FingerPainter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fi1-db-zaS"/>
                         <viewControllerLayoutGuide type="bottom" id="DvV-5h-AjW"/>
@@ -83,6 +91,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="1ms-Ui-MiY" id="Ohs-A6-Qme"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to DrawnTogether" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPA-6u-Xp8">
                                 <rect key="frame" x="81" y="180" width="212" height="21"/>
@@ -93,12 +104,19 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSw-Hd-JBi">
                                 <rect key="frame" x="168" y="461" width="38" height="30"/>
                                 <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginTapped:" destination="1ms-Ui-MiY" eventType="touchUpInside" id="Ss8-ZC-MK8"/>
+                                    <segue destination="Eux-Fp-rhg" kind="show" identifier="LoginSegue" id="OQI-rP-E9T"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gQu-7T-nTe">
                                 <rect key="frame" x="82" y="226" width="212" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="1ms-Ui-MiY" id="2PP-xP-d1k"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,10 +133,46 @@
                             <constraint firstItem="EPA-6u-Xp8" firstAttribute="top" secondItem="Fi1-db-zaS" secondAttribute="bottom" constant="160" id="wXQ-7c-ym9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="LoginTapped" destination="TeN-JV-AK6" id="moA-xX-S9u"/>
+                        <outlet property="passwordTextField" destination="ExU-Vv-hRN" id="tp3-zM-Ty8"/>
+                        <outlet property="usernameTextField" destination="gQu-7T-nTe" id="rAW-Rc-kXJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jUB-jB-TsV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="90" y="-671"/>
+            <point key="canvasLocation" x="993" y="139"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="BQl-gx-8Xn">
+            <objects>
+                <tableViewController id="Eux-Fp-rhg" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="gAQ-n4-Y5Q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sB3-8K-Kyx">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sB3-8K-Kyx" id="NZo-wb-cKK">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="ZMm-QN-edK"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Eux-Fp-rhg" id="7h2-Tc-Dzu"/>
+                            <outlet property="delegate" destination="Eux-Fp-rhg" id="WK8-xg-8pU"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W5o-yT-l9U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1911" y="139"/>
         </scene>
     </scenes>
 </document>

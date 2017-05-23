@@ -5,4 +5,5 @@ use_frameworks!
 target 'FingerPainter' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
+  pod 'RealmSwift'
 end
