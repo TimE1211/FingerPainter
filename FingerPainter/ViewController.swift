@@ -10,7 +10,8 @@
 //https://www.ralfebert.de/tutorials/ios-swift-multipeer-connectivity/
 
 import UIKit
-import RealmSwift
+import SwiftyJSON
+//import RealmSwift
 
 enum DrawingStatus
 {
@@ -36,9 +37,9 @@ class ViewController: UIViewController
   var status: DrawingStatus = .none
   {
     didSet {
-      if status == .ended
+      if status == .ended, let line = Line(start: start, end: end)
       {
-        apiController.getEndingPoint()
+        apiController.send(line: line)
         status = .none
       }
     }
@@ -57,9 +58,11 @@ class ViewController: UIViewController
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
   {
-    start = touches.first?.location(in: view)
-    apiController.send(startingPoint: start!)
-    status = .started
+    if let touch = touches.first
+    {
+      start = touch.location(in: view)
+      status = .started
+    }
   }
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -69,14 +72,11 @@ class ViewController: UIViewController
     {
       end = touch.location(in: view)
       
-      apiController.send(endingPoint: end!)
-      
-      if let start = self.start
+      if let start = start
       {
         drawFromPoint(start: start, toPoint: end!)
       }
       self.start = end
-      self.end = nil
     }
   }
   
@@ -87,19 +87,18 @@ class ViewController: UIViewController
   
   func drawFromPoint(start: CGPoint, toPoint end: CGPoint)
   {
+    UIGraphicsBeginImageContext(canvas.frame.size)
     if let context = UIGraphicsGetCurrentContext()
     {
-      UIGraphicsBeginImageContext(canvas.frame.size)
-      canvas.image!.draw(in: canvas.bounds)
+      canvas.image?.draw(in: CGRect(x: 0, y: 0, width: canvas.frame.size.width, height: canvas.frame.size.height))
       context.setLineWidth(5)
-      context.setStrokeColor(UIColor.magenta.cgColor)
+      context.setStrokeColor(UIColor.darkGray.cgColor)
       context.beginPath()
       context.move(to: CGPoint(x: start.x, y: start.y))
       context.addLine(to: CGPoint(x: end.x, y: end.y))
       context.strokePath()
       let newImage = UIGraphicsGetImageFromCurrentImageContext()
       UIGraphicsEndImageContext()
-      
       canvas.image = newImage
       //make api post here maybe as you draw is pushing every few .1 s and other device is pulling the same interval somewhere else in the code
       //when am i going to get api data
@@ -114,30 +113,22 @@ class ViewController: UIViewController
   
   @IBAction func saveTapped(_ sender: UIBarButtonItem)
   {
-    
+    apiController.getLine()
   }
   
 }
 
 extension ViewController : APIControllerDelegate
 {
-  func apiControllerDidReceive(startPointDictionary: [String : Any])
+  func apiControllerDidReceive(lineDictionary: [String : Any])
   {
-    let aPoint = Point(pointDictionary: startPointDictionary)
-    let startPoint = CGPoint(x: aPoint.x, y: aPoint.y)
+    let aLine = Line(json: JSON(lineDictionary))
+    let startPoint = CGPoint(x: aLine.start.x, y: aLine.start.y)
+    let endPoint = CGPoint(x: aLine.end.x, y: aLine.end.y)
+    drawFromPoint(start: startPoint, toPoint: endPoint)
   }
-  
-  func apiControllerDidReceive(endPointDictionary: [String : Any])
-  {
-    let aPoint = Point(pointDictionary: endPointDictionary)
-    let endPoint = CGPoint(x: aPoint.x, y: aPoint.y)
-    
-  }
-  
   
 }
-
-
 
 
 

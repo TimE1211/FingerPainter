@@ -33,8 +33,9 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     else if textField == passwordTextField
     {
       passwordTextField.resignFirstResponder()
-      loginTapped(UIButton)
+//      loginTapped(UIButton)
     }
+    return true
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -72,7 +73,6 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   
   @IBAction func loginTapped(_ sender: UIButton)
   {
-    
   }
 }
 

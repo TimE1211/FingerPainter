@@ -12,8 +12,7 @@ import SwiftyJSON
 
 protocol APIControllerDelegate
 {
-  func apiControllerDidReceive(endPointDictionary: [String: Any])
-  func apiControllerDidReceive(startPointDictionary: [String: Any])
+  func apiControllerDidReceive(lineDictionary: [String: Any])
 }
 
 class APIController
@@ -24,58 +23,75 @@ class APIController
 
   func getLine()
   {
-    let sessionURL = "\(url)/getStartingPoint"
+    let sessionURL = "\(url)/getLine"
     Alamofire.request(sessionURL).responseJSON { responseData in
       if let value = responseData.result.value
       {
         let lineDictionary = value as! [String: Any]
-        self.delegate?.apiControllerDidReceive(startPointDictionary: lineDictionary)
+        self.delegate?.apiControllerDidReceive(lineDictionary: lineDictionary)
       }
     }
   }
   
   func send(line: Line)
   {
-    let sessionURL = "\(url)/saveStartingPoint"
+    let sessionURL = "\(url)/sendLine"
     
-    let parameters: [String: Any] = [
-      "startx": line!.startx,
-      "starty": line!.starty,
-      "endx": line!.
-      "endy":
-    ]
+    let parameters = line.postBody()
     
-    Alamofire.request(
+    print(sessionURL)
+    
+    let request = Alamofire.request(
       sessionURL,
       method: .post,
       parameters: parameters,
-      encoding: JSONEncoding.default,
+//      encoding: JSONEncoding.default,
+      encoding: URLEncoding.httpBody,
       headers: nil
       ).responseJSON(completionHandler: { responseData in
         debugPrint(responseData)
       })
+    
+    debugPrint(request)
   }
-  
-  func send(endingPoint: CGPoint)
+
+  func sendLine(line: Line)
   {
-    let sessionURL = "\(url)/saveEndingPoint"
+    let sessionURL = "\(url)/sendLine"
+    var request = URLRequest(url: URL(string: sessionURL)!)
+    request.httpMethod = "POST"
+    let paramString = "startx=\(line.start.x)&starty=\(line.start.y)&endx=\(line.end.x)&endy=\(line.end.y)"
+    request.httpBody = paramString.data(using: .utf8)
     
-    let parameters: [String: Any] = [
-      "x": point!.x,
-      "y": point!.y
-    ]
-    
-    Alamofire.request(
-      sessionURL,
-      method: .post,
-      parameters: parameters,
-      encoding: JSONEncoding.default,
-      headers: nil
-      ).responseJSON(completionHandler: { responseData in
-        debugPrint(responseData)
-      })
+    URLSession.shared.dataTask(with: request) {
+      data, response, error in
+      if let error = error
+      {
+        print(error.localizedDescription)
+      }
+      else
+      {
+        do
+        {
+          if let errorDictionary = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+          {
+            if let error = errorDictionary["error"] as? String
+            {
+              if error != "Line saved."
+              {
+                print("Line not saved: \(error)")
+              }
+            }
+          }
+        } catch
+        {
+          print(error.localizedDescription)
+        }
+      }
+      }.resume()
   }
 }
+
 
 
 
