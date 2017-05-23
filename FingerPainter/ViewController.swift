@@ -32,7 +32,6 @@ class ViewController: UIViewController
   var username = String()
   var password = String()
   var sessionID = Int()
-  var 
   
   var status: DrawingStatus = .none
   {

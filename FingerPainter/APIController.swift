@@ -19,40 +19,30 @@ protocol APIControllerDelegate
 class APIController
 {
   var delegate: APIControllerDelegate?
-  var point: CGPoint?
+  var line: Line?
   let url = "localhost:8080"
 
-  func getStartingPoint()
+  func getLine()
   {
     let sessionURL = "\(url)/getStartingPoint"
     Alamofire.request(sessionURL).responseJSON { responseData in
       if let value = responseData.result.value
       {
-        let pointDictionary = value as! [String: Any]
-        self.delegate?.apiControllerDidReceive(startPointDictionary: pointDictionary)
+        let lineDictionary = value as! [String: Any]
+        self.delegate?.apiControllerDidReceive(startPointDictionary: lineDictionary)
       }
     }
   }
   
-  func getEndingPoint()
-  {
-    let sessionURL = "\(url)/getEndingPoint"
-    Alamofire.request(sessionURL).responseJSON { responseData in
-      if let value = responseData.result.value
-      {
-        let pointDictionary = value as! [String: Any]
-        self.delegate?.apiControllerDidReceive(endPointDictionary: pointDictionary)
-      }
-    }
-  }
-  
-  func send(startingPoint: CGPoint)
+  func send(line: Line)
   {
     let sessionURL = "\(url)/saveStartingPoint"
     
     let parameters: [String: Any] = [
-      "x": point!.x,
-      "y": point!.y
+      "startx": line!.startx,
+      "starty": line!.starty,
+      "endx": line!.
+      "endy":
     ]
     
     Alamofire.request(
