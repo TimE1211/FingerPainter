@@ -15,6 +15,14 @@ class Line
   var start: CGPoint
   var end: CGPoint
   
+  init?(start: CGPoint?, end: CGPoint?)
+  {
+    guard let start = start, let end = end else { return nil }
+    
+    self.start = start
+    self.end = end
+  }
+  
   func postBody() -> [String: Any]
   {
     return [
@@ -25,19 +33,12 @@ class Line
     ]
   }
   
-  init?(start: CGPoint?, end: CGPoint?)
-  {
-    guard let start = start, let end = end else { return nil }
-    
-    self.start = start
-    self.end = end
-  }
   
   init(json: JSON)
   {
     start = CGPoint()
     end = CGPoint()
-    
+      
     start.x = json["startx"].cgFloatValue
     start.y = json["starty"].cgFloatValue
     

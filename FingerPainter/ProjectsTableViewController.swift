@@ -10,13 +10,17 @@ import UIKit
 
 class ProjectsTableViewController: UITableViewController
 {
-  var projects: [String]?
+  var projects = [Project]()
+  var projectName = String()
+  var projectCreator = String()
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
 //    call api to get number of projects, have in JSON key value pair with UID 
+    
 //    get projects for specific user and projects that this user has worked on
+    
   }
 
   override func didReceiveMemoryWarning()
@@ -33,14 +37,13 @@ class ProjectsTableViewController: UITableViewController
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    return projects!.count
+    return projects.count
   }
 
   
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-      // Configure the cell...
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+  {
+      let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath)
 
       return cell
   }
@@ -81,14 +84,23 @@ class ProjectsTableViewController: UITableViewController
   }
   */
 
-  /*
+  
   // MARK: - Navigation
 
   // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      // Get the new view controller using segue.destinationViewController.
-      // Pass the selected object to the new view controller.
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+  {
+    if segue.identifier == "NewProjectSegue", let vc = segue.destination as? ViewController
+    {
+      vc.username = projectCreator
+      vc.projectName = projectName
+
+    }
   }
-  */
+ 
+  @IBAction func NewProjectTapped(_ sender: UIBarButtonItem)
+  {
+    
+  }
 
 }

@@ -28,18 +28,17 @@ class ViewController: UIViewController
   var start: CGPoint?
   var end: CGPoint?
   
-  var apiController = APIController()
-  
-  var username = String()
+  var username = [User]()
   var password = String()
-  var sessionID = Int()
+  var projectName = String()
+  var id = UUID.init()
   
   var status: DrawingStatus = .none
   {
     didSet {
       if status == .ended, let line = Line(start: start, end: end)
       {
-        apiController.send(line: line)
+        APIController.shared.send(line: line)
         status = .none
       }
     }
@@ -48,7 +47,9 @@ class ViewController: UIViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    apiController.delegate = self
+    APIController.shared.lineDelegate = self
+    Project(id: id, users: username, lines: [], name: projectName)
+    APIController.shared.send(project)
   }
   
   override func didReceiveMemoryWarning()
@@ -113,12 +114,12 @@ class ViewController: UIViewController
   
   @IBAction func saveTapped(_ sender: UIBarButtonItem)
   {
-    apiController.getLine()
+    APIController.shared.getLine()
   }
   
 }
 
-extension ViewController : APIControllerDelegate
+extension ViewController: APIControllerLineDelegate
 {
   func apiControllerDidReceive(lineDictionary: [String : Any])
   {

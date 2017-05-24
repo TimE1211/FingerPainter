@@ -13,6 +13,9 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   @IBOutlet weak var usernameTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
   
+  var username: String
+  var password: String
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -33,56 +36,91 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     else if textField == passwordTextField
     {
       passwordTextField.resignFirstResponder()
-//      loginTapped(UIButton)
+      login()
     }
     return true
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)
   {
-    let username: String
-    let password: String
     
-    if usernameTextField.text != ""
+    if let text = usernameTextField.text, text != ""
     {
-      username = usernameTextField.text!
+      username = text
     }
     else
     {
       username = ""
-      alert(name: "username")
+      incorrectKeyTyped(key: "username")
     }
     
-    if passwordTextField.text != ""
+    if let text = passwordTextField.text, text != ""
     {
-      password = passwordTextField.text!
+      password = text
     }
     else
     {
       password = ""
-      alert(name: "password")
+      incorrectKeyTyped(key: "password")
     }
     
-    if segue.identifier == "LoginSegue"
+    if segue.identifier == "LoginSegue", let vc = segue.destination as? ViewController
     {
-      let VC = segue.destination as! ViewController
-      VC.username = username
-      VC.password = password
+      vc.username = username
+      vc.password = password
     }
+//    else
+//    {
+//      fatalError()
+//    }
   }
   
   @IBAction func loginTapped(_ sender: UIButton)
   {
+    login()
   }
+  
+  func login()
+  {
+//    APIController.shared.getUserData
+    if username == apiUsername && if password == apiPassword
+    {
+      
+    }
+  }
+  
 }
 
-extension LoginScreenViewController
+extension LoginScreenViewController         //invalid key(name/pass) entered
 {
-  func alert(name: String)
+  func incorrectKeyTyped(key: String)
   {
-    let errorAlert = UIAlertController(title: "Error", message: "Please enter a \(name).", preferredStyle: .alert)
+    let errorAlert = UIAlertController(title: "Error", message: "Please enter a valid \(key).", preferredStyle: .deviceSpecific)
+    
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)
     self.present(errorAlert, animated: true, completion: nil)
   }
+}
+
+extension UIAlertControllerStyle          //for ipads
+{
+  static var deviceSpecific: UIAlertControllerStyle
+  {
+    if UIDevice.current.userInterfaceIdiom == .pad
+    {
+      return .alert
+    }
+    
+    return .actionSheet
+  }
+}
+
+extension LoginScreenViewController: APIControllerUserDelegate
+{
+  func apiControllerDidReceive(userDictionary: [String : Any])
+  {
+    
+  }
+  
 }
