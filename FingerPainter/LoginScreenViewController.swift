@@ -131,7 +131,7 @@ extension LoginScreenViewController         //invalid key(name/pass) entered
 {
   func incorrectKeyTyped(key: String)
   {
-    let errorAlert = UIAlertController(title: "Error, Incorrect Data", message: "Please enter a valid \(key).", preferredStyle: .deviceSpecific)
+    let errorAlert = UIAlertController(title: "Error - Incorrect Data", message: "Please enter a valid \(key).", preferredStyle: .deviceSpecific)
     
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)

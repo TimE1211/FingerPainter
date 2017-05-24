@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c4o-oI-Kmn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="S6E-UE-FgZ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -38,6 +38,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pUH-rG-utC">
+                        <barButtonItem key="leftBarButtonItem" title="Update" id="RGG-29-qJ4">
+                            <connections>
+                                <action selector="UpdateTapped:" destination="BYZ-38-t0r" id="ToY-NO-X85"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="Save" id="raA-zN-rKD">
                                 <connections>
@@ -57,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5908" y="138.98050974512745"/>
+            <point key="canvasLocation" x="6847.1999999999998" y="138.98050974512745"/>
         </scene>
         <!--Login Screen View Controller-->
         <scene sceneID="Sh8-Ye-Si2">
@@ -178,7 +183,7 @@
                         <barButtonItem key="rightBarButtonItem" title="New Project" id="L9q-Fs-c2s">
                             <connections>
                                 <action selector="NewProjectTapped:" destination="Eux-Fp-rhg" id="Otd-qV-Rnh"/>
-                                <segue destination="BYZ-38-t0r" kind="show" identifier="NewProjectSegue" id="Eil-4B-zNK"/>
+                                <segue destination="S6E-UE-FgZ" kind="show" identifier="NewProjectSegue" id="Eil-4B-zNK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -222,6 +227,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f19-jt-SQx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3992.8000000000002" y="138.98050974512745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="YOX-vC-WUe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S6E-UE-FgZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uFJ-3U-Ygk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ktj-1J-rZg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PQl-38-S7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5878" y="139"/>
         </scene>
     </scenes>
 </document>

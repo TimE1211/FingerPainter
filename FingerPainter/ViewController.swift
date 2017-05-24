@@ -101,9 +101,6 @@ class ViewController: UIViewController
       let newImage = UIGraphicsGetImageFromCurrentImageContext()
       UIGraphicsEndImageContext()
       canvas.image = newImage
-      //make api post here maybe as you draw is pushing every few .1 s and other device is pulling the same interval somewhere else in the code
-      //when am i going to get api data
-      
     }
   }
   
@@ -117,18 +114,24 @@ class ViewController: UIViewController
     APIController.shared.getLine()
   }
   
+  @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
+  {
+    APIController.shared.getLine()
+  }
 }
 
 extension ViewController: APIControllerLineDelegate
 {
-  func apiControllerDidReceive(lineDictionary: [String : Any])
+  func apiControllerDidReceive(lineDictionary: [[String : Any]])
   {
-    let aLine = Line(json: JSON(lineDictionary))
-    let startPoint = CGPoint(x: aLine.start.x, y: aLine.start.y)
-    let endPoint = CGPoint(x: aLine.end.x, y: aLine.end.y)
-    drawFromPoint(start: startPoint, toPoint: endPoint)
+    for aLine in lineDictionary
+    {
+      let line = Line(json: JSON(aLine))
+      let startPoint = CGPoint(x: line.start.x, y: line.start.y)
+      let endPoint = CGPoint(x: line.end.x, y: line.end.y)
+      drawFromPoint(start: startPoint, toPoint: endPoint)
+    }
   }
-  
 }
 
 

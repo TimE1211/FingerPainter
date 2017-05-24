@@ -12,7 +12,7 @@ import SwiftyJSON
 
 protocol APIControllerLineDelegate
 {
-  func apiControllerDidReceive(lineDictionary: [String: Any])
+  func apiControllerDidReceive(lineDictionary: [[String: Any]])
 }
 
 protocol APIControllerUserDelegate
@@ -36,7 +36,7 @@ class APIController
     Alamofire.request(sessionURL).responseJSON { responseData in
       if let value = responseData.result.value
       {
-        let lineDictionary = value as! [String: Any]
+        let lineDictionary = value as! [[String: Any]]
         self.lineDelegate?.apiControllerDidReceive(lineDictionary: lineDictionary)
       }
     }

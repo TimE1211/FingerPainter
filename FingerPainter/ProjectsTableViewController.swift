@@ -105,6 +105,7 @@ class ProjectsTableViewController: UITableViewController
 
   @IBAction func logOutTapped(_ sender: UIBarButtonItem)
   {
+    //moonphase has method to go bakc to initial view
     
   }
 }
