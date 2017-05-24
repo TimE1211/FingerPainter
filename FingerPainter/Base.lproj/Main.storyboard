@@ -145,16 +145,16 @@
             </objects>
             <point key="canvasLocation" x="1033" y="797"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Projects Table View Controller-->
         <scene sceneID="BQl-gx-8Xn">
             <objects>
-                <tableViewController id="Eux-Fp-rhg" sceneMemberID="viewController">
+                <tableViewController id="Eux-Fp-rhg" customClass="ProjectsTableViewController" customModule="FingerPainter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="gAQ-n4-Y5Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sB3-8K-Kyx">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sB3-8K-Kyx" customClass="ProjectCell" customModule="FingerPainter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sB3-8K-Kyx" id="NZo-wb-cKK">

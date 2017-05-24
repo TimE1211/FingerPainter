@@ -49,47 +49,47 @@ class APIController
       encoding: URLEncoding.httpBody,
       headers: nil
       ).responseJSON(completionHandler: { responseData in
-        debugPrint(responseData)
+//        debugPrint(responseData)
       })
     
     debugPrint(request)
   }
 
-  func sendLine(line: Line)
-  {
-    let sessionURL = "\(url)/sendLine"
-    var request = URLRequest(url: URL(string: sessionURL)!)
-    request.httpMethod = "POST"
-    let paramString = "startx=\(line.start.x)&starty=\(line.start.y)&endx=\(line.end.x)&endy=\(line.end.y)"
-    request.httpBody = paramString.data(using: .utf8)
-    
-    URLSession.shared.dataTask(with: request) {
-      data, response, error in
-      if let error = error
-      {
-        print(error.localizedDescription)
-      }
-      else
-      {
-        do
-        {
-          if let errorDictionary = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-          {
-            if let error = errorDictionary["error"] as? String
-            {
-              if error != "Line saved."
-              {
-                print("Line not saved: \(error)")
-              }
-            }
-          }
-        } catch
-        {
-          print(error.localizedDescription)
-        }
-      }
-      }.resume()
-  }
+//  func sendLine(line: Line)
+//  {
+//    let sessionURL = "\(url)/sendLine"
+//    var request = URLRequest(url: URL(string: sessionURL)!)
+//    request.httpMethod = "POST"
+//    let paramString = "startx=\(line.start.x)&starty=\(line.start.y)&endx=\(line.end.x)&endy=\(line.end.y)"
+//    request.httpBody = paramString.data(using: .utf8)
+//    
+//    URLSession.shared.dataTask(with: request) {
+//      data, response, error in
+//      if let error = error
+//      {
+//        print(error.localizedDescription)
+//      }
+//      else
+//      {
+//        do
+//        {
+//          if let errorDictionary = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+//          {
+//            if let error = errorDictionary["error"] as? String
+//            {
+//              if error != "Line saved."
+//              {
+//                print("Line not saved: \(error)")
+//              }
+//            }
+//          }
+//        } catch
+//        {
+//          print(error.localizedDescription)
+//        }
+//      }
+//      }.resume()
+//  }
 }
 
 
