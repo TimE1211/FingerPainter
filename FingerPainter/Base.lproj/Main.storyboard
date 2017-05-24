@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HEC-Ui-ar4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c4o-oI-Kmn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -56,7 +57,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3815.1999999999998" y="138.98050974512745"/>
+            <point key="canvasLocation" x="5908" y="138.98050974512745"/>
         </scene>
         <!--Login Screen View Controller-->
         <scene sceneID="Sh8-Ye-Si2">
@@ -71,7 +72,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ExU-Vv-hRN">
-                                <rect key="frame" x="82" y="281" width="212" height="30"/>
+                                <rect key="frame" x="47.5" y="325" width="281" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -80,20 +81,21 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to DrawnTogether" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPA-6u-Xp8">
-                                <rect key="frame" x="81" y="180" width="212" height="21"/>
+                                <rect key="frame" x="81" y="224" width="212" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSw-Hd-JBi">
-                                <rect key="frame" x="168" y="461" width="38" height="30"/>
+                                <rect key="frame" x="168" y="505" width="38" height="30"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="loginTapped:" destination="1ms-Ui-MiY" eventType="touchUpInside" id="Ss8-ZC-MK8"/>
+                                    <segue destination="iA0-fG-B6T" kind="show" id="Djw-P6-VKo"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gQu-7T-nTe">
-                                <rect key="frame" x="82" y="226" width="212" height="30"/>
+                                <rect key="frame" x="47" y="270" width="281" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -101,30 +103,39 @@
                                     <outlet property="delegate" destination="1ms-Ui-MiY" id="2PP-xP-d1k"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ja2-zX-kmk">
+                                <rect key="frame" x="158.5" y="560" width="57" height="30"/>
+                                <state key="normal" title="Register"/>
+                                <connections>
+                                    <action selector="registerTapped:" destination="1ms-Ui-MiY" eventType="touchUpInside" id="ssH-pp-EiY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ExU-Vv-hRN" firstAttribute="width" secondItem="EPA-6u-Xp8" secondAttribute="width" id="EYy-au-gox"/>
                             <constraint firstItem="ExU-Vv-hRN" firstAttribute="top" secondItem="gQu-7T-nTe" secondAttribute="bottom" constant="25" id="MkR-lF-tCw"/>
                             <constraint firstItem="uSw-Hd-JBi" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="P3A-Q9-Z6U"/>
                             <constraint firstItem="ExU-Vv-hRN" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="Q1m-Xz-6Qm"/>
+                            <constraint firstItem="ExU-Vv-hRN" firstAttribute="width" secondItem="gQu-7T-nTe" secondAttribute="width" id="QUP-JF-4C4"/>
                             <constraint firstItem="EPA-6u-Xp8" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="T3l-MP-V9Z"/>
-                            <constraint firstItem="gQu-7T-nTe" firstAttribute="width" secondItem="EPA-6u-Xp8" secondAttribute="width" id="XSw-qa-gf3"/>
+                            <constraint firstItem="Ja2-zX-kmk" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="Yk2-Mm-k7A"/>
                             <constraint firstItem="uSw-Hd-JBi" firstAttribute="top" secondItem="ExU-Vv-hRN" secondAttribute="bottom" constant="150" id="bvR-f1-Ir3"/>
                             <constraint firstItem="gQu-7T-nTe" firstAttribute="top" secondItem="EPA-6u-Xp8" secondAttribute="bottom" constant="25" id="byV-Py-xZr"/>
+                            <constraint firstItem="gQu-7T-nTe" firstAttribute="width" secondItem="TeN-JV-AK6" secondAttribute="width" multiplier="0.75" id="gOu-j0-MXo"/>
                             <constraint firstItem="gQu-7T-nTe" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="tqV-eT-DcZ"/>
                             <constraint firstItem="EPA-6u-Xp8" firstAttribute="top" secondItem="Fi1-db-zaS" secondAttribute="bottom" constant="160" id="wXQ-7c-ym9"/>
+                            <constraint firstItem="Ja2-zX-kmk" firstAttribute="top" secondItem="uSw-Hd-JBi" secondAttribute="bottom" constant="25" id="zKl-1g-5ii"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="8LI-FO-wKI"/>
                     <connections>
-                        <outlet property="LoginTapped" destination="TeN-JV-AK6" id="moA-xX-S9u"/>
                         <outlet property="passwordTextField" destination="ExU-Vv-hRN" id="tp3-zM-Ty8"/>
-                        <outlet property="usernameTextField" destination="gQu-7T-nTe" id="rAW-Rc-kXJ"/>
+                        <outlet property="usernameTextField" destination="gQu-7T-nTe" id="Um2-mC-QMV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jUB-jB-TsV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1033" y="797"/>
+            <point key="canvasLocation" x="2992.8000000000002" y="138.98050974512745"/>
         </scene>
         <!--Projects Table View Controller-->
         <scene sceneID="BQl-gx-8Xn">
@@ -159,6 +170,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="uYE-nr-Fmd">
+                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="TjK-cY-7RX">
+                            <connections>
+                                <action selector="logOutTapped:" destination="Eux-Fp-rhg" id="DGC-4n-U1R"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="New Project" id="L9q-Fs-c2s">
                             <connections>
                                 <action selector="NewProjectTapped:" destination="Eux-Fp-rhg" id="Otd-qV-Rnh"/>
@@ -169,25 +185,43 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5o-yT-l9U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2490.4000000000001" y="138.98050974512745"/>
+            <point key="canvasLocation" x="4932" y="138.98050974512745"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="Fxf-e7-ma3">
+        <scene sceneID="x23-Gr-L4C">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HEC-Ui-ar4" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c4o-oI-Kmn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uFf-Gw-iHT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yXr-KT-acG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Eux-Fp-rhg" kind="relationship" relationship="rootViewController" id="lg7-cs-bIf"/>
+                        <segue destination="1ms-Ui-MiY" kind="relationship" relationship="rootViewController" id="Mur-7J-RyB"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HQi-4F-lZq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ay9-ip-bLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1549.5999999999999" y="138.98050974512745"/>
+            <point key="canvasLocation" x="2053.5999999999999" y="138.98050974512745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6qL-VP-Onc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iA0-fG-B6T" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D62-4W-W1F">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Eux-Fp-rhg" kind="relationship" relationship="rootViewController" id="EdR-Nk-rkY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f19-jt-SQx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3992.8000000000002" y="138.98050974512745"/>
         </scene>
     </scenes>
 </document>

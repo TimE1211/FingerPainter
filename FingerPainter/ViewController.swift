@@ -28,7 +28,7 @@ class ViewController: UIViewController
   var start: CGPoint?
   var end: CGPoint?
   
-  var username = [User]()
+  var user = [User]()
   var password = String()
   var projectName = String()
   var id = UUID.init()
@@ -48,8 +48,8 @@ class ViewController: UIViewController
   {
     super.viewDidLoad()
     APIController.shared.lineDelegate = self
-    Project(id: id, users: username, lines: [], name: projectName)
-    APIController.shared.send(project)
+    let thisProject = Project(id: id, users: user, lines: [], name: projectName)
+    APIController.shared.send(project: thisProject)
   }
   
   override func didReceiveMemoryWarning()

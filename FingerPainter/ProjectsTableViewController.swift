@@ -12,7 +12,7 @@ class ProjectsTableViewController: UITableViewController
 {
   var projects = [Project]()
   var projectName = String()
-  var projectCreator = String()
+  var user = User()
   
   override func viewDidLoad()
   {
@@ -92,7 +92,7 @@ class ProjectsTableViewController: UITableViewController
   {
     if segue.identifier == "NewProjectSegue", let vc = segue.destination as? ViewController
     {
-      vc.username = projectCreator
+      vc.user = [user]
       vc.projectName = projectName
 
     }
@@ -103,4 +103,8 @@ class ProjectsTableViewController: UITableViewController
     
   }
 
+  @IBAction func logOutTapped(_ sender: UIBarButtonItem)
+  {
+    
+  }
 }
