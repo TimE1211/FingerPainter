@@ -33,6 +33,8 @@ class ViewController: UIViewController
   var projectName = String()
   var projectUUID = String()
   
+  var lines = [Line]()
+  
 //  var status: DrawingStatus = .none
 //  {
 //    didSet {
@@ -48,8 +50,6 @@ class ViewController: UIViewController
   {
     super.viewDidLoad()
     APIController.shared.lineDelegate = self
-    let thisProject = Project(projectUUID: projectUUID, users: user, lines: [], name: projectName)
-    APIController.shared.send(project: thisProject)
   }
   
   override func didReceiveMemoryWarning()
@@ -115,7 +115,8 @@ class ViewController: UIViewController
   
   @IBAction func saveTapped(_ sender: UIBarButtonItem)
   {
-    
+    let thisProject = Project(projectUUID: projectUUID, users: user, lines: lines, name: projectName)
+    APIController.shared.send(project: thisProject)
   }
   
   @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
@@ -133,6 +134,7 @@ extension ViewController: APIControllerLineDelegate
       let line = Line(json: JSON(aLine))
       let startPoint = CGPoint(x: line.start.x, y: line.start.y)
       let endPoint = CGPoint(x: line.end.x, y: line.end.y)
+      lines.append(line)
       drawFromPoint(start: startPoint, toPoint: endPoint)
       self.start = endPoint
     }

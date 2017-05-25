@@ -83,7 +83,6 @@ class APIController
       sessionURL,
       method: .post,
       parameters: parameters,
-//      encoding: JSONEncoding.default,
       encoding: URLEncoding.httpBody,
       headers: nil
       ).responseJSON(completionHandler: { responseData in

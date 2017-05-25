@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class LoginScreenViewController: UIViewController, UITextFieldDelegate
 {
@@ -71,7 +72,6 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
       incorrectKeyTyped(key: "password")
       //incorrect combination of username and password
     }
-    
   }
   
   @IBAction func registerTapped(_ sender: UIButton)
@@ -93,12 +93,11 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
 
       if let url = URL(string: text), UIApplication.shared.canOpenURL(url)
       {
-        self.user.userId = UUID().uuidString
         self.user.username = self.username
         self.user.password = self.password
-        APIController.shared.getUser()
+        APIController.shared.send(user: self.user)
+        //if fail know that username exists with that value already
 //        if username exists do error username exists already
-//        APIController.shared.send(user: self.user)
       }
       else
       {
@@ -158,7 +157,6 @@ extension UIAlertControllerStyle          //for ipads
     {
       return .alert
     }
-    
     return .actionSheet
   }
 }
@@ -167,6 +165,17 @@ extension LoginScreenViewController: APIControllerUserDelegate
 {
   func apiControllerDidReceive(userDictionary: [[String : Any]])
   {
-//    userDictionary to scan thru and check if matches
+    for aUser in userDictionary
+    {
+      let user = User(json: JSON(aUser))
+      if self.username == user.username && self.password == user.password
+      {
+        login()
+      }
+      else
+      {
+        incorrectKeyTyped(key: "Username and Password")
+      }
+    }
   }
 }

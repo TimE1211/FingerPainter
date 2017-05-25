@@ -107,6 +107,7 @@ class ProjectsTableViewController: UITableViewController
   {
     projectUUID = UUID().uuidString
     print(projectUUID)
+//    present(ViewController, animated: true, completion: nil)
   }
 
   @IBAction func logOutTapped(_ sender: UIBarButtonItem)

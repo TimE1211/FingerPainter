@@ -36,7 +36,7 @@ class Project
   func postBody() -> [String: Any]
   {
     var projectJsonDictionary = [String: Any]()
-    projectJsonDictionary["projectUUID"] = projectUUID
+    projectJsonDictionary["projectUUID"] = Int(projectUUID)
     projectJsonDictionary["name"] = name
     
     var userDictionaries = [[String: Any]]()

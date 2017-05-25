@@ -184,12 +184,15 @@
                                 <segue destination="UBr-sU-dGc" kind="unwind" unwindAction="prepareForUnwindWithSegue:sender:" id="G8a-ia-5OA"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="New Project" id="L9q-Fs-c2s">
-                            <connections>
-                                <action selector="NewProjectTapped:" destination="Eux-Fp-rhg" id="Otd-qV-Rnh"/>
-                                <segue destination="S6E-UE-FgZ" kind="show" identifier="NewProjectSegue" id="Eil-4B-zNK"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="New Project" id="L9q-Fs-c2s">
+                                <connections>
+                                    <action selector="NewProjectTapped:" destination="Eux-Fp-rhg" id="Otd-qV-Rnh"/>
+                                    <segue destination="S6E-UE-FgZ" kind="show" identifier="NewProjectSegue" id="Eil-4B-zNK"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Join Project" id="Tu0-Pn-uyI"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5o-yT-l9U" userLabel="First Responder" sceneMemberID="firstResponder"/>
