@@ -100,6 +100,7 @@ class ProjectsTableViewController: UITableViewController
       vc.projectName = projectName
       vc.projectUUID = projectUUID
     }
+//    else if segue.identifier == "ProjectSegue", let 
   }
  
   @IBAction func NewProjectTapped(_ sender: UIBarButtonItem)
@@ -121,6 +122,7 @@ extension ProjectsTableViewController: APIControllerProjectDelegate
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
+      projects.append(project)
     }
   }
 }

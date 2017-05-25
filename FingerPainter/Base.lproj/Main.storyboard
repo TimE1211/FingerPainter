@@ -167,6 +167,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="809-xq-gOC" kind="show" id="r2J-fJ-GKh"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -247,6 +250,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PQl-38-S7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5878" y="139"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="dXf-ya-HnG">
+            <objects>
+                <viewController id="809-xq-gOC" customClass="ViewController" customModule="FingerPainter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Iuz-wh-raC"/>
+                        <viewControllerLayoutGuide type="bottom" id="iEA-Fx-DFi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h2e-Zq-bFy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="108-6a-Wnq">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="108-6a-Wnq" firstAttribute="top" secondItem="h2e-Zq-bFy" secondAttribute="top" id="80k-3E-ski"/>
+                            <constraint firstItem="iEA-Fx-DFi" firstAttribute="top" secondItem="108-6a-Wnq" secondAttribute="bottom" id="PqN-9E-L0N"/>
+                            <constraint firstItem="108-6a-Wnq" firstAttribute="width" secondItem="h2e-Zq-bFy" secondAttribute="width" id="V0j-P3-0e7"/>
+                            <constraint firstAttribute="trailing" secondItem="108-6a-Wnq" secondAttribute="trailing" id="WsK-G3-yru"/>
+                            <constraint firstItem="108-6a-Wnq" firstAttribute="height" secondItem="h2e-Zq-bFy" secondAttribute="height" id="Yjl-R8-80f"/>
+                            <constraint firstItem="108-6a-Wnq" firstAttribute="leading" secondItem="h2e-Zq-bFy" secondAttribute="leading" id="kNg-iE-z0z"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="yzR-gz-DjA">
+                        <barButtonItem key="leftBarButtonItem" title="Update" id="Uz3-Hg-vsh">
+                            <connections>
+                                <action selector="UpdateTapped:" destination="809-xq-gOC" id="nac-25-P6m"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Save" id="Fb0-Ts-oFA">
+                                <connections>
+                                    <action selector="saveTapped:" destination="809-xq-gOC" id="mHl-xK-SkD"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Clear" id="Qpq-jY-iW2">
+                                <connections>
+                                    <action selector="clearTapped:" destination="809-xq-gOC" id="ut9-YE-8hY"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="canvas" destination="108-6a-Wnq" id="CaI-Kv-wdq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GxR-6u-dBT" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5239" y="894"/>
         </scene>
     </scenes>
 </document>

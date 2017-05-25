@@ -16,6 +16,7 @@
 		20C47F621ECA07BB00C223C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C47F611ECA07BB00C223C2 /* Assets.xcassets */; };
 		20C47F651ECA07BB00C223C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20C47F631ECA07BB00C223C2 /* LaunchScreen.storyboard */; };
 		20FE8F5E1ED5FCDC00DB58FC /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FE8F5D1ED5FCDC00DB58FC /* Project.swift */; };
+		20FE8FE01ED7355B00DB58FC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FE8FDF1ED7355B00DB58FC /* User.swift */; };
 		C9DF93E1FC65BD122F17FD55 /* Pods_FingerPainter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B92F20EDF4EA76080C28C0E /* Pods_FingerPainter.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		20C47F641ECA07BB00C223C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		20C47F661ECA07BB00C223C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20FE8F5D1ED5FCDC00DB58FC /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		20FE8FDF1ED7355B00DB58FC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3B92F20EDF4EA76080C28C0E /* Pods_FingerPainter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FingerPainter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97030C4E9E8E6A3527506DB3 /* Pods-FingerPainter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FingerPainter.release.xcconfig"; path = "Pods/Target Support Files/Pods-FingerPainter/Pods-FingerPainter.release.xcconfig"; sourceTree = "<group>"; };
 		99954EBE3729120906F999EA /* Pods-FingerPainter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FingerPainter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FingerPainter/Pods-FingerPainter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				20C47F5C1ECA07BB00C223C2 /* ViewController.swift */,
 				2047F5471ED39D59004F1E73 /* APIController.swift */,
 				20FE8F5D1ED5FCDC00DB58FC /* Project.swift */,
+				20FE8FDF1ED7355B00DB58FC /* User.swift */,
 				20C47F5E1ECA07BB00C223C2 /* Main.storyboard */,
 				20C47F611ECA07BB00C223C2 /* Assets.xcassets */,
 				20C47F631ECA07BB00C223C2 /* LaunchScreen.storyboard */,
@@ -230,6 +233,7 @@
 				2047F5481ED39D59004F1E73 /* APIController.swift in Sources */,
 				201CA5CE1ED4B08300344E9B /* ProjectsTableViewController.swift in Sources */,
 				20FE8F5E1ED5FCDC00DB58FC /* Project.swift in Sources */,
+				20FE8FE01ED7355B00DB58FC /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
