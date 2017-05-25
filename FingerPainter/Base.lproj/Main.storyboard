@@ -178,6 +178,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Log Out" id="TjK-cY-7RX">
                             <connections>
                                 <action selector="logOutTapped:" destination="Eux-Fp-rhg" id="DGC-4n-U1R"/>
+                                <segue destination="UBr-sU-dGc" kind="unwind" unwindAction="prepareForUnwindWithSegue:sender:" id="G8a-ia-5OA"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="New Project" id="L9q-Fs-c2s">
@@ -189,6 +190,7 @@
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5o-yT-l9U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="UBr-sU-dGc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4932" y="138.98050974512745"/>
         </scene>

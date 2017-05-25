@@ -17,7 +17,12 @@ protocol APIControllerLineDelegate
 
 protocol APIControllerUserDelegate
 {
-  func apiControllerDidReceive(userDictionary: [String: Any])
+  func apiControllerDidReceive(userDictionary: [[String: Any]])
+}
+
+protocol APIControllerProjectDelegate
+{
+  func apiControllerDidReceive(projectDictionary: [[String: Any]])
 }
 
 class APIController
@@ -26,7 +31,8 @@ class APIController
   
   var lineDelegate: APIControllerLineDelegate?
   var userDelegate: APIControllerUserDelegate?
-  var line: Line?
+  var projectDelegate: APIControllerProjectDelegate?
+  
   let url = "http://localhost:8080"
 
   func getLine()
@@ -38,6 +44,32 @@ class APIController
       {
         let lineDictionary = value as! [[String: Any]]
         self.lineDelegate?.apiControllerDidReceive(lineDictionary: lineDictionary)
+      }
+    }
+  }
+  
+  func getUser()
+  {
+    let sessionURL = "\(url)/getUser"
+    
+    Alamofire.request(sessionURL).responseJSON { responseData in
+      if let value = responseData.result.value
+      {
+        let userDictionary = value as! [[String: Any]]
+        self.userDelegate?.apiControllerDidReceive(userDictionary: userDictionary)
+      }
+    }
+  }
+  
+  func getProject()
+  {
+    let sessionURL = "\(url)/getProject"
+    
+    Alamofire.request(sessionURL).responseJSON { responseData in
+      if let value = responseData.result.value
+      {
+        let projectDictionary = value as! [[String: Any]]
+        self.projectDelegate?.apiControllerDidReceive(projectDictionary: projectDictionary)
       }
     }
   }
@@ -74,18 +106,21 @@ class APIController
         debugPrint(responseData)
       })
   }
-
-  func getUserData()
+  
+  func send(user: User)
   {
-    let sessionURL = "\(url)/userData"
+    let sessionURL = "\(url)/sendUser"
+    let parameters = user.postBody()
     
-    Alamofire.request(sessionURL).responseJSON { responseData in
-      if let value = responseData.result.value
-      {
-        let userDictionary = value as! [String: Any]
-        self.userDelegate?.apiControllerDidReceive(userDictionary: userDictionary)
-      }
-    }
+    Alamofire.request(
+      sessionURL,
+      method: .post,
+      parameters: parameters,
+      encoding: URLEncoding.httpBody,
+      headers: nil
+      ).responseJSON(completionHandler: { responseData in
+        debugPrint(responseData)
+      })
   }
 }
 

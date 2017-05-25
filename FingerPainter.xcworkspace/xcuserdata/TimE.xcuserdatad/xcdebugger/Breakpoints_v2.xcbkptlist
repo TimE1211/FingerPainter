@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FingerPainter/ViewController.swift"
-            timestampString = "517352268.302362"
+            timestampString = "517355357.255658"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "apiControllerDidReceive(lineDictionary:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -31,54 +31,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "7"
             endingLineNumber = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FingerPainter.User.__deallocating_deinit"
-                  moduleName = "FingerPainter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/TimE/Development/FingerPainter/FingerPainter/User.swift"
-                  timestampString = "517352322.403881"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FingerPainter.User.deinit"
-                  moduleName = "FingerPainter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/TimE/Development/FingerPainter/FingerPainter/User.swift"
-                  timestampString = "517352322.4062"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "4">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FingerPainter/ViewController.swift"
-            timestampString = "517352540.009582"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "drawFromPoint(start:toPoint:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

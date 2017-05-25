@@ -21,7 +21,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   {
     super.viewDidLoad()
     usernameTextField.becomeFirstResponder()
-    user.id = 1
+    passwordTextField.isSecureTextEntry = true
   }
   
   override func didReceiveMemoryWarning()
@@ -58,6 +58,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     {
       username = ""
       incorrectKeyTyped(key: "user")
+      //incorrect combination of username and password
     }
     
     if let text = passwordTextField.text, text != ""
@@ -68,9 +69,9 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     {
       password = ""
       incorrectKeyTyped(key: "password")
+      //incorrect combination of username and password
     }
     
-//    APIController.shared.getUserData
   }
   
   @IBAction func registerTapped(_ sender: UIButton)
@@ -92,7 +93,12 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
 
       if let url = URL(string: text), UIApplication.shared.canOpenURL(url)
       {
-        APIController.shared.getUserData()
+        self.user.userId = UUID().uuidString
+        self.user.username = self.username
+        self.user.password = self.password
+        APIController.shared.getUser()
+//        if username exists do error username exists already
+//        APIController.shared.send(user: self.user)
       }
       else
       {
@@ -125,6 +131,11 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
       //    }
     }
   }
+  
+  @IBAction  func prepareForUnwind(segue: UIStoryboardSegue, sender: UIButton)
+  {
+  
+  }
 }
 
 extension LoginScreenViewController         //invalid key(name/pass) entered
@@ -154,11 +165,8 @@ extension UIAlertControllerStyle          //for ipads
 
 extension LoginScreenViewController: APIControllerUserDelegate
 {
-  func apiControllerDidReceive(userDictionary: [String : Any])
+  func apiControllerDidReceive(userDictionary: [[String : Any]])
   {
-//    if user with username exists in userDictionary && if apipassword == password && if id = id
-//    {
-//      user = User(id: <#T##Int#>, username: <#T##String#>, name: <#T##String#>)
-//    }
+//    userDictionary to scan thru and check if matches
   }
 }

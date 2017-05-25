@@ -31,24 +31,24 @@ class ViewController: UIViewController
   var user = [User]()
   var password = String()
   var projectName = String()
-  var id = UUID.init()
+  var projectUUID = String()
   
-  var status: DrawingStatus = .none
-  {
-    didSet {
-      if status == .ended, let line = Line(start: start, end: end)
-      {
-        APIController.shared.send(line: line)
-        status = .none
-      }
-    }
-  }
+//  var status: DrawingStatus = .none
+//  {
+//    didSet {
+//      if status == .ended, let line = Line(start: start, end: end)
+//      {
+////        APIController.shared.send(line: line)
+//        status = .none
+//      }
+//    }
+//  }
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
     APIController.shared.lineDelegate = self
-    let thisProject = Project(id: id, users: user, lines: [], name: projectName)
+    let thisProject = Project(projectUUID: projectUUID, users: user, lines: [], name: projectName)
     APIController.shared.send(project: thisProject)
   }
   
@@ -62,13 +62,13 @@ class ViewController: UIViewController
     if let touch = touches.first
     {
       start = touch.location(in: view)
-      status = .started
+//      status = .started
     }
   }
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
   {
-    status = .drawing
+//    status = .drawing
     if let touch = touches.first
     {
       end = touch.location(in: view)
@@ -77,14 +77,18 @@ class ViewController: UIViewController
       {
         drawFromPoint(start: start, toPoint: end!)
       }
+      if let line = Line(start: start, end: end)
+      {
+        APIController.shared.send(line: line)
+      }
       self.start = end
     }
   }
   
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
-  {
-    status = .ended
-  }
+//  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
+//  {
+//    status = .ended
+//  }
   
   func drawFromPoint(start: CGPoint, toPoint end: CGPoint)
   {
@@ -111,7 +115,7 @@ class ViewController: UIViewController
   
   @IBAction func saveTapped(_ sender: UIBarButtonItem)
   {
-    APIController.shared.getLine()
+    
   }
   
   @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
@@ -130,6 +134,7 @@ extension ViewController: APIControllerLineDelegate
       let startPoint = CGPoint(x: line.start.x, y: line.start.y)
       let endPoint = CGPoint(x: line.end.x, y: line.end.y)
       drawFromPoint(start: startPoint, toPoint: endPoint)
+      self.start = endPoint
     }
   }
 }

@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class ProjectsTableViewController: UITableViewController
 {
   var projects = [Project]()
   var projectName = String()
+  var projectUUID = String()
   var user = User()
   
   override func viewDidLoad()
@@ -43,9 +45,11 @@ class ProjectsTableViewController: UITableViewController
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
   {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath)
 
-      return cell
+//    cell.textLabel?.text = projects[indexPath].name
+    
+    return cell
   }
   
 
@@ -94,18 +98,29 @@ class ProjectsTableViewController: UITableViewController
     {
       vc.user = [user]
       vc.projectName = projectName
-
+      vc.projectUUID = projectUUID
     }
   }
  
   @IBAction func NewProjectTapped(_ sender: UIBarButtonItem)
   {
-    
+    projectUUID = UUID().uuidString
+    print(projectUUID)
   }
 
   @IBAction func logOutTapped(_ sender: UIBarButtonItem)
   {
-    //moonphase has method to go bakc to initial view
     
+  }
+}
+
+extension ProjectsTableViewController: APIControllerProjectDelegate
+{
+  func apiControllerDidReceive(projectDictionary: [[String: Any]])
+  {
+    for aProject in projectDictionary
+    {
+      let project = Project(json: JSON(aProject))
+    }
   }
 }
