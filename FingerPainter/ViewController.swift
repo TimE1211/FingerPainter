@@ -79,7 +79,7 @@ class ViewController: UIViewController
       }
       if let line = Line(start: start, end: end)
       {
-        APIController.shared.send(line: line)
+        APIController.shared.save(line: line)
       }
       self.start = end
     }
@@ -116,7 +116,7 @@ class ViewController: UIViewController
   @IBAction func saveTapped(_ sender: UIBarButtonItem)
   {
     let thisProject = Project(projectUUID: projectUUID, users: user, lines: lines, name: projectName)
-    APIController.shared.send(project: thisProject)
+    APIController.shared.save(project: thisProject)
   }
   
   @IBAction func UpdateTapped(_ sender: UIBarButtonItem)

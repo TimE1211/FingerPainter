@@ -44,7 +44,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     return true
   }
   
-  @IBAction func loginTapped(_ sender: UIButton)
+  @IBAction func loginTapped(_ saveer: UIButton)
   {
     login()
   }
@@ -95,7 +95,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
       {
         self.user.username = self.username
         self.user.password = self.password
-        APIController.shared.send(user: self.user)
+        APIController.shared.save(user: self.user)
         //if fail know that username exists with that value already
 //        if username exists do error username exists already
       }

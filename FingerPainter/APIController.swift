@@ -74,9 +74,9 @@ class APIController
     }
   }
   
-  func send(line: Line)
+  func save(line: Line)
   {
-    let sessionURL = "\(url)/sendLine"
+    let sessionURL = "\(url)/saveLine"
     let parameters = line.postBody()
     
     Alamofire.request(
@@ -90,9 +90,9 @@ class APIController
       })
   }
   
-  func send(project: Project)
+  func save(project: Project)
   {
-    let sessionURL = "\(url)/sendProject"
+    let sessionURL = "\(url)/saveProject"
     let parameters = project.postBody()
     
     Alamofire.request(
@@ -106,9 +106,9 @@ class APIController
       })
   }
   
-  func send(user: User)
+  func save(user: User)
   {
-    let sessionURL = "\(url)/sendUser"
+    let sessionURL = "\(url)/saveUser"
     let parameters = user.postBody()
     
     Alamofire.request(
