@@ -14,7 +14,6 @@ class ProjectsTableViewController: UITableViewController
   var projects = [Project]()
   var projectName = String()
   var projectUUID = String()
-  var user = User()
   
   override func viewDidLoad()
   {
@@ -96,7 +95,7 @@ class ProjectsTableViewController: UITableViewController
   {
     if segue.identifier == "NewProjectSegue", let vc = segue.destination as? ViewController
     {
-      vc.user = [user]
+      vc.users = [User.current]
       vc.projectName = projectName
       vc.projectUUID = projectUUID
     }

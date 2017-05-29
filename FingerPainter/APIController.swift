@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+typealias APIControllerCompletionHandler = (_ result: JSON?, _ error: JSON?) -> Void
+
 protocol APIControllerLineDelegate
 {
   func apiControllerDidReceive(lineDictionary: [[String: Any]])
@@ -106,7 +108,7 @@ class APIController
       })
   }
   
-  func save(user: User)
+  func save(user: User, completionHandler: @escaping APIControllerCompletionHandler)
   {
     let sessionURL = "\(url)/saveUser"
     let parameters = user.postBody()
@@ -119,6 +121,12 @@ class APIController
       headers: nil
       ).responseJSON(completionHandler: { responseData in
         debugPrint(responseData)
+        
+        if let result = responseData.result.value {
+          completionHandler(JSON(result), nil)
+        } else if let error = responseData.result.error {
+          completionHandler(nil, JSON(error))
+        }
       })
   }
 }

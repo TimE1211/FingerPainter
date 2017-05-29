@@ -59,7 +59,6 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     {
       username = ""
       incorrectKeyTyped(key: "user")
-      //incorrect combination of username and password
     }
     
     if let text = passwordTextField.text, text != ""
@@ -70,8 +69,9 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     {
       password = ""
       incorrectKeyTyped(key: "password")
-      //incorrect combination of username and password
     }
+  
+    APIController.shared.getUser()
   }
   
   @IBAction func registerTapped(_ sender: UIButton)
@@ -88,24 +88,29 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
       textField.keyboardType = .default
     }
     
-    let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
-      guard let text = alert.textFields?.first?.text else { return }
+    let confirmAction = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
+      guard let `self` = self else { return }
+      
+      guard let username = alert.textFields?.first?.text, username != "",
+        let password = alert.textFields?.last?.text, password != "" else
+      {
+        self.incorrectKeyTyped(key: "Username and Password")
+        return
+      }
 
-      if let url = URL(string: text), UIApplication.shared.canOpenURL(url)
-      {
-        self.user.username = self.username
-        self.user.password = self.password
-        APIController.shared.save(user: self.user)
-        //if fail know that username exists with that value already
-//        if username exists do error username exists already
-      }
-      else
-      {
-        let errorAlert = UIAlertController(title: "Error", message: "Username already exists", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
-        errorAlert.addAction(action)
-        self.present(errorAlert, animated: true, completion: nil)
-      }
+      self.user.username = self.username
+      self.user.password = self.password
+      
+      APIController.shared.save(user: self.user, completionHandler: { result, error in
+        if result != nil {
+          self.presentSuccessfullyRegisteredAlert()
+          self.login()
+        }
+        else
+        {
+          self.presentAlreadyExistsErrorAlert()
+        }
+      })
     }
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -116,24 +121,8 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     present(alert, animated: true, completion: nil)
   }
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if username == user.username
-    {
-      if segue.identifier == "LoginSegue", let ProjectsTvc = segue.destination as? ProjectsTableViewController
-      {
-        ProjectsTvc.user = user
-      }
-      //    else
-      //    {
-      //      fatalError()
-      //    }
-    }
-  }
-  
   @IBAction  func prepareForUnwind(segue: UIStoryboardSegue, sender: UIButton)
   {
-  
   }
 }
 
@@ -146,6 +135,22 @@ extension LoginScreenViewController         //invalid key(name/pass) entered
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)
     self.present(errorAlert, animated: true, completion: nil)
+  }
+  
+  func presentAlreadyExistsErrorAlert()
+  {
+    let errorAlert = UIAlertController(title: "Username already exists", message: "Please enter a different Username", preferredStyle: .alert)
+    let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+    errorAlert.addAction(action)
+    self.present(errorAlert, animated: true, completion: nil)
+  }
+  
+  func presentSuccessfullyRegisteredAlert()
+  {
+    let successAlert = UIAlertController(title: "Congratulations", message: "Successfully Registered and Logged In", preferredStyle: .alert)
+    let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+    successAlert.addAction(action)
+    self.present(successAlert, animated: true, completion: nil)
   }
 }
 
@@ -170,7 +175,8 @@ extension LoginScreenViewController: APIControllerUserDelegate
       let user = User(json: JSON(aUser))
       if self.username == user.username && self.password == user.password
       {
-        login()
+        User.current = user
+        performSegue(withIdentifier: "loginSegue", sender: user)
       }
       else
       {

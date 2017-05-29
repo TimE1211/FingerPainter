@@ -61,24 +61,28 @@ class Line
 {
   var start: CGPoint
   var end: CGPoint
+  var color: String
   
   init()
   {
     start = CGPoint()
     end = CGPoint()
+    color = String()
     
     start.x = 0
     start.y = 0
     end.x = 0
     end.y = 0
+    color = "darkGray"
   }
   
-  init?(start: CGPoint?, end: CGPoint?)
+  init?(start: CGPoint?, end: CGPoint?, color: String?)
   {
-    guard let start = start, let end = end else { return nil }
+    guard let start = start, let end = end, let color = color else { return nil }
     
     self.start = start
     self.end = end
+    self.color = color
   }
   
   func postBody() -> [String: Any]
@@ -87,7 +91,8 @@ class Line
       "startx": start.x,
       "starty": start.y,
       "endx": end.x,
-      "endy": end.y
+      "endy": end.y,
+      "color": color
     ]
   }
   
@@ -100,6 +105,7 @@ class Line
     start.y = json["starty"].cgFloatValue
     end.x = json["endx"].cgFloatValue
     end.y = json["endy"].cgFloatValue
+    color = json["color"].stringValue
   }
 }
 

@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class User
 {
+  static var current: User!
+  
   var username: String
   var password: String
   

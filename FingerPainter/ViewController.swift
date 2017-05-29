@@ -27,29 +27,20 @@ class ViewController: UIViewController
   
   var start: CGPoint?
   var end: CGPoint?
+  var color: String?
   
-  var user = [User]()
+  var users = [User]()
   var password = String()
   var projectName = String()
   var projectUUID = String()
   
   var lines = [Line]()
   
-//  var status: DrawingStatus = .none
-//  {
-//    didSet {
-//      if status == .ended, let line = Line(start: start, end: end)
-//      {
-////        APIController.shared.send(line: line)
-//        status = .none
-//      }
-//    }
-//  }
-  
   override func viewDidLoad()
   {
     super.viewDidLoad()
     APIController.shared.lineDelegate = self
+    setColor()
   }
   
   override func didReceiveMemoryWarning()
@@ -57,27 +48,31 @@ class ViewController: UIViewController
     super.didReceiveMemoryWarning()
   }
   
+  func setColor()
+  {
+    color = "darkGray"
+    //or color = "white"
+  }
+  
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
   {
     if let touch = touches.first
     {
       start = touch.location(in: view)
-//      status = .started
     }
   }
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
   {
-//    status = .drawing
     if let touch = touches.first
     {
       end = touch.location(in: view)
       
       if let start = start
       {
-        drawFromPoint(start: start, toPoint: end!)
+        drawFromPoint(start: start, toPoint: end!, with: color!)
       }
-      if let line = Line(start: start, end: end)
+      if let line = Line(start: start, end: end, color: color)
       {
         APIController.shared.save(line: line)
       }
@@ -90,14 +85,22 @@ class ViewController: UIViewController
 //    status = .ended
 //  }
   
-  func drawFromPoint(start: CGPoint, toPoint end: CGPoint)
+  func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with color: String)
   {
     UIGraphicsBeginImageContext(canvas.frame.size)
     if let context = UIGraphicsGetCurrentContext()
     {
       canvas.image?.draw(in: CGRect(x: 0, y: 0, width: canvas.frame.size.width, height: canvas.frame.size.height))
-      context.setLineWidth(5)
-      context.setStrokeColor(UIColor.darkGray.cgColor)
+      if color == "darkGray"
+      {
+        context.setStrokeColor(UIColor.darkGray.cgColor)
+        context.setLineWidth(5)
+      }
+      else if color == "white"
+      {
+        context.setStrokeColor(UIColor.white.cgColor)
+        context.setLineWidth(15)
+      }
       context.beginPath()
       context.move(to: CGPoint(x: start.x, y: start.y))
       context.addLine(to: CGPoint(x: end.x, y: end.y))
@@ -115,7 +118,7 @@ class ViewController: UIViewController
   
   @IBAction func saveTapped(_ sender: UIBarButtonItem)
   {
-    let thisProject = Project(projectUUID: projectUUID, users: user, lines: lines, name: projectName)
+    let thisProject = Project(projectUUID: projectUUID, users: users, lines: lines, name: projectName)
     APIController.shared.save(project: thisProject)
   }
   
@@ -135,7 +138,7 @@ extension ViewController: APIControllerLineDelegate
       let startPoint = CGPoint(x: line.start.x, y: line.start.y)
       let endPoint = CGPoint(x: line.end.x, y: line.end.y)
       lines.append(line)
-      drawFromPoint(start: startPoint, toPoint: endPoint)
+      drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
       self.start = endPoint
     }
   }
