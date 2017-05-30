@@ -25,8 +25,8 @@ class ViewController: UIViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    
     APIController.shared.projectDelegate = self
-    setColor()
     
     for aLine in Project.current.lines
     {
@@ -43,6 +43,9 @@ class ViewController: UIViewController
       Project.current.users.append(User.current)
       ProjectsTableViewController.shared.save(users: Project.current.users)
     }
+    
+    setColor()
+    timer()
   }
   
   override func didReceiveMemoryWarning()
@@ -68,15 +71,17 @@ class ViewController: UIViewController
   {
     if let touch = touches.first
     {
-      end = touch.location(in: view)
-      
-      if let start = start
+      self.end = touch.location(in: view)
+      if let end = end, let start = start, let color = color
       {
-        drawFromPoint(start: start, toPoint: end!, with: color!)
+        drawFromPoint(start: start, toPoint: end, with: color)
       }
       if let line = Line(start: start, end: end, color: color)
       {
-        APIController.shared.save(line: line)
+        lines.append(line)
+        Project.current.lines = lines
+        APIController.shared.save(project: Project.current)
+        ProjectsTableViewController.shared.save(lines: Project.current.lines)
       }
       self.start = end
     }
@@ -121,9 +126,17 @@ class ViewController: UIViewController
     ProjectsTableViewController.shared.save(lines: Project.current.lines)
   }
   
-  @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
+//  @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
+//  {
+//    APIController.shared.getProjects()
+//  }
+  
+  func timer()
   {
-    APIController.shared.getProjects()
+    Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false)
+    { timer in
+      APIController.shared.getProjects()
+    }
   }
 }
 

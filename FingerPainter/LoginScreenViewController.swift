@@ -23,6 +23,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     usernameTextField.becomeFirstResponder()
     passwordTextField.isSecureTextEntry = true
     User.current = nil
+    User.current = User()
   }
   
   override func didReceiveMemoryWarning()
@@ -61,7 +62,8 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
       return
     }
     User.current = User(username: username, password: password)
-    APIController.shared.getUsers()
+//    APIController.shared.getUsers()
+    performSegue(withIdentifier: "LoginSegue", sender: User.current)
   }
   
   @IBAction func registerTapped(_ sender: UIButton)
@@ -131,7 +133,7 @@ extension LoginScreenViewController: APIControllerUserDelegate          //gettin
     }
     if userInfoIsCorrect == true
     {
-      performSegue(withIdentifier: "LoginSegue", sender: self)
+      performSegue(withIdentifier: "LoginSegue", sender: User.current)
     }
     else
     {
