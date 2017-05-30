@@ -27,7 +27,7 @@ class Project: Object
   
   override class func indexedProperties() -> [String]
   {
-    return [""]
+    return ["User"]
   }
   
   convenience init(projectUUID: String, users: [User], lines: [Line], projectName: String)
@@ -41,7 +41,7 @@ class Project: Object
   
   convenience init(json: JSON)
   {
-//    self.init
+    self.init()
     projectUUID = json["projectUUID"].stringValue
     users = [User(json: json["users"])]
     lines = [Line(json: json["lines"])]
@@ -72,32 +72,33 @@ class Project: Object
   }
 }
 
-class Line
+class Line: Object
 {
-  var start: CGPoint
-  var end: CGPoint
-  var color: String
+  dynamic var start: CGPoint = CGPoint(x: 0, y: 0)
+  dynamic var end: CGPoint = CGPoint(x: 0, y: 0)
+  dynamic var color: String = ""
   
-  init()
+  convenience init?(start: CGPoint?, end: CGPoint?, color: String?)
   {
-    start = CGPoint()
-    end = CGPoint()
-    color = String()
-    
-    start.x = 0
-    start.y = 0
-    end.x = 0
-    end.y = 0
-    color = "darkGray"
-  }
-  
-  init?(start: CGPoint?, end: CGPoint?, color: String?)
-  {
+    self.init()
     guard let start = start, let end = end, let color = color else { return nil }
     
     self.start = start
     self.end = end
     self.color = color
+  }
+  
+  convenience init(json: JSON)
+  {
+    self.init()
+    start = CGPoint()
+    end = CGPoint()
+    
+    start.x = json["startx"].cgFloatValue
+    start.y = json["starty"].cgFloatValue
+    end.x = json["endx"].cgFloatValue
+    end.y = json["endy"].cgFloatValue
+    color = json["color"].stringValue
   }
   
   func postBody() -> [String: Any]
@@ -109,18 +110,6 @@ class Line
       "endy": end.y,
       "color": color
     ]
-  }
-  
-  init(json: JSON)
-  {
-    start = CGPoint()
-    end = CGPoint()
-    
-    start.x = json["startx"].cgFloatValue
-    start.y = json["starty"].cgFloatValue
-    end.x = json["endx"].cgFloatValue
-    end.y = json["endy"].cgFloatValue
-    color = json["color"].stringValue
   }
 }
 

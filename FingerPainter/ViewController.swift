@@ -11,14 +11,10 @@
 
 import UIKit
 import SwiftyJSON
-import RealmSwift
 
 class ViewController: UIViewController
 {
   @IBOutlet weak var canvas: UIImageView!
-  
-  var thisProject: Results<Project>!
-  var realm: Realm!
   
   var start: CGPoint?
   var end: CGPoint?
@@ -29,7 +25,7 @@ class ViewController: UIViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    APIController.shared.lineDelegate = self
+    APIController.shared.projectDelegate = self
     setColor()
     
     for aLine in Project.current.lines
@@ -40,6 +36,12 @@ class ViewController: UIViewController
       lines.append(line)
       drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
       self.start = endPoint
+    }
+    
+    if !(Project.current.users.contains(User.current))
+    {
+      Project.current.users.append(User.current)
+      ProjectsTableViewController.shared.save(users: Project.current.users)
     }
   }
   
@@ -116,28 +118,32 @@ class ViewController: UIViewController
   {
     Project.current.lines = lines
     APIController.shared.save(project: Project.current)
-    //save project in realm with user and project data
+    ProjectsTableViewController.shared.save(lines: Project.current.lines)
   }
   
   @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
   {
-    APIController.shared.getLines()
-    //get project with this id and update lines for that
+    APIController.shared.getProjects()
   }
 }
 
-extension ViewController: APIControllerLineDelegate
+extension ViewController: APIControllerProjectDelegate    //updating lines
 {
-  func apiControllerDidReceive(lineDictionary: [[String : Any]])
+  func apiControllerDidReceive(projectDictionary: [[String : Any]])
   {
-    for aLine in lineDictionary
+    for aProject in projectDictionary
     {
-      let line = Line(json: JSON(aLine))
+      let project = Project(json: JSON(aProject))
+      if project.projectUUID == Project.current.projectUUID
+      {
+        lines = project.lines
+      }
+    }
+    for line in lines
+    {
       let startPoint = CGPoint(x: line.start.x, y: line.start.y)
       let endPoint = CGPoint(x: line.end.x, y: line.end.y)
-      lines.append(line)
       drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
-      self.start = endPoint
     }
   }
 }

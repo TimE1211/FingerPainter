@@ -6,18 +6,27 @@
 //  Copyright © 2017 Timothy Hang. All rights reserved.
 //
 
+protocol ProjectsTableViewControllerDelegate
+{
+  func updateThisProject()
+}
+
 import UIKit
 import SwiftyJSON
 import RealmSwift
 
 class ProjectsTableViewController: UITableViewController
 {
+  static let shared = ProjectsTableViewController()
+  
   var realmProjects: Results<Project>!
   var realm: Realm!
   
   var projects = [Project]()
   var projectName = String()
   var projectUUID = String()
+  
+  var thisProjectIndex = Int()
   
   override func viewDidLoad()
   {
@@ -70,6 +79,7 @@ class ProjectsTableViewController: UITableViewController
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
   {
     let thisProject = projects[indexPath.row]
+    thisProjectIndex = indexPath.row
     Project.current = thisProject
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
@@ -78,7 +88,8 @@ class ProjectsTableViewController: UITableViewController
   {
       if editingStyle == .delete
       {
-        try! realm.write {
+        try! realm.write
+        {
           let projectToDelete = realmProjects[indexPath.row]
           self.realm.delete(projectToDelete)
         }
@@ -131,27 +142,27 @@ class ProjectsTableViewController: UITableViewController
   {
     // maybe move unwind to view controller since this is only going back one vc but do need a log out button
     User.current = nil
-//    go back to login
+    self.dismiss(animated: true, completion: nil)
   }
 }
 
-extension ProjectsTableViewController: APIControllerProjectDelegate
+extension ProjectsTableViewController: APIControllerProjectDelegate   //api
 {
   func apiControllerDidReceive(projectDictionary: [[String: Any]])
   {
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
-      if (project.users.contains(where: User.current))
+      if project.users.contains(User.current)
       {
         projects.append(project)
-        self.tableView.reloadData()
       }
     }
+    self.tableView.reloadData()
   }
 }
 
-extension ProjectsTableViewController
+extension ProjectsTableViewController       //alert
 {
   func PleaseEnterANameAlert()
   {
@@ -160,5 +171,24 @@ extension ProjectsTableViewController
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)
     self.present(errorAlert, animated: true, completion: nil)
+  }
+}
+
+extension ProjectsTableViewController     //realm stuff
+{
+  func save(lines: [Line])
+  {
+    try! realm.write
+    {
+      projects[thisProjectIndex].lines = lines
+    }
+  }
+  
+  func save(users: [User])
+  {
+    try! realm.write
+    {
+      projects[thisProjectIndex].users = users
+    }
   }
 }

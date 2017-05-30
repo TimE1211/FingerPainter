@@ -16,7 +16,6 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   
   var username = String()
   var password = String()
-  var user = User()
   
   override func viewDidLoad()
   {
@@ -51,26 +50,13 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   
   func login()
   {
-    if let text = usernameTextField.text, text != ""
+    guard let username = usernameTextField.text, username != "",
+      let password = passwordTextField.text, password != "" else
     {
-      username = text
+      self.incorrectKeyTyped(key: "Username and Password")
+      return
     }
-    else
-    {
-      username = ""
-      incorrectKeyTyped(key: "user")
-    }
-    
-    if let text = passwordTextField.text, text != ""
-    {
-      password = text
-    }
-    else
-    {
-      password = ""
-      incorrectKeyTyped(key: "password")
-    }
-  
+    User.current = User(username: username, password: password)
     APIController.shared.getUsers()
   }
   
@@ -98,10 +84,9 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
         return
       }
       
-      self.user.username = username
-      self.user.password = password
+      User.current = User(username: username, password: password)
       
-      APIController.shared.save(user: self.user, completionHandler: { result, error in
+      APIController.shared.save(user: User.current, completionHandler: { result, error in
         if result != nil
         {
           self.presentSuccessfullyRegisteredAlert()
@@ -142,8 +127,7 @@ extension LoginScreenViewController: APIControllerUserDelegate          //gettin
     }
     if userInfoIsCorrect == true
     {
-      User.current = user
-      performSegue(withIdentifier: "loginSegue", sender: user)
+      performSegue(withIdentifier: "loginSegue", sender: User.current)
     }
     else
     {
