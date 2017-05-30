@@ -35,6 +35,7 @@ class ProjectsTableViewController: UITableViewController
 //    get projects for specific user and projects that this user has worked on
     realm = try! Realm()
     realmProjects = realm.objects(Project.self)
+    Project.current = nil
   }
 
   override func didReceiveMemoryWarning()

@@ -22,6 +22,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     super.viewDidLoad()
     usernameTextField.becomeFirstResponder()
     passwordTextField.isSecureTextEntry = true
+    User.current = nil
   }
   
   override func didReceiveMemoryWarning()
@@ -50,6 +51,9 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   
   func login()
   {
+    usernameTextField.text = User.current.username
+    passwordTextField.text = User.current.password
+    
     guard let username = usernameTextField.text, username != "",
       let password = passwordTextField.text, password != "" else
     {
@@ -127,7 +131,7 @@ extension LoginScreenViewController: APIControllerUserDelegate          //gettin
     }
     if userInfoIsCorrect == true
     {
-      performSegue(withIdentifier: "loginSegue", sender: User.current)
+      performSegue(withIdentifier: "LoginSegue", sender: self)
     }
     else
     {
@@ -158,7 +162,7 @@ extension LoginScreenViewController         //alerts
   
   func presentSuccessfullyRegisteredAlert()
   {
-    let successAlert = UIAlertController(title: "Congratulations", message: "Successfully Registered and Logged In", preferredStyle: .alert)
+    let successAlert = UIAlertController(title: "Congratulations", message: "Successfully Registered and Logging In", preferredStyle: .alert)
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     successAlert.addAction(action)
     self.present(successAlert, animated: true, completion: nil)

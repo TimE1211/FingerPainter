@@ -135,7 +135,7 @@
                     <connections>
                         <outlet property="passwordTextField" destination="ExU-Vv-hRN" id="tp3-zM-Ty8"/>
                         <outlet property="usernameTextField" destination="gQu-7T-nTe" id="Um2-mC-QMV"/>
-                        <segue destination="iA0-fG-B6T" kind="show" identifier="loginSegue" id="kl9-Hb-GN1"/>
+                        <segue destination="iA0-fG-B6T" kind="show" identifier="LoginSegue" id="kl9-Hb-GN1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jUB-jB-TsV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -220,6 +220,7 @@
         <!--Navigation Controller-->
         <scene sceneID="6qL-VP-Onc">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f19-jt-SQx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iA0-fG-B6T" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="D62-4W-W1F">
@@ -231,7 +232,6 @@
                         <segue destination="Eux-Fp-rhg" kind="relationship" relationship="rootViewController" id="EdR-Nk-rkY"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f19-jt-SQx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3992.8000000000002" y="138.98050974512745"/>
         </scene>
