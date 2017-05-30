@@ -11,28 +11,18 @@
 
 import UIKit
 import SwiftyJSON
-//import RealmSwift
-
-enum DrawingStatus
-{
-  case started
-  case drawing
-  case ended
-  case none
-}
+import RealmSwift
 
 class ViewController: UIViewController
 {
   @IBOutlet weak var canvas: UIImageView!
   
+  var thisProject: Results<Project>!
+  var realm: Realm!
+  
   var start: CGPoint?
   var end: CGPoint?
   var color: String?
-  
-  var users = [User]()
-  var password = String()
-  var projectName = String()
-  var projectUUID = String()
   
   var lines = [Line]()
   
@@ -41,6 +31,16 @@ class ViewController: UIViewController
     super.viewDidLoad()
     APIController.shared.lineDelegate = self
     setColor()
+    
+    for aLine in Project.current.lines
+    {
+      let line = Line(json: JSON(aLine))
+      let startPoint = CGPoint(x: line.start.x, y: line.start.y)
+      let endPoint = CGPoint(x: line.end.x, y: line.end.y)
+      lines.append(line)
+      drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
+      self.start = endPoint
+    }
   }
   
   override func didReceiveMemoryWarning()
@@ -80,11 +80,6 @@ class ViewController: UIViewController
     }
   }
   
-//  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
-//  {
-//    status = .ended
-//  }
-  
   func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with color: String)
   {
     UIGraphicsBeginImageContext(canvas.frame.size)
@@ -114,17 +109,20 @@ class ViewController: UIViewController
   @IBAction func clearTapped(_ sender: UIBarButtonItem)
   {
     canvas.image = nil
+//    alert to delete all lines and confirm action 
   }
   
   @IBAction func saveTapped(_ sender: UIBarButtonItem)
   {
-    let thisProject = Project(projectUUID: projectUUID, users: users, lines: lines, name: projectName)
-    APIController.shared.save(project: thisProject)
+    Project.current.lines = lines
+    APIController.shared.save(project: Project.current)
+    //save project in realm with user and project data
   }
   
   @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
   {
     APIController.shared.getLines()
+    //get project with this id and update lines for that
   }
 }
 

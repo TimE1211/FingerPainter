@@ -32,7 +32,7 @@ class ProjectsTableViewController: UITableViewController
 
   override func numberOfSections(in tableView: UITableView) -> Int
   {
-    return 1
+    return 1 //have friends section later maybe
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -58,6 +58,13 @@ class ProjectsTableViewController: UITableViewController
     cell.textLabel.text = thisProject.projectName
     
     return cell
+  }
+  
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+  {
+    let thisProject = projects[indexPath]
+    Project.current = thisProject
+    performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
 
   // Override to support editing the table view.
@@ -100,15 +107,15 @@ class ProjectsTableViewController: UITableViewController
     let confirmAction = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
       guard let `self` = self else { return }
       
-    guard let projectName = alert.textFields?.first?.text, projectName != "" else
-    {
-      self.PleaseEnterANameAlert()
-      return
+      guard let projectName = alert.textFields?.first?.text, projectName != "" else
+      {
+        self.PleaseEnterANameAlert()
+        return
+      }
+      
+      self.projectName = projectName
     }
     
-      self.projectName = projectName
-      
-    }
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
   
     alert.addAction(confirmAction)
@@ -116,7 +123,7 @@ class ProjectsTableViewController: UITableViewController
     present(alert, animated: true, completion: nil)
     
     projectUUID = UUID().uuidString
-    print(projectUUID)
+    
     Project.current = Project(projectUUID: projectUUID, users: [User.current], lines: [], name: projectName)
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
@@ -136,7 +143,11 @@ extension ProjectsTableViewController: APIControllerProjectDelegate
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
-      projects.append(project)
+      if (project.users.contains(where: User.current))
+      {
+        projects.append(project)
+        self.tableView.reloadData()
+      }
     }
   }
 }
