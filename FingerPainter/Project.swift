@@ -9,18 +9,30 @@
 import Foundation
 import SwiftyJSON
 import CoreGraphics
+import RealmSwift
 
-class Project
+class Project: Object
 {
   static var current: Project!
   
-  var projectUUID: String
+  var projectUUID = UUID().uuidString
   var name: String
   var users: [User] = []
   var lines: [Line] = []
   
-  init(projectUUID: String, users: [User], lines: [Line], name: String)
+  override class func primaryKey() -> String?
   {
+    return "projectUUID"
+  }
+  
+  override class func indexedProperties() -> [String]
+  {
+    return [""]
+  }
+  
+  convinience init(projectUUID: String, users: [User], lines: [Line], name: String)
+  {
+    super.init()
     self.projectUUID = projectUUID
     self.users = users
     self.lines = lines
