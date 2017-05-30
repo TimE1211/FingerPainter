@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FingerPainter/LoginScreenViewController.swift"
-            timestampString = "517829117.637856"
+            timestampString = "517843388.276016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "login()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FingerPainter/LoginScreenViewController.swift"
-            timestampString = "517829158.818279"
+            timestampString = "517843388.276016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "apiControllerDidReceive(userDictionary:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,13 +42,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FingerPainter/LoginScreenViewController.swift"
-            timestampString = "517837772.386426"
+            timestampString = "517843388.276016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "registerTapped(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FingerPainter.LoginScreenViewController.(registerTapped (__ObjC.UIButton) -&gt; ()).(closure #3)"
+                  moduleName = "FingerPainter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/TimE/Development/FingerPainter/FingerPainter/LoginScreenViewController.swift"
+                  timestampString = "517843390.221137"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "1937">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FingerPainter.LoginScreenViewController.(registerTapped (__ObjC.UIButton) -&gt; ()).(closure #3).(closure #1)"
+                  moduleName = "FingerPainter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/TimE/Development/FingerPainter/FingerPainter/LoginScreenViewController.swift"
+                  timestampString = "517843390.223326"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "274">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -58,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FingerPainter/LoginScreenViewController.swift"
-            timestampString = "517838137.180609"
+            timestampString = "517843388.276016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "login()"
             landmarkType = "7">
          </BreakpointContent>
