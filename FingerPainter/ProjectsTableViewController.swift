@@ -8,9 +8,13 @@
 
 import UIKit
 import SwiftyJSON
+import RealmSwift
 
 class ProjectsTableViewController: UITableViewController
 {
+  var realmProjects: Results<Project>!
+  var realm: Realm!
+  
   var projects = [Project]()
   var projectName = String()
   var projectUUID = String()
@@ -20,7 +24,8 @@ class ProjectsTableViewController: UITableViewController
     super.viewDidLoad()
     APIController.shared.getProjects()
 //    get projects for specific user and projects that this user has worked on
-    
+    realm = try! Realm()
+    realmProjects = realm.objects(Project.self)
   }
 
   override func didReceiveMemoryWarning()
@@ -54,46 +59,33 @@ class ProjectsTableViewController: UITableViewController
 //    }
     title = "My Projects"
     
-    let thisProject = projects[indexPath]
-    cell.textLabel.text = thisProject.projectName
+//    let thisRealProject = realmProjects[indexPath.row]
+    
+    let thisProject = projects[indexPath.row]
+    cell.textLabel?.text = thisProject.projectName
     
     return cell
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
   {
-    let thisProject = projects[indexPath]
+    let thisProject = projects[indexPath.row]
     Project.current = thisProject
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
 
-  // Override to support editing the table view.
   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
   {
       if editingStyle == .delete
       {
-          // Delete the row from the data source
-          tableView.deleteRows(at: [indexPath], with: .fade)
-      }
-//      else if editingStyle == .insert
-//      {
-          // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//      }    
+        try! realm.write {
+          let projectToDelete = realmProjects[indexPath.row]
+          self.realm.delete(projectToDelete)
+        }
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+//        apiDeleteProj?
+    }
   }
-
-//  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-//  {
-//    if segue.identifier == "ProjectSegue", let vc = segue.destination as? ViewController
-//    {
-//      vc.users.append(User.current)
-//      vc.projectName = projectName
-//      vc.projectUUID = projectUUID
-//    }
-//    else if segue.identifier == "ExistingProjectSegue", let vc = segue.destination as? ViewController
-//    {
-//      if vc.users contains 
-//    }
-//  }
  
   @IBAction func NewProjectTapped(_ sender: UIBarButtonItem)
   {
@@ -124,8 +116,15 @@ class ProjectsTableViewController: UITableViewController
     
     projectUUID = UUID().uuidString
     
-    Project.current = Project(projectUUID: projectUUID, users: [User.current], lines: [], name: projectName)
+    Project.current = Project(projectUUID: projectUUID, users: [User.current], lines: [], projectName: projectName)
+    
+    try! realm.write
+    {
+      realm.add(Project.current)
+    }
+    
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
+    
   }
 
   @IBAction func logOutTapped(_ sender: UIBarButtonItem)

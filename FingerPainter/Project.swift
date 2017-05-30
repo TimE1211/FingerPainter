@@ -15,10 +15,10 @@ class Project: Object
 {
   static var current: Project!
   
-  var projectUUID = UUID().uuidString
-  var name: String
-  var users: [User] = []
-  var lines: [Line] = []
+  dynamic var projectUUID = UUID().uuidString
+  dynamic var projectName: String = ""
+  dynamic var users: [User] = []
+  dynamic var lines: [Line] = []
   
   override class func primaryKey() -> String?
   {
@@ -30,28 +30,29 @@ class Project: Object
     return [""]
   }
   
-  convinience init(projectUUID: String, users: [User], lines: [Line], name: String)
+  convenience init(projectUUID: String, users: [User], lines: [Line], projectName: String)
   {
-    super.init()
+    self.init()
     self.projectUUID = projectUUID
     self.users = users
     self.lines = lines
-    self.name = name
+    self.projectName = projectName
   }
   
-  init(json: JSON)
+  convenience init(json: JSON)
   {
+//    self.init
     projectUUID = json["projectUUID"].stringValue
     users = [User(json: json["users"])]
     lines = [Line(json: json["lines"])]
-    name = json["name"].stringValue
+    projectName = json["projectName"].stringValue
   }
   
   func postBody() -> [String: Any]
   {
     var projectJsonDictionary = [String: Any]()
     projectJsonDictionary["projectUUID"] = Int(projectUUID)
-    projectJsonDictionary["name"] = name
+    projectJsonDictionary["projectName"] = projectName
     
     var userDictionaries = [[String: Any]]()
     for aUser in users
