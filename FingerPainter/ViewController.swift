@@ -124,7 +124,7 @@ class ViewController: UIViewController
   
   @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
   {
-    APIController.shared.getLine()
+    APIController.shared.getLines()
   }
 }
 

@@ -37,9 +37,9 @@ class APIController
   
   let url = "http://localhost:8080"
 
-  func getLine()
+  func getLines()
   {
-    let sessionURL = "\(url)/getLine"
+    let sessionURL = "\(url)/getLines"
     
     Alamofire.request(sessionURL).responseJSON { responseData in
       if let value = responseData.result.value
@@ -50,9 +50,9 @@ class APIController
     }
   }
   
-  func getUser()
+  func getUsers()
   {
-    let sessionURL = "\(url)/getUser"
+    let sessionURL = "\(url)/getUsers"
     
     Alamofire.request(sessionURL).responseJSON { responseData in
       if let value = responseData.result.value
@@ -63,9 +63,9 @@ class APIController
     }
   }
   
-  func getProject()
+  func getProjects()
   {
-    let sessionURL = "\(url)/getProject"
+    let sessionURL = "\(url)/getProjects"
     
     Alamofire.request(sessionURL).responseJSON { responseData in
       if let value = responseData.result.value

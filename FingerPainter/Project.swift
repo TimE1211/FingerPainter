@@ -12,6 +12,8 @@ import CoreGraphics
 
 class Project
 {
+  static var current: Project!
+  
   var projectUUID: String
   var name: String
   var users: [User] = []

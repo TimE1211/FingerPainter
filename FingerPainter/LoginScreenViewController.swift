@@ -71,7 +71,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
       incorrectKeyTyped(key: "password")
     }
   
-    APIController.shared.getUser()
+    APIController.shared.getUsers()
   }
   
   @IBAction func registerTapped(_ sender: UIButton)
@@ -97,18 +97,19 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
         self.incorrectKeyTyped(key: "Username and Password")
         return
       }
-
-      self.user.username = self.username
-      self.user.password = self.password
+      
+      self.user.username = username
+      self.user.password = password
       
       APIController.shared.save(user: self.user, completionHandler: { result, error in
-        if result != nil {
+        if result != nil
+        {
           self.presentSuccessfullyRegisteredAlert()
           self.login()
         }
         else
         {
-          self.presentAlreadyExistsErrorAlert()
+          self.userRegistrationErrorAlert()
         }
       })
     }
@@ -126,7 +127,33 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   }
 }
 
-extension LoginScreenViewController         //invalid key(name/pass) entered
+extension LoginScreenViewController: APIControllerUserDelegate          //getting users to check login info
+{
+  func apiControllerDidReceive(userDictionary: [[String : Any]])
+  {
+    var userInfoIsCorrect = false
+    for aUser in userDictionary
+    {
+      let user = User(json: JSON(aUser))
+      if self.username == user.username && self.password == user.password
+      {
+        userInfoIsCorrect = true
+      }
+    }
+    if userInfoIsCorrect == true
+    {
+      User.current = user
+      performSegue(withIdentifier: "loginSegue", sender: user)
+    }
+    else
+    {
+      incorrectKeyTyped(key: "Username and Password combination")
+    }
+  }
+}
+
+
+extension LoginScreenViewController         //alerts
 {
   func incorrectKeyTyped(key: String)
   {
@@ -137,9 +164,9 @@ extension LoginScreenViewController         //invalid key(name/pass) entered
     self.present(errorAlert, animated: true, completion: nil)
   }
   
-  func presentAlreadyExistsErrorAlert()
+  func userRegistrationErrorAlert()
   {
-    let errorAlert = UIAlertController(title: "Username already exists", message: "Please enter a different Username", preferredStyle: .alert)
+    let errorAlert = UIAlertController(title: "Username already exists/ or User could not be saved successfully", message: "Please enter a different Username", preferredStyle: .alert)
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)
     self.present(errorAlert, animated: true, completion: nil)
@@ -166,22 +193,3 @@ extension UIAlertControllerStyle          //for ipads
   }
 }
 
-extension LoginScreenViewController: APIControllerUserDelegate
-{
-  func apiControllerDidReceive(userDictionary: [[String : Any]])
-  {
-    for aUser in userDictionary
-    {
-      let user = User(json: JSON(aUser))
-      if self.username == user.username && self.password == user.password
-      {
-        User.current = user
-        performSegue(withIdentifier: "loginSegue", sender: user)
-      }
-      else
-      {
-        incorrectKeyTyped(key: "Username and Password")
-      }
-    }
-  }
-}
