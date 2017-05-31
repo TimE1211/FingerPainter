@@ -31,8 +31,8 @@ class ViewController: UIViewController
     for aLine in Project.current.lines
     {
       let line = Line(json: JSON(aLine))
-      let startPoint = CGPoint(x: line.start.x, y: line.start.y)
-      let endPoint = CGPoint(x: line.end.x, y: line.end.y)
+      let startPoint = CGPoint(x: line.startx, y: line.starty)
+      let endPoint = CGPoint(x: line.endx, y: line.endy)
       lines.append(line)
       drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
       self.start = endPoint
@@ -41,7 +41,7 @@ class ViewController: UIViewController
     if !(Project.current.users.contains(User.current))
     {
       Project.current.users.append(User.current)
-      ProjectsTableViewController.shared.save(users: Project.current.users)
+//      ProjectsTableViewController.shared.save(users: Project.current.users)
     }
     
     setColor()
@@ -75,15 +75,16 @@ class ViewController: UIViewController
       if let end = end, let start = start, let color = color
       {
         drawFromPoint(start: start, toPoint: end, with: color)
+      
+        if let line = Line(startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color)
+        {
+          lines.append(line)
+          Project.current.lines = lines
+          APIController.shared.save(project: Project.current)
+//          ProjectsTableViewController.shared.save(lines: Project.current.lines)
+        }
+        self.start = end
       }
-      if let line = Line(start: start, end: end, color: color)
-      {
-        lines.append(line)
-        Project.current.lines = lines
-        APIController.shared.save(project: Project.current)
-        ProjectsTableViewController.shared.save(lines: Project.current.lines)
-      }
-      self.start = end
     }
   }
   
@@ -93,7 +94,7 @@ class ViewController: UIViewController
     if let context = UIGraphicsGetCurrentContext()
     {
       canvas.image?.draw(in: CGRect(x: 0, y: 0, width: canvas.frame.size.width, height: canvas.frame.size.height))
-      if color == "darkGray"
+      if color == "black"
       {
         context.setStrokeColor(UIColor.darkGray.cgColor)
         context.setLineWidth(5)
@@ -123,7 +124,7 @@ class ViewController: UIViewController
   {
     Project.current.lines = lines
     APIController.shared.save(project: Project.current)
-    ProjectsTableViewController.shared.save(lines: Project.current.lines)
+//    ProjectsTableViewController.shared.save(lines: Project.current.lines)
   }
   
 //  @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
@@ -154,8 +155,8 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
     }
     for line in lines
     {
-      let startPoint = CGPoint(x: line.start.x, y: line.start.y)
-      let endPoint = CGPoint(x: line.end.x, y: line.end.y)
+      let startPoint = CGPoint(x: line.startx, y: line.starty)
+      let endPoint = CGPoint(x: line.endx, y: line.endy)
       drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
     }
   }

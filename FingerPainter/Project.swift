@@ -9,39 +9,26 @@
 import Foundation
 import SwiftyJSON
 import CoreGraphics
-import RealmSwift
 
-class Project: Object
+class Project
 {
   static var current: Project!
   
-  dynamic var projectUUID = UUID().uuidString
-  dynamic var projectName: String = ""
-  dynamic var users: [User] = []
-  dynamic var lines: [Line] = []
+  var projectUUID = UUID().uuidString
+  var projectName: String = ""
+  var users: [User] = []
+  var lines: [Line] = []
   
-  override class func primaryKey() -> String?
+  init(projectUUID: String, users: [User], lines: [Line], projectName: String)
   {
-    return "projectUUID"
-  }
-  
-  override class func indexedProperties() -> [String]
-  {
-    return ["User"]
-  }
-  
-  convenience init(projectUUID: String, users: [User], lines: [Line], projectName: String)
-  {
-    self.init()
     self.projectUUID = projectUUID
     self.users = users
     self.lines = lines
     self.projectName = projectName
   }
   
-  convenience init(json: JSON)
+  init(json: JSON)
   {
-    self.init()
     projectUUID = json["projectUUID"].stringValue
     users = [User(json: json["users"])]
     lines = [Line(json: json["lines"])]
@@ -72,42 +59,41 @@ class Project: Object
   }
 }
 
-class Line: Object
+class Line
 {
-  dynamic var start: CGPoint = CGPoint(x: 0, y: 0)
-  dynamic var end: CGPoint = CGPoint(x: 0, y: 0)
-  dynamic var color: String = ""
+  var startx: Double = 0
+  var starty: Double = 0
+  var endx: Double = 0
+  var endy: Double = 0
+  var color: String = ""
   
-  convenience init?(start: CGPoint?, end: CGPoint?, color: String?)
+  init?(startx: Double, starty: Double, endx: Double, endy: Double, color: String?)
   {
-    self.init()
-    guard let start = start, let end = end, let color = color else { return nil }
+    guard let color = color else { return nil }
     
-    self.start = start
-    self.end = end
+    self.startx = startx
+    self.starty = starty
+    self.endx = endx
+    self.endy = endy
     self.color = color
   }
   
-  convenience init(json: JSON)
+  init(json: JSON)
   {
-    self.init()
-    start = CGPoint()
-    end = CGPoint()
-    
-    start.x = json["startx"].cgFloatValue
-    start.y = json["starty"].cgFloatValue
-    end.x = json["endx"].cgFloatValue
-    end.y = json["endy"].cgFloatValue
+    startx = Double(json["startx"].floatValue)
+    starty = Double(json["starty"].floatValue)
+    endx = Double(json["endx"].floatValue)
+    endy = Double(json["endy"].floatValue)
     color = json["color"].stringValue
   }
   
   func postBody() -> [String: Any]
   {
     return [
-      "startx": start.x,
-      "starty": start.y,
-      "endx": end.x,
-      "endy": end.y,
+      "startx": startx,
+      "starty": starty,
+      "endx": endx,
+      "endy": endy,
       "color": color
     ]
   }

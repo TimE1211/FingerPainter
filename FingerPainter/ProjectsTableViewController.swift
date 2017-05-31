@@ -6,21 +6,21 @@
 //  Copyright © 2017 Timothy Hang. All rights reserved.
 //
 
-protocol ProjectsTableViewControllerDelegate
-{
-  func updateThisProject()
-}
+//protocol ProjectsTableViewControllerDelegate
+//{
+//  func updateThisProject()
+//}
 
 import UIKit
 import SwiftyJSON
-import RealmSwift
+//import RealmSwift
 
 class ProjectsTableViewController: UITableViewController
 {
   static let shared = ProjectsTableViewController()
   
-  var realmProjects: Results<Project>!
-  var realm: Realm!
+//  var realmProjects: Results<Project>!
+//  var realm: Realm!
   
   var projects = [Project]()
   var projectName = String()
@@ -32,16 +32,26 @@ class ProjectsTableViewController: UITableViewController
   {
     super.viewDidLoad()
     APIController.shared.getProjects()
-//    get projects for specific user and projects that this user has worked on
-    realm = try! Realm()
-    realmProjects = realm.objects(Project.self)
-    Project.current = nil
+//    setupRealm()
   }
 
   override func didReceiveMemoryWarning()
   {
     super.didReceiveMemoryWarning()
   }
+  
+//  func setupRealm()
+//  {
+//    do
+//    {
+//      realm = try Realm()
+//      realmProjects = realm.objects(Project.self)
+//      Project.current = nil
+//    } catch
+//    {
+//      print(error)
+//    }
+//  }
 
   // MARK: - Table view data source
 
@@ -52,6 +62,7 @@ class ProjectsTableViewController: UITableViewController
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
+//    if !apiworking projects.count = realmProjects.count
     return projects.count
   }
 
@@ -69,7 +80,7 @@ class ProjectsTableViewController: UITableViewController
 //    }
     title = "My Projects"
     
-//    let thisRealProject = realmProjects[indexPath.row]
+//    let thisRealmProject = realmProjects[indexPath.row]
     
     let thisProject = projects[indexPath.row]
     cell.textLabel?.text = thisProject.projectName
@@ -85,19 +96,19 @@ class ProjectsTableViewController: UITableViewController
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
 
-  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
-  {
-      if editingStyle == .delete
-      {
-        try! realm.write
-        {
-          let projectToDelete = realmProjects[indexPath.row]
-          self.realm.delete(projectToDelete)
-        }
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-//        apiDeleteProj?
-    }
-  }
+//  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+//  {
+//      if editingStyle == .delete
+//      {
+//        try! realm.write
+//        {
+////          let projectToDelete = realmProjects[indexPath.row]
+////          self.realm.delete(projectToDelete)
+//        }
+//        tableView.deleteRows(at: [indexPath], with: .automatic)
+////        apiDeleteProj?
+//    }
+//  }
  
   @IBAction func NewProjectTapped(_ sender: UIBarButtonItem)
   {
@@ -130,13 +141,18 @@ class ProjectsTableViewController: UITableViewController
     
     Project.current = Project(projectUUID: projectUUID, users: [User.current], lines: [], projectName: projectName)
     
-    try! realm.write
-    {
-      realm.add(Project.current)
-    }
-    
+//    try! realm.write
+//    {
+//      realm.add(Project.current)
+//    }
+//    
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
-    
+  }
+  
+  @IBAction func joinProjectsTapped(_ sender: UIBarButtonItem)
+  {
+    //call api and get project with project id that u paste in via alert
+    //api finds that project and sets it as Project.current
   }
 
   @IBAction func logOutTapped(_ sender: UIBarButtonItem)
@@ -175,21 +191,21 @@ extension ProjectsTableViewController       //alert
   }
 }
 
-extension ProjectsTableViewController     //realm stuff
-{
-  func save(lines: [Line])
-  {
-    try! realm.write
-    {
-      projects[thisProjectIndex].lines = lines
-    }
-  }
-  
-  func save(users: [User])
-  {
-    try! realm.write
-    {
-      projects[thisProjectIndex].users = users
-    }
-  }
-}
+//extension ProjectsTableViewController     //realm stuff
+//{
+//  func save(lines: [Line])
+//  {
+//    try! realm.write
+//    {
+//      projects[thisProjectIndex].lines = lines
+//    }
+//  }
+//  
+//  func save(users: [User])
+//  {
+//    try! realm.write
+//    {
+//      projects[thisProjectIndex].users = users
+//    }
+//  }
+//}

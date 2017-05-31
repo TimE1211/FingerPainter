@@ -52,18 +52,16 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   
   func login()
   {
-    usernameTextField.text = User.current.username
-    passwordTextField.text = User.current.password
-    
     guard let username = usernameTextField.text, username != "",
       let password = passwordTextField.text, password != "" else
     {
       self.incorrectKeyTyped(key: "Username and Password")
       return
     }
+    
     User.current = User(username: username, password: password)
 //    APIController.shared.getUsers()
-//    performSegue(withIdentifier: "LoginSegue", sender: User.current)
+    performSegue(withIdentifier: "LoginSegue", sender: User.current)
   }
   
   @IBAction func registerTapped(_ sender: UIButton)
@@ -96,6 +94,8 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
         if result != nil
         {
           self.presentSuccessfullyRegisteredAlert()
+          self.usernameTextField.text = User.current.username
+          self.passwordTextField.text = User.current.password
           self.login()
         }
         else
@@ -113,9 +113,9 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     present(alert, animated: true, completion: nil)
   }
   
-  @IBAction  func prepareForUnwind(segue: UIStoryboardSegue, sender: UIButton)
-  {
-  }
+//  @IBAction  func prepareForUnwind(segue: UIStoryboardSegue, sender: UIButton)
+//  {
+//  }
 }
 
 extension LoginScreenViewController: APIControllerUserDelegate          //getting users to check login info
@@ -131,6 +131,7 @@ extension LoginScreenViewController: APIControllerUserDelegate          //gettin
         userInfoIsCorrect = true
       }
     }
+    
     if userInfoIsCorrect == true
     {
       performSegue(withIdentifier: "LoginSegue", sender: self)
