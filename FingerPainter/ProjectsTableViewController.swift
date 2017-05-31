@@ -15,7 +15,6 @@ class ProjectsTableViewController: UITableViewController
   var projectName = String()
   var projectUUID = String()
   
-//  var thisProjectIndex = Int()
   var projectToJoinUUID = String()
   
   override func viewDidLoad()
@@ -57,7 +56,6 @@ class ProjectsTableViewController: UITableViewController
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
   {
     let thisProject = projects[indexPath.row]
-//    thisProjectIndex = indexPath.row
     Project.current = thisProject
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
@@ -91,6 +89,7 @@ class ProjectsTableViewController: UITableViewController
     
     projectUUID = UUID().uuidString
     
+    //not presenting alert before this line for some reason
     Project.current = Project(projectUUID: projectUUID, users: [User.current], lines: [], projectName: projectName)
     
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
@@ -138,7 +137,6 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
   {
     getProjectsForUser(projectDictionary: projectDictionary)
     getProjectForProjectUUID(projectDictionary: projectDictionary)
-    asdfasdfasdfasfdasdfasdf
   }
   
   func getProjectsForUser(projectDictionary: [[String: Any]])
@@ -150,6 +148,7 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
       if userFoundInArray.count == 1
       {
         // current user was found in the project so append to projects array to display project as cell
+        projects.removeAll()
         projects.append(project)
       }
     }
