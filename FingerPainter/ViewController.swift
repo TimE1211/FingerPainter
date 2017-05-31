@@ -11,47 +11,48 @@
 
 import UIKit
 import SwiftyJSON
-import RealmSwift
 
 class ViewController: UIViewController
 {
   @IBOutlet weak var canvas: UIImageView!
   
-  var thisProject: Results<Project>!
-  var realm: Realm!
-  
   var start: CGPoint?
   var end: CGPoint?
   var color: String?
+  var thickness: Double?
   
   var lines = [Line]()
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    APIController.shared.lineDelegate = self
-    setColor()
+    
+    APIController.shared.projectDelegate = self
     
     for aLine in Project.current.lines
     {
       let line = Line(json: JSON(aLine))
-      let startPoint = CGPoint(x: line.start.x, y: line.start.y)
-      let endPoint = CGPoint(x: line.end.x, y: line.end.y)
+      let startPoint = CGPoint(x: line.startx, y: line.starty)
+      let endPoint = CGPoint(x: line.endx, y: line.endy)
       lines.append(line)
       drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
       self.start = endPoint
     }
+    
+    if !(Project.current.users.contains(User.current))
+    {
+      Project.current.users.append(User.current)
+//      ProjectsTableViewController.shared.save(users: Project.current.users)
+    }
+    
+    color = "darkGray"
+    thickness = 50
+    timer()
   }
   
   override func didReceiveMemoryWarning()
   {
     super.didReceiveMemoryWarning()
-  }
-  
-  func setColor()
-  {
-    color = "darkGray"
-    //or color = "white"
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -66,17 +67,20 @@ class ViewController: UIViewController
   {
     if let touch = touches.first
     {
-      end = touch.location(in: view)
+      self.end = touch.location(in: view)
+      if let end = end, let start = start, let color = color, let thickness = thickness
+      {
+        drawFromPoint(start: start, toPoint: end, with: color)
       
-      if let start = start
-      {
-        drawFromPoint(start: start, toPoint: end!, with: color!)
+        if let line = Line(startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color, thickness: thickness)
+        {
+          lines.append(line)
+          Project.current.lines = lines
+          APIController.shared.save(project: Project.current)
+//          ProjectsTableViewController.shared.save(lines: Project.current.lines)
+        }
+        self.start = end
       }
-      if let line = Line(start: start, end: end, color: color)
-      {
-        APIController.shared.save(line: line)
-      }
-      self.start = end
     }
   }
   
@@ -86,7 +90,7 @@ class ViewController: UIViewController
     if let context = UIGraphicsGetCurrentContext()
     {
       canvas.image?.draw(in: CGRect(x: 0, y: 0, width: canvas.frame.size.width, height: canvas.frame.size.height))
-      if color == "darkGray"
+      if color == "black"
       {
         context.setStrokeColor(UIColor.darkGray.cgColor)
         context.setLineWidth(5)
@@ -116,28 +120,40 @@ class ViewController: UIViewController
   {
     Project.current.lines = lines
     APIController.shared.save(project: Project.current)
-    //save project in realm with user and project data
+//    ProjectsTableViewController.shared.save(lines: Project.current.lines)
   }
   
-  @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
+//  @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
+//  {
+//    APIController.shared.getProjects()
+//  }
+  
+  func timer()
   {
-    APIController.shared.getLines()
-    //get project with this id and update lines for that
+    Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false)
+    { timer in
+      APIController.shared.getProjects()
+    }
   }
 }
 
-extension ViewController: APIControllerLineDelegate
+extension ViewController: APIControllerProjectDelegate    //updating lines
 {
-  func apiControllerDidReceive(lineDictionary: [[String : Any]])
+  func apiControllerDidReceive(projectDictionary: [[String : Any]])
   {
-    for aLine in lineDictionary
+    for aProject in projectDictionary
     {
-      let line = Line(json: JSON(aLine))
-      let startPoint = CGPoint(x: line.start.x, y: line.start.y)
-      let endPoint = CGPoint(x: line.end.x, y: line.end.y)
-      lines.append(line)
+      let project = Project(json: JSON(aProject))
+      if project.projectUUID == Project.current.projectUUID
+      {
+        lines = project.lines
+      }
+    }
+    for line in lines
+    {
+      let startPoint = CGPoint(x: line.startx, y: line.starty)
+      let endPoint = CGPoint(x: line.endx, y: line.endy)
       drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
-      self.start = endPoint
     }
   }
 }

@@ -8,28 +8,35 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
-class User
+class User: Object
 {
   static var current: User!
   
-  var username: String
-  var password: String
+  dynamic var username = ""
+  dynamic var password = ""
   
-  init()
+  override class func primaryKey() -> String?
   {
-    self.username = ""
-    self.password = ""
+    return "username"
   }
   
-  init(username: String, password: String)
+  override class func indexedProperties() -> [String]
   {
+    return ["username"]
+  }
+  
+  convenience init(username: String, password: String)
+  {
+    self.init()
     self.username = username
     self.password = password
   }
   
-  init(json: JSON)
+  convenience init(json: JSON)
   {
+    self.init()
     username = json["username"].stringValue
     password = json["password"].stringValue
   }

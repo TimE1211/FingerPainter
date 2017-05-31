@@ -9,28 +9,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FingerPainter/ViewController.swift"
-            timestampString = "517794549.520982"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "apiControllerDidReceive(lineDictionary:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "FingerPainter/LoginScreenViewController.swift"
-            timestampString = "517794638.151487"
+            timestampString = "517928159.634155"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "registerTapped(_:)"
             landmarkType = "7">
             <Locations>
@@ -42,12 +26,12 @@
                   moduleName = "FingerPainter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/TimE/Development/FingerPainter/FingerPainter/LoginScreenViewController.swift"
-                  timestampString = "517794638.375977"
+                  timestampString = "517931700.016712"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "104"
-                  endingLineNumber = "104"
-                  offsetFromSymbolStart = "2067">
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "1937">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -57,11 +41,11 @@
                   moduleName = "FingerPainter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/TimE/Development/FingerPainter/FingerPainter/LoginScreenViewController.swift"
-                  timestampString = "517794638.378548"
+                  timestampString = "517931700.020031"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "105"
-                  endingLineNumber = "105"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
                   offsetFromSymbolStart = "274">
                </Location>
             </Locations>
@@ -73,14 +57,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FingerPainter/LoginScreenViewController.swift"
-            timestampString = "517829117.637856"
+            filePath = "FingerPainter/ProjectsTableViewController.swift"
+            timestampString = "517930054.311581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "login()"
-            landmarkType = "7">
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "ProjectsTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -89,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FingerPainter/LoginScreenViewController.swift"
-            timestampString = "517829158.818279"
+            filePath = "FingerPainter/APIController.swift"
+            timestampString = "517929181.154889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "apiControllerDidReceive(userDictionary:)"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "save(user:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

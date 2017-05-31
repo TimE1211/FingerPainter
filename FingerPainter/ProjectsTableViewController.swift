@@ -6,27 +6,52 @@
 //  Copyright © 2017 Timothy Hang. All rights reserved.
 //
 
+//protocol ProjectsTableViewControllerDelegate
+//{
+//  func updateThisProject()
+//}
+
 import UIKit
 import SwiftyJSON
+//import RealmSwift
 
 class ProjectsTableViewController: UITableViewController
 {
+//  static let shared = ProjectsTableViewController()
+  
+//  var realmProjects: Results<Project>!
+//  var realm: Realm!
+  
   var projects = [Project]()
   var projectName = String()
   var projectUUID = String()
+  
+  var thisProjectIndex = Int()
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
     APIController.shared.getProjects()
-//    get projects for specific user and projects that this user has worked on
-    
+//    setupRealm()
   }
 
   override func didReceiveMemoryWarning()
   {
     super.didReceiveMemoryWarning()
   }
+  
+//  func setupRealm()
+//  {
+//    do
+//    {
+//      realm = try Realm()
+//      realmProjects = realm.objects(Project.self)
+//      Project.current = nil
+//    } catch
+//    {
+//      print(error)
+//    }
+//  }
 
   // MARK: - Table view data source
 
@@ -37,6 +62,7 @@ class ProjectsTableViewController: UITableViewController
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
+//    if !apiworking projects.count = realmProjects.count
     return projects.count
   }
 
@@ -54,44 +80,33 @@ class ProjectsTableViewController: UITableViewController
 //    }
     title = "My Projects"
     
-    let thisProject = projects[indexPath]
-    cell.textLabel.text = thisProject.projectName
+//    let thisRealmProject = realmProjects[indexPath.row]
+    
+    let thisProject = projects[indexPath.row]
+    cell.textLabel?.text = thisProject.projectName
     
     return cell
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
   {
-    let thisProject = projects[indexPath]
+    let thisProject = projects[indexPath.row]
+    thisProjectIndex = indexPath.row
     Project.current = thisProject
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
 
-  // Override to support editing the table view.
-  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
-  {
-      if editingStyle == .delete
-      {
-          // Delete the row from the data source
-          tableView.deleteRows(at: [indexPath], with: .fade)
-      }
-//      else if editingStyle == .insert
-//      {
-          // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//      }    
-  }
-
-//  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+//  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
 //  {
-//    if segue.identifier == "ProjectSegue", let vc = segue.destination as? ViewController
-//    {
-//      vc.users.append(User.current)
-//      vc.projectName = projectName
-//      vc.projectUUID = projectUUID
-//    }
-//    else if segue.identifier == "ExistingProjectSegue", let vc = segue.destination as? ViewController
-//    {
-//      if vc.users contains 
+//      if editingStyle == .delete
+//      {
+//        try! realm.write
+//        {
+////          let projectToDelete = realmProjects[indexPath.row]
+////          self.realm.delete(projectToDelete)
+//        }
+//        tableView.deleteRows(at: [indexPath], with: .automatic)
+////        apiDeleteProj?
 //    }
 //  }
  
@@ -124,35 +139,47 @@ class ProjectsTableViewController: UITableViewController
     
     projectUUID = UUID().uuidString
     
-    Project.current = Project(projectUUID: projectUUID, users: [User.current], lines: [], name: projectName)
+    Project.current = Project(projectUUID: projectUUID, users: [User.current], lines: [], projectName: projectName)
+    
+//    try! realm.write
+//    {
+//      realm.add(Project.current)
+//    }
+//    
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
+  }
+  
+  @IBAction func joinProjectsTapped(_ sender: UIBarButtonItem)
+  {
+    //call api and get project with project id that u paste in via alert
+    //api finds that project and sets it as Project.current
   }
 
   @IBAction func logOutTapped(_ sender: UIBarButtonItem)
   {
     // maybe move unwind to view controller since this is only going back one vc but do need a log out button
     User.current = nil
-//    go back to login
+    self.dismiss(animated: true, completion: nil)
   }
 }
 
-extension ProjectsTableViewController: APIControllerProjectDelegate
+extension ProjectsTableViewController: APIControllerProjectDelegate   //api
 {
   func apiControllerDidReceive(projectDictionary: [[String: Any]])
   {
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
-      if (project.users.contains(where: User.current))
+      if project.users.contains(User.current)
       {
         projects.append(project)
-        self.tableView.reloadData()
       }
     }
+    self.tableView.reloadData()
   }
 }
 
-extension ProjectsTableViewController
+extension ProjectsTableViewController       //alert
 {
   func PleaseEnterANameAlert()
   {
@@ -163,3 +190,22 @@ extension ProjectsTableViewController
     self.present(errorAlert, animated: true, completion: nil)
   }
 }
+
+//extension ProjectsTableViewController     //realm stuff
+//{
+//  func save(lines: [Line])
+//  {
+//    try! realm.write
+//    {
+//      projects[thisProjectIndex].lines = lines
+//    }
+//  }
+//  
+//  func save(users: [User])
+//  {
+//    try! realm.write
+//    {
+//      projects[thisProjectIndex].users = users
+//    }
+//  }
+//}

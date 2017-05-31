@@ -14,17 +14,17 @@ class Project
 {
   static var current: Project!
   
-  var projectUUID: String
-  var name: String
+  var projectUUID = UUID().uuidString
+  var projectName: String = ""
   var users: [User] = []
   var lines: [Line] = []
   
-  init(projectUUID: String, users: [User], lines: [Line], name: String)
+  init(projectUUID: String, users: [User], lines: [Line], projectName: String)
   {
     self.projectUUID = projectUUID
     self.users = users
     self.lines = lines
-    self.name = name
+    self.projectName = projectName
   }
   
   init(json: JSON)
@@ -32,14 +32,14 @@ class Project
     projectUUID = json["projectUUID"].stringValue
     users = [User(json: json["users"])]
     lines = [Line(json: json["lines"])]
-    name = json["name"].stringValue
+    projectName = json["projectName"].stringValue
   }
   
   func postBody() -> [String: Any]
   {
     var projectJsonDictionary = [String: Any]()
     projectJsonDictionary["projectUUID"] = Int(projectUUID)
-    projectJsonDictionary["name"] = name
+    projectJsonDictionary["projectName"] = projectName
     
     var userDictionaries = [[String: Any]]()
     for aUser in users
@@ -61,53 +61,44 @@ class Project
 
 class Line
 {
-  var start: CGPoint
-  var end: CGPoint
-  var color: String
+  var startx: Double = 0
+  var starty: Double = 0
+  var endx: Double = 0
+  var endy: Double = 0
+  var color: String = ""
+  var thickness: Double = 0
   
-  init()
+  init?(startx: Double, starty: Double, endx: Double, endy: Double, color: String?, thickness: Double)
   {
-    start = CGPoint()
-    end = CGPoint()
-    color = String()
+    guard let color = color else { return nil }
     
-    start.x = 0
-    start.y = 0
-    end.x = 0
-    end.y = 0
-    color = "darkGray"
+    self.startx = startx
+    self.starty = starty
+    self.endx = endx
+    self.endy = endy
+    self.color = color
+    self.thickness = thickness
   }
   
-  init?(start: CGPoint?, end: CGPoint?, color: String?)
+  init(json: JSON)
   {
-    guard let start = start, let end = end, let color = color else { return nil }
-    
-    self.start = start
-    self.end = end
-    self.color = color
+    startx = Double(json["startx"].floatValue)
+    starty = Double(json["starty"].floatValue)
+    endx = Double(json["endx"].floatValue)
+    endy = Double(json["endy"].floatValue)
+    color = json["color"].stringValue
+    thickness = Double(json["thickness"].floatValue)
   }
   
   func postBody() -> [String: Any]
   {
     return [
-      "startx": start.x,
-      "starty": start.y,
-      "endx": end.x,
-      "endy": end.y,
+      "startx": startx,
+      "starty": starty,
+      "endx": endx,
+      "endy": endy,
       "color": color
     ]
-  }
-  
-  init(json: JSON)
-  {
-    start = CGPoint()
-    end = CGPoint()
-    
-    start.x = json["startx"].cgFloatValue
-    start.y = json["starty"].cgFloatValue
-    end.x = json["endx"].cgFloatValue
-    end.y = json["endy"].cgFloatValue
-    color = json["color"].stringValue
   }
 }
 

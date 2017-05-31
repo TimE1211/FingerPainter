@@ -16,13 +16,14 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   
   var username = String()
   var password = String()
-  var user = User()
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
     usernameTextField.becomeFirstResponder()
     passwordTextField.isSecureTextEntry = true
+    User.current = nil
+    User.current = User()
   }
   
   override func didReceiveMemoryWarning()
@@ -51,27 +52,16 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   
   func login()
   {
-    if let text = usernameTextField.text, text != ""
+    guard let username = usernameTextField.text, username != "",
+      let password = passwordTextField.text, password != "" else
     {
-      username = text
-    }
-    else
-    {
-      username = ""
-      incorrectKeyTyped(key: "user")
+      self.incorrectKeyTyped(key: "Username and Password")
+      return
     }
     
-    if let text = passwordTextField.text, text != ""
-    {
-      password = text
-    }
-    else
-    {
-      password = ""
-      incorrectKeyTyped(key: "password")
-    }
-  
-    APIController.shared.getUsers()
+    User.current = User(username: username, password: password)
+//    APIController.shared.getUsers()
+    performSegue(withIdentifier: "LoginSegue", sender: User.current)
   }
   
   @IBAction func registerTapped(_ sender: UIButton)
@@ -98,13 +88,14 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
         return
       }
       
-      self.user.username = username
-      self.user.password = password
+      User.current = User(username: username, password: password)
       
-      APIController.shared.save(user: self.user, completionHandler: { result, error in
+      APIController.shared.save(user: User.current, completionHandler: { result, error in
         if result != nil
         {
           self.presentSuccessfullyRegisteredAlert()
+          self.usernameTextField.text = User.current.username
+          self.passwordTextField.text = User.current.password
           self.login()
         }
         else
@@ -122,9 +113,9 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     present(alert, animated: true, completion: nil)
   }
   
-  @IBAction  func prepareForUnwind(segue: UIStoryboardSegue, sender: UIButton)
-  {
-  }
+//  @IBAction  func prepareForUnwind(segue: UIStoryboardSegue, sender: UIButton)
+//  {
+//  }
 }
 
 extension LoginScreenViewController: APIControllerUserDelegate          //getting users to check login info
@@ -140,10 +131,10 @@ extension LoginScreenViewController: APIControllerUserDelegate          //gettin
         userInfoIsCorrect = true
       }
     }
+    
     if userInfoIsCorrect == true
     {
-      User.current = user
-      performSegue(withIdentifier: "loginSegue", sender: user)
+      performSegue(withIdentifier: "LoginSegue", sender: self)
     }
     else
     {
@@ -174,7 +165,7 @@ extension LoginScreenViewController         //alerts
   
   func presentSuccessfullyRegisteredAlert()
   {
-    let successAlert = UIAlertController(title: "Congratulations", message: "Successfully Registered and Logged In", preferredStyle: .alert)
+    let successAlert = UIAlertController(title: "Congratulations", message: "Successfully Registered and Logging In", preferredStyle: .alert)
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     successAlert.addAction(action)
     self.present(successAlert, animated: true, completion: nil)
