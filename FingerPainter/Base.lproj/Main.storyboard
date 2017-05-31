@@ -44,11 +44,6 @@
                                     <action selector="saveTapped:" destination="BYZ-38-t0r" id="9iW-1J-AO3"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Clear" id="LTF-n0-0vj">
-                                <connections>
-                                    <action selector="clearTapped:" destination="BYZ-38-t0r" id="jwt-kX-FuB"/>
-                                </connections>
-                            </barButtonItem>
                             <barButtonItem title="Settings" id="qum-4W-IJP">
                                 <connections>
                                     <segue destination="vRL-jc-giB" kind="presentation" identifier="LineSettingsSegue" id="jCp-9M-gHT"/>

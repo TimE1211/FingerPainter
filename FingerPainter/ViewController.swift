@@ -114,12 +114,6 @@ class ViewController: UIViewController
     }
   }
   
-  @IBAction func clearTapped(_ sender: UIBarButtonItem)
-  {
-    canvas.image = nil
-//    alert to delete all lines and confirm action 
-  }
-  
   @IBAction func saveTapped(_ sender: UIBarButtonItem)
   {
     Project.current.lines = lines

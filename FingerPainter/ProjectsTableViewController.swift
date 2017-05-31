@@ -79,6 +79,10 @@ class ProjectsTableViewController: UITableViewController
       }
       
       self.projectName = projectName
+      self.projectUUID = UUID().uuidString
+      
+      Project.current = Project(projectUUID: self.projectUUID, users: [User.current], lines: [], projectName: projectName)
+      self.performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
     }
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -86,13 +90,6 @@ class ProjectsTableViewController: UITableViewController
     alert.addAction(confirmAction)
     alert.addAction(cancelAction)
     present(alert, animated: true, completion: nil)
-    
-    projectUUID = UUID().uuidString
-    
-    //not presenting alert before this line for some reason
-    Project.current = Project(projectUUID: projectUUID, users: [User.current], lines: [], projectName: projectName)
-    
-    performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
   
   @IBAction func joinProjectsTapped(_ sender: UIBarButtonItem)
