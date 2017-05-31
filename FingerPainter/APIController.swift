@@ -118,7 +118,7 @@ class APIController
       method: .post,
       parameters: parameters,
       encoding: URLEncoding.httpBody,
-      headers: nil
+      headers: ["Content-Type": "application/json"]
       ).responseJSON(completionHandler: { responseData in
         debugPrint(responseData)
         

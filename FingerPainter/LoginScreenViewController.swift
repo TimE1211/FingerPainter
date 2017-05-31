@@ -63,7 +63,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     }
     User.current = User(username: username, password: password)
 //    APIController.shared.getUsers()
-    performSegue(withIdentifier: "LoginSegue", sender: User.current)
+//    performSegue(withIdentifier: "LoginSegue", sender: User.current)
   }
   
   @IBAction func registerTapped(_ sender: UIButton)
@@ -133,7 +133,7 @@ extension LoginScreenViewController: APIControllerUserDelegate          //gettin
     }
     if userInfoIsCorrect == true
     {
-      performSegue(withIdentifier: "LoginSegue", sender: User.current)
+      performSegue(withIdentifier: "LoginSegue", sender: self)
     }
     else
     {
