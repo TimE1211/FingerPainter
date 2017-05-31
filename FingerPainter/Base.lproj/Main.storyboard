@@ -184,6 +184,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ff-nc-V6f">
+                                <rect key="frame" x="168.5" y="577" width="37" height="30"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="doneButtonTapped:" destination="vRL-jc-giB" eventType="touchUpInside" id="RFp-VR-SqB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -193,9 +200,11 @@
                             <constraint firstItem="5QR-Zh-9NO" firstAttribute="width" secondItem="npk-36-NE4" secondAttribute="width" multiplier="0.5" id="CtD-An-fQe"/>
                             <constraint firstItem="pvv-ke-gmw" firstAttribute="width" secondItem="npk-36-NE4" secondAttribute="width" multiplier="0.75" id="GE2-fy-yF4"/>
                             <constraint firstItem="KIE-zB-ESS" firstAttribute="centerX" secondItem="npk-36-NE4" secondAttribute="centerX" id="SFw-nK-13a"/>
+                            <constraint firstItem="ldE-G6-Nl8" firstAttribute="top" secondItem="1Ff-nc-V6f" secondAttribute="bottom" constant="60" id="Upe-EB-Get"/>
                             <constraint firstItem="pvv-ke-gmw" firstAttribute="centerX" secondItem="npk-36-NE4" secondAttribute="centerX" id="ZAV-EB-XB4"/>
                             <constraint firstItem="KIE-zB-ESS" firstAttribute="top" secondItem="eJV-qK-On6" secondAttribute="bottom" constant="25" id="dCG-hp-mtW"/>
                             <constraint firstItem="5QR-Zh-9NO" firstAttribute="centerX" secondItem="npk-36-NE4" secondAttribute="centerX" id="fHZ-S8-SUe"/>
+                            <constraint firstItem="1Ff-nc-V6f" firstAttribute="centerX" secondItem="npk-36-NE4" secondAttribute="centerX" id="hmQ-CB-GIg"/>
                             <constraint firstItem="AIr-b9-0aH" firstAttribute="centerX" secondItem="npk-36-NE4" secondAttribute="centerX" id="j4U-Ai-xPD"/>
                             <constraint firstItem="pvv-ke-gmw" firstAttribute="top" secondItem="AIr-b9-0aH" secondAttribute="bottom" constant="20" id="nuU-T5-W5E"/>
                         </constraints>

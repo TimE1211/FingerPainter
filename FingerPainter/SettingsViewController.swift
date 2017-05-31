@@ -50,10 +50,16 @@ class SettingsViewController: UIViewController
       settingsDelegate?.colorChanged(color: color)
     }
   }
+  
   @IBAction func lineThicknessSliderValueChanged(_ sender: UISlider)
   {
     lineThicknessLabel.text = "Line Thickness: \(lineThicknessSlider.value)"
     thickness = Double(lineThicknessSlider.value)
     settingsDelegate?.thicknessChanged(thickness: thickness)
+  }
+  
+  @IBAction func doneButtonTapped(_ sender: UIButton)
+  {
+    self.dismiss(animated: true, completion: nil)
   }
 }

@@ -27,7 +27,12 @@ class ViewController: UIViewController
   {
     super.viewDidLoad()
     
+    title = "\(Project.current.projectName)"
     APIController.shared.projectDelegate = self
+    
+    color = "black"
+    thickness = 5
+    timer()
     
     for aLine in Project.current.lines
     {
@@ -35,18 +40,19 @@ class ViewController: UIViewController
       let startPoint = CGPoint(x: line.startx, y: line.starty)
       let endPoint = CGPoint(x: line.endx, y: line.endy)
       lines.append(line)
-      drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
-      self.start = endPoint
+      if let thickness = thickness
+      {
+        drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color, and: thickness)
+        self.start = endPoint
+      }
     }
-    
-    if !(Project.current.users.contains(User.current))
+
+    let userFoundInArray = Project.current.users.filter({ $0.username == User.current.username })
+    if userFoundInArray.count == 0
     {
+      // current user was not found in the array add to projects users array
       Project.current.users.append(User.current)
     }
-    
-    color = "darkGray"
-    thickness = 50
-    timer()
   }
   
   override func didReceiveMemoryWarning()
@@ -69,7 +75,7 @@ class ViewController: UIViewController
       self.end = touch.location(in: view)
       if let end = end, let start = start, let color = color, let thickness = thickness
       {
-        drawFromPoint(start: start, toPoint: end, with: color)
+        drawFromPoint(start: start, toPoint: end, with: color, and: thickness)
       
         if let line = Line(startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color, thickness: thickness)
         {
@@ -82,7 +88,7 @@ class ViewController: UIViewController
     }
   }
   
-  func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with color: String)
+  func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with color: String, and thickness: Double)
   {
     UIGraphicsBeginImageContext(canvas.frame.size)
     if let context = UIGraphicsGetCurrentContext()
@@ -91,13 +97,13 @@ class ViewController: UIViewController
       if color == "black"
       {
         context.setStrokeColor(UIColor.darkGray.cgColor)
-        context.setLineWidth(5)
       }
       else if color == "white"
       {
         context.setStrokeColor(UIColor.white.cgColor)
-        context.setLineWidth(15)
       }
+      
+      context.setLineWidth(CGFloat(thickness))
       context.beginPath()
       context.move(to: CGPoint(x: start.x, y: start.y))
       context.addLine(to: CGPoint(x: end.x, y: end.y))
@@ -145,7 +151,7 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
     {
       let startPoint = CGPoint(x: line.startx, y: line.starty)
       let endPoint = CGPoint(x: line.endx, y: line.endy)
-      drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
+      drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color, and: line.thickness)
     }
   }
 }
