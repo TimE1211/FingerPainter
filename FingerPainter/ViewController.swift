@@ -42,7 +42,6 @@ class ViewController: UIViewController
     if !(Project.current.users.contains(User.current))
     {
       Project.current.users.append(User.current)
-//      ProjectsTableViewController.shared.save(users: Project.current.users)
     }
     
     color = "darkGray"
@@ -77,7 +76,6 @@ class ViewController: UIViewController
           lines.append(line)
           Project.current.lines = lines
           APIController.shared.save(project: Project.current)
-//          ProjectsTableViewController.shared.save(lines: Project.current.lines)
         }
         self.start = end
       }
@@ -120,13 +118,7 @@ class ViewController: UIViewController
   {
     Project.current.lines = lines
     APIController.shared.save(project: Project.current)
-//    ProjectsTableViewController.shared.save(lines: Project.current.lines)
   }
-  
-//  @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
-//  {
-//    APIController.shared.getProjects()
-//  }
   
   func timer()
   {
@@ -158,11 +150,14 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
   }
 }
 
-
-
-
-
-
-
-
-
+extension ViewController: SettingsViewControllerDelegate      //changed settings
+{
+  func colorChanged(color: String)
+  {
+    self.color = color
+  }
+  func thicknessChanged(thickness: Double)
+  {
+    self.thickness = thickness
+  }
+}

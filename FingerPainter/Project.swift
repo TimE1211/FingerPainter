@@ -44,7 +44,7 @@ class Project
     var userDictionaries = [[String: Any]]()
     for aUser in users
     {
-      userDictionaries.append(aUser.postBodyForProject())
+      userDictionaries.append(aUser.postBody())
     }
     projectJsonDictionary["users"] = userDictionaries
     

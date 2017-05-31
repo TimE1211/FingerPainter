@@ -6,22 +6,11 @@
 //  Copyright © 2017 Timothy Hang. All rights reserved.
 //
 
-//protocol ProjectsTableViewControllerDelegate
-//{
-//  func updateThisProject()
-//}
-
 import UIKit
 import SwiftyJSON
-//import RealmSwift
 
 class ProjectsTableViewController: UITableViewController
 {
-//  static let shared = ProjectsTableViewController()
-  
-//  var realmProjects: Results<Project>!
-//  var realm: Realm!
-  
   var projects = [Project]()
   var projectName = String()
   var projectUUID = String()
@@ -32,37 +21,22 @@ class ProjectsTableViewController: UITableViewController
   {
     super.viewDidLoad()
     APIController.shared.getProjects()
-//    setupRealm()
   }
 
   override func didReceiveMemoryWarning()
   {
     super.didReceiveMemoryWarning()
   }
-  
-//  func setupRealm()
-//  {
-//    do
-//    {
-//      realm = try Realm()
-//      realmProjects = realm.objects(Project.self)
-//      Project.current = nil
-//    } catch
-//    {
-//      print(error)
-//    }
-//  }
 
   // MARK: - Table view data source
 
   override func numberOfSections(in tableView: UITableView) -> Int
   {
-    return 1 //have friends section later maybe
+    return 1
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-//    if !apiworking projects.count = realmProjects.count
     return projects.count
   }
 
@@ -70,17 +44,8 @@ class ProjectsTableViewController: UITableViewController
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
   {
     let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath)
-//    if section == 0
-//    {
-//      section.title.text = "My Projects"
-//    }
-//    else if section == 1
-//    {
-//      section.title.text = "Friends Projects"
-//    }
+
     title = "My Projects"
-    
-//    let thisRealmProject = realmProjects[indexPath.row]
     
     let thisProject = projects[indexPath.row]
     cell.textLabel?.text = thisProject.projectName
@@ -95,20 +60,6 @@ class ProjectsTableViewController: UITableViewController
     Project.current = thisProject
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
-
-//  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
-//  {
-//      if editingStyle == .delete
-//      {
-//        try! realm.write
-//        {
-////          let projectToDelete = realmProjects[indexPath.row]
-////          self.realm.delete(projectToDelete)
-//        }
-//        tableView.deleteRows(at: [indexPath], with: .automatic)
-////        apiDeleteProj?
-//    }
-//  }
  
   @IBAction func NewProjectTapped(_ sender: UIBarButtonItem)
   {
@@ -141,11 +92,6 @@ class ProjectsTableViewController: UITableViewController
     
     Project.current = Project(projectUUID: projectUUID, users: [User.current], lines: [], projectName: projectName)
     
-//    try! realm.write
-//    {
-//      realm.add(Project.current)
-//    }
-//    
     performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
   }
   
@@ -157,7 +103,6 @@ class ProjectsTableViewController: UITableViewController
 
   @IBAction func logOutTapped(_ sender: UIBarButtonItem)
   {
-    // maybe move unwind to view controller since this is only going back one vc but do need a log out button
     User.current = nil
     self.dismiss(animated: true, completion: nil)
   }
@@ -174,6 +119,7 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
       {
         projects.append(project)
       }
+      
     }
     self.tableView.reloadData()
   }
@@ -190,22 +136,3 @@ extension ProjectsTableViewController       //alert
     self.present(errorAlert, animated: true, completion: nil)
   }
 }
-
-//extension ProjectsTableViewController     //realm stuff
-//{
-//  func save(lines: [Line])
-//  {
-//    try! realm.write
-//    {
-//      projects[thisProjectIndex].lines = lines
-//    }
-//  }
-//  
-//  func save(users: [User])
-//  {
-//    try! realm.write
-//    {
-//      projects[thisProjectIndex].users = users
-//    }
-//  }
-//}

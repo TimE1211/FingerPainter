@@ -22,8 +22,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     super.viewDidLoad()
     usernameTextField.becomeFirstResponder()
     passwordTextField.isSecureTextEntry = true
-    User.current = nil
-    User.current = User()
+    User.current.password = ""
   }
   
   override func didReceiveMemoryWarning()
