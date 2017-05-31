@@ -19,6 +19,7 @@ class ViewController: UIViewController
   var start: CGPoint?
   var end: CGPoint?
   var color: String?
+  var thickness: Double?
   
   var lines = [Line]()
   
@@ -44,19 +45,14 @@ class ViewController: UIViewController
 //      ProjectsTableViewController.shared.save(users: Project.current.users)
     }
     
-    setColor()
+    color = "darkGray"
+    thickness = 50
     timer()
   }
   
   override func didReceiveMemoryWarning()
   {
     super.didReceiveMemoryWarning()
-  }
-  
-  func setColor()
-  {
-    color = "darkGray"
-    //or color = "white"
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -72,11 +68,11 @@ class ViewController: UIViewController
     if let touch = touches.first
     {
       self.end = touch.location(in: view)
-      if let end = end, let start = start, let color = color
+      if let end = end, let start = start, let color = color, let thickness = thickness
       {
         drawFromPoint(start: start, toPoint: end, with: color)
       
-        if let line = Line(startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color)
+        if let line = Line(startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color, thickness: thickness)
         {
           lines.append(line)
           Project.current.lines = lines

@@ -66,8 +66,9 @@ class Line
   var endx: Double = 0
   var endy: Double = 0
   var color: String = ""
+  var thickness: Double = 0
   
-  init?(startx: Double, starty: Double, endx: Double, endy: Double, color: String?)
+  init?(startx: Double, starty: Double, endx: Double, endy: Double, color: String?, thickness: Double)
   {
     guard let color = color else { return nil }
     
@@ -76,6 +77,7 @@ class Line
     self.endx = endx
     self.endy = endy
     self.color = color
+    self.thickness = thickness
   }
   
   init(json: JSON)
@@ -85,6 +87,7 @@ class Line
     endx = Double(json["endx"].floatValue)
     endy = Double(json["endy"].floatValue)
     color = json["color"].stringValue
+    thickness = Double(json["thickness"].floatValue)
   }
   
   func postBody() -> [String: Any]

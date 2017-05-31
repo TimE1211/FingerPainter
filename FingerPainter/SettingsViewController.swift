@@ -8,14 +8,23 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate
+{
+  func colorChanged(color: String)
+  func thicknessChanged(thickness: Double)
+}
+
 class SettingsViewController: UIViewController
 {
-  @IBOutlet weak var lineColorSegmentedController: UISegmentedControl!
   var color = ""
   var thickness = Double()
- 
+  
+  @IBOutlet weak var lineColorSegmentedController: UISegmentedControl!
+  
   @IBOutlet weak var lineThicknessLabel: UILabel!
   @IBOutlet weak var lineThicknessSlider: UISlider!
+  
+  var settingsDelegate: SettingsViewControllerDelegate?
   
   override func viewDidLoad()
   {
@@ -33,15 +42,18 @@ class SettingsViewController: UIViewController
     if lineColorSegmentedController.selectedSegmentIndex == 0
     {
       color = "black"
+      settingsDelegate?.colorChanged(color: color)
     }
     else
     {
       color = "white"
+      settingsDelegate?.colorChanged(color: color)
     }
   }
   @IBAction func lineThicknessSliderValueChanged(_ sender: UISlider)
   {
     lineThicknessLabel.text = "Line Thickness: \(lineThicknessSlider.value)"
     thickness = Double(lineThicknessSlider.value)
+    settingsDelegate?.thicknessChanged(thickness: thickness)
   }
 }

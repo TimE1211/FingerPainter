@@ -17,7 +17,7 @@ import SwiftyJSON
 
 class ProjectsTableViewController: UITableViewController
 {
-  static let shared = ProjectsTableViewController()
+//  static let shared = ProjectsTableViewController()
   
 //  var realmProjects: Results<Project>!
 //  var realm: Realm!
