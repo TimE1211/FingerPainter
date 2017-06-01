@@ -11,35 +11,45 @@
 
 import UIKit
 import SwiftyJSON
-import RealmSwift
 
 class ViewController: UIViewController
 {
   @IBOutlet weak var canvas: UIImageView!
   
-  var thisProject: Results<Project>!
-  var realm: Realm!
-  
   var start: CGPoint?
   var end: CGPoint?
-  var color: String?
+  var color: String? = "black"
+  var thickness: Double? = 5
   
   var lines = [Line]()
+  
+  let settingsViewController = SettingsViewController()
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    APIController.shared.lineDelegate = self
-    setColor()
+    
+    title = "\(Project.current.projectName)"
+    APIController.shared.projectDelegate = self
+    
+    settingsViewController.settingsDelegate = self
+
+    timer()
     
     for aLine in Project.current.lines
     {
-      let line = Line(json: JSON(aLine))
-      let startPoint = CGPoint(x: line.start.x, y: line.start.y)
-      let endPoint = CGPoint(x: line.end.x, y: line.end.y)
-      lines.append(line)
-      drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
+      let startPoint = CGPoint(x: aLine.startx, y: aLine.starty)
+      let endPoint = CGPoint(x: aLine.endx, y: aLine.endy)
+      lines.removeAll()
+      
+      drawFromPoint(start: startPoint, toPoint: endPoint, with: aLine.color, and: aLine.thickness)
       self.start = endPoint
+    }
+    
+    if Project.current.user1Id != User.current.id
+    {
+      // current user was not found in the array add to projects users array
+      Project.current.user2Id = User.current.id
     }
   }
   
@@ -48,10 +58,12 @@ class ViewController: UIViewController
     super.didReceiveMemoryWarning()
   }
   
-  func setColor()
+  func timer()
   {
-    color = "darkGray"
-    //or color = "white"
+    Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false)
+    { timer in
+      APIController.shared.getProjects()
+    }
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -66,36 +78,40 @@ class ViewController: UIViewController
   {
     if let touch = touches.first
     {
-      end = touch.location(in: view)
+      self.end = touch.location(in: view)
+      if let end = end, let start = start, let color = color, let thickness = thickness
+      {
+        drawFromPoint(start: start, toPoint: end, with: color, and: thickness)
       
-      if let start = start
-      {
-        drawFromPoint(start: start, toPoint: end!, with: color!)
+        if let line = Line(projectId: Project.current.id, startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color, thickness: thickness)
+        {
+          lines.append(line)
+          Project.current.lines = lines
+          APIController.shared.update(project: Project.current)
+          //updating current proj maybe shouldnt be using save -> update
+        }
+        self.start = end
       }
-      if let line = Line(start: start, end: end, color: color)
-      {
-        APIController.shared.save(line: line)
-      }
-      self.start = end
     }
   }
   
-  func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with color: String)
+  func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with color: String, and thickness: Double)
   {
+    print(color)
     UIGraphicsBeginImageContext(canvas.frame.size)
     if let context = UIGraphicsGetCurrentContext()
     {
       canvas.image?.draw(in: CGRect(x: 0, y: 0, width: canvas.frame.size.width, height: canvas.frame.size.height))
-      if color == "darkGray"
-      {
-        context.setStrokeColor(UIColor.darkGray.cgColor)
-        context.setLineWidth(5)
-      }
-      else if color == "white"
+      if color == "white"
       {
         context.setStrokeColor(UIColor.white.cgColor)
-        context.setLineWidth(15)
       }
+      else
+      {
+        context.setStrokeColor(UIColor.darkGray.cgColor)
+      }
+      
+      context.setLineWidth(CGFloat(thickness))
       context.beginPath()
       context.move(to: CGPoint(x: start.x, y: start.y))
       context.addLine(to: CGPoint(x: end.x, y: end.y))
@@ -106,47 +122,47 @@ class ViewController: UIViewController
     }
   }
   
-  @IBAction func clearTapped(_ sender: UIBarButtonItem)
+  @IBAction func backButtonTapped(_ sender: UIBarButtonItem)
   {
-    canvas.image = nil
-//    alert to delete all lines and confirm action 
-  }
-  
-  @IBAction func saveTapped(_ sender: UIBarButtonItem)
-  {
-    Project.current.lines = lines
-    APIController.shared.save(project: Project.current)
-    //save project in realm with user and project data
-  }
-  
-  @IBAction func UpdateTapped(_ sender: UIBarButtonItem)
-  {
-    APIController.shared.getLines()
-    //get project with this id and update lines for that
+    self.dismiss(animated: true, completion: nil)
   }
 }
 
-extension ViewController: APIControllerLineDelegate
+extension ViewController: APIControllerProjectDelegate    //updating lines
 {
-  func apiControllerDidReceive(lineDictionary: [[String : Any]])
+  func apiControllerDidReceive(projectDictionary: [[String : Any]])
   {
-    for aLine in lineDictionary
+    for aProject in projectDictionary
     {
-      let line = Line(json: JSON(aLine))
-      let startPoint = CGPoint(x: line.start.x, y: line.start.y)
-      let endPoint = CGPoint(x: line.end.x, y: line.end.y)
-      lines.append(line)
-      drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color)
-      self.start = endPoint
+      let project = Project(json: JSON(aProject))
+      if project.id == Project.current.id
+      {
+        lines = project.lines
+      }
+    }
+    for line in lines
+    {
+      let startPoint = CGPoint(x: line.startx, y: line.starty)
+      let endPoint = CGPoint(x: line.endx, y: line.endy)
+      drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color, and: line.thickness)
     }
   }
 }
 
-
-
-
-
-
-
-
-
+extension ViewController: SettingsViewControllerDelegate      //changed settings
+{
+  func settingsViewControllerDidSend(color: String)
+  {
+    self.color = color
+  }
+  func settingsViewControllerDidSend(thickness: Double)
+  {
+    self.thickness = thickness
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+  {
+    //thickness = starting thickness in setting vc
+//    color = starting color in settings vc
+  }
+}
