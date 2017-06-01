@@ -142,7 +142,7 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
-      if project.user1Id == User.current.id || if project.user2Id == User.current.id
+      if project.user1Id == User.current.id || project.user2Id == User.current.id
       {
         // current user was found in the project so append to projects array to display project as cell
         projects.removeAll()
