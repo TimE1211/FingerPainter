@@ -38,11 +38,19 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pUH-rG-utC">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="qum-4W-IJP">
-                            <connections>
-                                <segue destination="vRL-jc-giB" kind="presentation" identifier="LineSettingsSegue" id="jCp-9M-gHT"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem title="  &lt;  " id="Mxw-Za-dWE">
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="BYZ-38-t0r" id="BU8-mY-Dmn"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Settings" id="qum-4W-IJP">
+                                <connections>
+                                    <segue destination="vRL-jc-giB" kind="presentation" identifier="LineSettingsSegue" id="jCp-9M-gHT"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Invite" id="oMA-oX-afc"/>
                     </navigationItem>
                     <connections>
                         <outlet property="canvas" destination="2JT-bE-9Ik" id="xW4-xk-2AF"/>
@@ -50,7 +58,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5935" y="139"/>
+            <point key="canvasLocation" x="6872.8000000000002" y="138.98050974512745"/>
         </scene>
         <!--Login Screen View Controller-->
         <scene sceneID="Sh8-Ye-Si2">
@@ -205,7 +213,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WTu-za-VTo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5934" y="868"/>
+            <point key="canvasLocation" x="6873" y="952"/>
         </scene>
         <!--Projects Table View Controller-->
         <scene sceneID="BQl-gx-8Xn">
@@ -259,7 +267,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="ProjectSegue" id="U59-Mm-h7a"/>
+                        <segue destination="4mx-zm-8Iv" kind="show" identifier="ProjectSegue" id="U59-Mm-h7a"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5o-yT-l9U" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -301,6 +309,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f19-jt-SQx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3992.8000000000002" y="138.98050974512745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vBO-a4-6DS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4mx-zm-8Iv" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FS5-Lr-Qyx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="5jI-o4-3eb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5uF-my-LYy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5933.6000000000004" y="138.98050974512745"/>
         </scene>
     </scenes>
 </document>

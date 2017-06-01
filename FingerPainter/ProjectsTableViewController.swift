@@ -13,9 +13,8 @@ class ProjectsTableViewController: UITableViewController
 {
   var projects = [Project]()
   var projectName = String()
-  var projectUUID = String()
   
-  var projectToJoinUUID = String()
+  var projectToJoinId = Int()
   
   override func viewDidLoad()
   {
@@ -79,9 +78,8 @@ class ProjectsTableViewController: UITableViewController
       }
       
       self.projectName = projectName
-      self.projectUUID = UUID().uuidString
       
-      Project.current = Project(projectUUID: self.projectUUID, users: [User.current], lines: [], projectName: projectName)
+      Project.current = Project(user1Id: User.current.id, lines: [], projectName: projectName)
       self.performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
     }
     
@@ -95,23 +93,26 @@ class ProjectsTableViewController: UITableViewController
   @IBAction func joinProjectsTapped(_ sender: UIBarButtonItem)
   {
     //call api and get project with project id that u paste in via alert
-    let alert = UIAlertController(title: "ProjectUUID", message: "Please Enter a UUID for the Project you wish to join then Confirm", preferredStyle: .alert)
+    let alert = UIAlertController(title: "projectId", message: "Please Enter a UUID for the Project you wish to join then Confirm", preferredStyle: .alert)
     
     alert.addTextField { textField in
-      textField.placeholder = "Enter ProjectUUID"
+      textField.placeholder = "Enter projectId"
       textField.keyboardType = .default
     }
     
     let confirmAction = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
       guard let `self` = self else { return }
       
-      guard let projectUUID = alert.textFields?.first?.text, projectUUID != "" else
+      guard let projectId = alert.textFields?.first?.text, projectId != "" else
       {
         self.pleaseEnterDataAlert()
         return
       }
-      self.projectToJoinUUID = projectUUID
-      APIController.shared.getProjects()
+      if let projId = Int(projectId)
+      {
+        self.projectToJoinId = projId
+        APIController.shared.getProjects()
+      }
     }
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -133,7 +134,7 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
   func apiControllerDidReceive(projectDictionary: [[String: Any]])
   {
     getProjectsForUser(projectDictionary: projectDictionary)
-    getProjectForProjectUUID(projectDictionary: projectDictionary)
+    getProjectForprojectId(projectDictionary: projectDictionary)
   }
   
   func getProjectsForUser(projectDictionary: [[String: Any]])
@@ -141,8 +142,7 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
-      let userFoundInArray = project.users.filter({ $0.username == User.current.username })
-      if userFoundInArray.count == 1
+      if project.user1Id == User.current.id || if project.user2Id == User.current.id
       {
         // current user was found in the project so append to projects array to display project as cell
         projects.removeAll()
@@ -152,14 +152,13 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
     self.tableView.reloadData()
   }
   
-  func getProjectForProjectUUID(projectDictionary: [[String: Any]])
+  func getProjectForprojectId(projectDictionary: [[String: Any]])
   {
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
-        if project.projectUUID == projectToJoinUUID
+        if project.id == projectToJoinId
       {
-        //projectUUID's match so this is the project I want to join
         Project.current = project
         performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
       }
@@ -180,7 +179,7 @@ extension ProjectsTableViewController       //alert
   
   func pleaseEnterDataAlert()
   {
-    let errorAlert = UIAlertController(title: "Error - Incorrect Data", message: "Please a ProjectUUID.", preferredStyle: .deviceSpecific)
+    let errorAlert = UIAlertController(title: "Error - Incorrect Data", message: "Please a projectId.", preferredStyle: .deviceSpecific)
     
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)

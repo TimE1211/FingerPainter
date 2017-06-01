@@ -58,8 +58,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     }
     
     User.current = User(username: username, password: password)
-//    APIController.shared.getUsers()
-    performSegue(withIdentifier: "LoginSegue", sender: User.current)
+    APIController.shared.getUsers()
   }
   
   @IBAction func registerTapped(_ sender: UIButton)
@@ -88,7 +87,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
       
       User.current = User(username: username, password: password)
       
-      APIController.shared.save(user: User.current, completionHandler: { result, error in
+      APIController.shared.create(user: User.current, completionHandler: { result, error in
         if result != nil
         {
           self.presentSuccessfullyRegisteredAlert()
@@ -124,7 +123,7 @@ extension LoginScreenViewController: APIControllerUserDelegate          //gettin
     for aUser in userDictionary
     {
       let user = User(json: JSON(aUser))
-      if self.username == user.username && self.password == user.password
+      if User.current.username == user.username && User.current.password == user.password
       {
         userInfoIsCorrect = true
       }

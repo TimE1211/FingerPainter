@@ -38,30 +38,32 @@ class ViewController: UIViewController
     
     for aLine in Project.current.lines
     {
-      let line = Line(json: JSON(aLine))
-      let startPoint = CGPoint(x: line.startx, y: line.starty)
-      let endPoint = CGPoint(x: line.endx, y: line.endy)
+      let startPoint = CGPoint(x: aLine.startx, y: aLine.starty)
+      let endPoint = CGPoint(x: aLine.endx, y: aLine.endy)
       lines.removeAll()
-      //remove all lines in lines variable and use proj information from api to load in all lines for this proj
-      lines.append(line)
-      if let thickness = thickness
-      {
-        drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color, and: thickness)
-        self.start = endPoint
-      }
+      
+      drawFromPoint(start: startPoint, toPoint: endPoint, with: aLine.color, and: aLine.thickness)
+      self.start = endPoint
     }
-
-    let userFoundInArray = Project.current.users.filter({ $0.username == User.current.username })
-    if userFoundInArray.count == 0
+    
+    if Project.current.user1Id != User.current.id
     {
       // current user was not found in the array add to projects users array
-      Project.current.users.append(User.current)
+      Project.current.user2Id = User.current.id
     }
   }
   
   override func didReceiveMemoryWarning()
   {
     super.didReceiveMemoryWarning()
+  }
+  
+  func timer()
+  {
+    Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false)
+    { timer in
+      APIController.shared.getProjects()
+    }
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -81,11 +83,11 @@ class ViewController: UIViewController
       {
         drawFromPoint(start: start, toPoint: end, with: color, and: thickness)
       
-        if let line = Line(startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color, thickness: thickness)
+        if let line = Line(projectId: Project.current.id, startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color, thickness: thickness)
         {
           lines.append(line)
           Project.current.lines = lines
-          APIController.shared.save(project: Project.current)
+          APIController.shared.update(project: Project.current)
           //updating current proj maybe shouldnt be using save -> update
         }
         self.start = end
@@ -95,17 +97,18 @@ class ViewController: UIViewController
   
   func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with color: String, and thickness: Double)
   {
+    print(color)
     UIGraphicsBeginImageContext(canvas.frame.size)
     if let context = UIGraphicsGetCurrentContext()
     {
       canvas.image?.draw(in: CGRect(x: 0, y: 0, width: canvas.frame.size.width, height: canvas.frame.size.height))
-      if color == "black"
-      {
-        context.setStrokeColor(UIColor.darkGray.cgColor)
-      }
-      else if color == "white"
+      if color == "white"
       {
         context.setStrokeColor(UIColor.white.cgColor)
+      }
+      else
+      {
+        context.setStrokeColor(UIColor.darkGray.cgColor)
       }
       
       context.setLineWidth(CGFloat(thickness))
@@ -119,19 +122,9 @@ class ViewController: UIViewController
     }
   }
   
-//  @IBAction func saveTapped(_ sender: UIBarButtonItem)
-//  {
-//    Project.current.lines = lines
-//    APIController.shared.save(project: Project.current)
-//    //updating current proj maybe shouldnt be using save -> update
-//  }
-  
-  func timer()
+  @IBAction func backButtonTapped(_ sender: UIBarButtonItem)
   {
-    Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false)
-    { timer in
-      APIController.shared.getProjects()
-    }
+    self.dismiss(animated: true, completion: nil)
   }
 }
 
@@ -142,7 +135,7 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
-      if project.projectUUID == Project.current.projectUUID
+      if project.id == Project.current.id
       {
         lines = project.lines
       }
@@ -158,11 +151,11 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
 
 extension ViewController: SettingsViewControllerDelegate      //changed settings
 {
-  func colorChanged(color: String)
+  func settingsViewControllerDidSend(color: String)
   {
     self.color = color
   }
-  func thicknessChanged(thickness: Double)
+  func settingsViewControllerDidSend(thickness: Double)
   {
     self.thickness = thickness
   }

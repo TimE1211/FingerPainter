@@ -10,8 +10,8 @@ import UIKit
 
 protocol SettingsViewControllerDelegate
 {
-  func colorChanged(color: String)
-  func thicknessChanged(thickness: Double)
+  func settingsViewControllerDidSend(color: String)
+  func settingsViewControllerDidSend(thickness: Double)
 }
 
 class SettingsViewController: UIViewController
@@ -42,12 +42,14 @@ class SettingsViewController: UIViewController
     if lineColorSegmentedController.selectedSegmentIndex == 0
     {
       color = "black"
-      settingsDelegate?.colorChanged(color: color)
+      print(color)
+      settingsDelegate?.settingsViewControllerDidSend(color: color)
     }
     else
     {
       color = "white"
-      settingsDelegate?.colorChanged(color: color)
+      print(color)
+      settingsDelegate?.settingsViewControllerDidSend(color: color)
     }
   }
   
@@ -55,7 +57,8 @@ class SettingsViewController: UIViewController
   {
     lineThicknessLabel.text = "Line Thickness: \(lineThicknessSlider.value)"
     thickness = Double(lineThicknessSlider.value)
-    settingsDelegate?.thicknessChanged(thickness: thickness)
+    print(String(thickness))
+    settingsDelegate?.settingsViewControllerDidSend(thickness: thickness)
   }
   
   @IBAction func doneButtonTapped(_ sender: UIButton)

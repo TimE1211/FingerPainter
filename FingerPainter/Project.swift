@@ -14,23 +14,26 @@ class Project
 {
   static var current: Project!
   
-  var projectUUID = UUID().uuidString
+  var id: Int = 0
   var projectName: String = ""
-  var users: [User] = []
+  var user1Id: Int = 0
+  var user2Id: Int = 0
   var lines: [Line] = []
   
-  init(projectUUID: String, users: [User], lines: [Line], projectName: String)
+  init(user1Id: Int, lines: [Line], projectName: String)
   {
-    self.projectUUID = projectUUID
-    self.users = users
+    self.id = 0
+    self.user1Id = user1Id
+    self.user2Id = 0
     self.lines = lines
     self.projectName = projectName
   }
   
   init(json: JSON)
   {
-    projectUUID = json["projectUUID"].stringValue
-    users = [User(json: json["users"])]
+    id = json["id"].intValue
+    user1Id = json["user1Id"].intValue
+    user2Id = json["user2Id"].intValue
     lines = [Line(json: json["lines"])]
     projectName = json["projectName"].stringValue
   }
@@ -38,11 +41,10 @@ class Project
   func postBody() -> [String: Any]
   {
     var projectJsonDictionary = [String: Any]()
-    projectJsonDictionary["projectUUID"] = Int(projectUUID)
+    projectJsonDictionary["id"] = id
     projectJsonDictionary["projectName"] = projectName
-    
-    let userDictionaries = users.map{ $0.postBody()}
-    projectJsonDictionary["users"] = userDictionaries
+    projectJsonDictionary["user1Id"] = user1Id
+    projectJsonDictionary["user2Id"] = user2Id
     
     let lineDictionaries = lines.map{ $0.postBody()}
     projectJsonDictionary["lines"] = lineDictionaries
@@ -53,6 +55,8 @@ class Project
 
 class Line
 {
+  var id: Int = 0
+  var projectId: Int = 0
   var startx: Double = 0
   var starty: Double = 0
   var endx: Double = 0
@@ -60,10 +64,12 @@ class Line
   var color: String = ""
   var thickness: Double = 0
   
-  init?(startx: Double, starty: Double, endx: Double, endy: Double, color: String?, thickness: Double)
+  init?(projectId: Int, startx: Double, starty: Double, endx: Double, endy: Double, color: String?, thickness: Double)
   {
     guard let color = color else { return nil }
     
+    self.id = 0
+    self.projectId = projectId
     self.startx = startx
     self.starty = starty
     self.endx = endx

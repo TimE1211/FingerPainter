@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FingerPainter/APIController.swift"
-            timestampString = "517929181.154889"
+            filePath = "FingerPainter/ProjectsTableViewController.swift"
+            timestampString = "518034835.239057"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "save(user:completionHandler:)"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "joinProjectsTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
