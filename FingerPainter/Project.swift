@@ -41,19 +41,9 @@ class Project
     projectJsonDictionary["projectUUID"] = Int(projectUUID)
     projectJsonDictionary["projectName"] = projectName
     
-//    var userDictionaries = [[String: Any]]()
-//    for aUser in users
-//    {
-//      userDictionaries.append(aUser.postBody())
-//    }
     let userDictionaries = users.map{ $0.postBody()}
     projectJsonDictionary["users"] = userDictionaries
     
-//    var lineDictionaries = [[String: Any]]()
-//    for aLine in lines
-//    {
-//      lineDictionaries.append(aLine.postBody())
-//    }
     let lineDictionaries = lines.map{ $0.postBody()}
     projectJsonDictionary["lines"] = lineDictionaries
     
