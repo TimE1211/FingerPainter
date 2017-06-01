@@ -18,10 +18,12 @@ class ViewController: UIViewController
   
   var start: CGPoint?
   var end: CGPoint?
-  var color: String?
-  var thickness: Double?
+  var color: String? = "black"
+  var thickness: Double? = 5
   
   var lines = [Line]()
+  
+  let settingsViewController = SettingsViewController()
   
   override func viewDidLoad()
   {
@@ -30,8 +32,8 @@ class ViewController: UIViewController
     title = "\(Project.current.projectName)"
     APIController.shared.projectDelegate = self
     
-    color = "black"
-    thickness = 5
+    settingsViewController.settingsDelegate = self
+
     timer()
     
     for aLine in Project.current.lines
@@ -39,6 +41,8 @@ class ViewController: UIViewController
       let line = Line(json: JSON(aLine))
       let startPoint = CGPoint(x: line.startx, y: line.starty)
       let endPoint = CGPoint(x: line.endx, y: line.endy)
+      lines.removeAll()
+      //remove all lines in lines variable and use proj information from api to load in all lines for this proj
       lines.append(line)
       if let thickness = thickness
       {
@@ -159,5 +163,11 @@ extension ViewController: SettingsViewControllerDelegate      //changed settings
   func thicknessChanged(thickness: Double)
   {
     self.thickness = thickness
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+  {
+    //thickness = starting thickness in setting vc
+//    color = starting color in settings vc
   }
 }

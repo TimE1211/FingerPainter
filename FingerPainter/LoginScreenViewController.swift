@@ -20,7 +20,7 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    usernameTextField.becomeFirstResponder()
+//    usernameTextField.becomeFirstResponder()
     passwordTextField.isSecureTextEntry = true
   }
   
