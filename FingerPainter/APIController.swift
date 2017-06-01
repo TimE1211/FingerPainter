@@ -12,10 +12,10 @@ import SwiftyJSON
 
 typealias APIControllerCompletionHandler = (_ result: JSON?, _ error: JSON?) -> Void
 
-protocol APIControllerLineDelegate
-{
-  func apiControllerDidReceive(lineDictionary: [[String: Any]])
-}
+//protocol APIControllerLineDelegate
+//{
+//  func apiControllerDidReceive(lineDictionary: [[String: Any]])
+//}
 
 protocol APIControllerUserDelegate
 {
@@ -31,24 +31,24 @@ class APIController
 {
   static let shared = APIController()
   
-  var lineDelegate: APIControllerLineDelegate?
+//  var lineDelegate: APIControllerLineDelegate?
   var userDelegate: APIControllerUserDelegate?
   var projectDelegate: APIControllerProjectDelegate?
   
   let url = "http://localhost:8080"
 
-  func getLines()
-  {
-    let sessionURL = "\(url)/getLines"
-    
-    Alamofire.request(sessionURL).responseJSON { responseData in
-      if let value = responseData.result.value
-      {
-        let lineDictionary = value as! [[String: Any]]
-        self.lineDelegate?.apiControllerDidReceive(lineDictionary: lineDictionary)
-      }
-    }
-  }
+//  func getLines()
+//  {
+//    let sessionURL = "\(url)/getLines"
+//    
+//    Alamofire.request(sessionURL).responseJSON { responseData in
+//      if let value = responseData.result.value
+//      {
+//        let lineDictionary = value as! [[String: Any]]
+//        self.lineDelegate?.apiControllerDidReceive(lineDictionary: lineDictionary)
+//      }
+//    }
+//  }
   
   func getUsers()
   {
@@ -76,21 +76,21 @@ class APIController
     }
   }
   
-  func save(line: Line)
-  {
-    let sessionURL = "\(url)/saveLine"
-    let parameters = line.postBody()
-    
-    Alamofire.request(
-      sessionURL,
-      method: .post,
-      parameters: parameters,
-      encoding: URLEncoding.httpBody,
-      headers: nil
-      ).responseJSON(completionHandler: { responseData in
-        debugPrint(responseData)
-      })
-  }
+//  func save(line: Line)
+//  {
+//    let sessionURL = "\(url)/saveLine"
+//    let parameters = line.postBody()
+//    
+//    Alamofire.request(
+//      sessionURL,
+//      method: .post,
+//      parameters: parameters,
+//      encoding: URLEncoding.httpBody,
+//      headers: nil
+//      ).responseJSON(completionHandler: { responseData in
+//        debugPrint(responseData)
+//      })
+//  }
   
   func save(project: Project)
   {

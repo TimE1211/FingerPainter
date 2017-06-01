@@ -38,18 +38,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pUH-rG-utC">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Save" id="raA-zN-rKD">
-                                <connections>
-                                    <action selector="saveTapped:" destination="BYZ-38-t0r" id="9iW-1J-AO3"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Settings" id="qum-4W-IJP">
-                                <connections>
-                                    <segue destination="vRL-jc-giB" kind="presentation" identifier="LineSettingsSegue" id="jCp-9M-gHT"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="qum-4W-IJP">
+                            <connections>
+                                <segue destination="vRL-jc-giB" kind="presentation" identifier="LineSettingsSegue" id="jCp-9M-gHT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="canvas" destination="2JT-bE-9Ik" id="xW4-xk-2AF"/>

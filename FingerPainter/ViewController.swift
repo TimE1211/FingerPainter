@@ -86,6 +86,7 @@ class ViewController: UIViewController
           lines.append(line)
           Project.current.lines = lines
           APIController.shared.save(project: Project.current)
+          //updating current proj maybe shouldnt be using save -> update
         }
         self.start = end
       }
@@ -118,11 +119,12 @@ class ViewController: UIViewController
     }
   }
   
-  @IBAction func saveTapped(_ sender: UIBarButtonItem)
-  {
-    Project.current.lines = lines
-    APIController.shared.save(project: Project.current)
-  }
+//  @IBAction func saveTapped(_ sender: UIBarButtonItem)
+//  {
+//    Project.current.lines = lines
+//    APIController.shared.save(project: Project.current)
+//    //updating current proj maybe shouldnt be using save -> update
+//  }
   
   func timer()
   {
