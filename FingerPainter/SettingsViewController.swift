@@ -8,28 +8,45 @@
 
 import UIKit
 
-protocol SettingsViewControllerDelegate
-{
-  func settingsViewControllerDidSend(color: String)
-  func settingsViewControllerDidSend(thickness: Double)
-}
+
 
 class SettingsViewController: UIViewController
 {
-  var color = ""
-  var thickness = Double()
   
   @IBOutlet weak var lineColorSegmentedController: UISegmentedControl!
   
   @IBOutlet weak var lineThicknessLabel: UILabel!
   @IBOutlet weak var lineThicknessSlider: UISlider!
   
-  var settingsDelegate: SettingsViewControllerDelegate?
-  
   override func viewDidLoad()
   {
     super.viewDidLoad()
     lineThicknessLabel.text = "Line Thickness: \(lineThicknessSlider.value)"
+    
+    if let control = lineColorSegmentedController
+    {
+      control.removeAllSegments()
+      
+      for (index, color) in ColorOption.all.enumerated()
+      {
+        control.insertSegment(withTitle: color.rawValue.capitalized, at: index, animated: false)
+      }
+      
+      let selected = Settings.shared.lineColor
+      if let index = ColorOption.all.index(of: selected)
+      {
+        control.selectedSegmentIndex = index
+        control.tintColor = UIColor.from(colorOption: selected)
+      }
+    }
+    
+    if let slider = lineThicknessSlider
+    {
+      slider.maximumValue = 20
+      slider.minimumValue = 1
+      slider.value = Float(Settings.shared.lineWidth)
+      lineThicknessLabel.text = String(Settings.shared.lineWidth)
+    }
   }
 
   override func didReceiveMemoryWarning()
@@ -39,26 +56,19 @@ class SettingsViewController: UIViewController
   
   @IBAction func lineColorValueChanged(_ sender: UISegmentedControl)
   {
-    if lineColorSegmentedController.selectedSegmentIndex == 0
-    {
-      color = "black"
-      print(color)
-      settingsDelegate?.settingsViewControllerDidSend(color: color)
-    }
-    else
-    {
-      color = "white"
-      print(color)
-      settingsDelegate?.settingsViewControllerDidSend(color: color)
+    let selected = ColorOption.all[sender.selectedSegmentIndex]
+    Settings.shared.lineColor = selected
+    
+    UIView.animate(withDuration: 0.25) {
+      let colorOption: ColorOption = (selected == .white) ? .black : selected
+      sender.tintColor = UIColor.from(colorOption: colorOption)
     }
   }
   
   @IBAction func lineThicknessSliderValueChanged(_ sender: UISlider)
   {
-    lineThicknessLabel.text = "Line Thickness: \(lineThicknessSlider.value)"
-    thickness = Double(lineThicknessSlider.value)
-    print(String(thickness))
-    settingsDelegate?.settingsViewControllerDidSend(thickness: thickness)
+    lineThicknessLabel.text = String(sender.value)
+    Settings.shared.lineWidth = Double(sender.value)
   }
   
   @IBAction func doneButtonTapped(_ sender: UIButton)

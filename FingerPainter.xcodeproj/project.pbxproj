@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		201062F21EDEEFE10021A6EC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201062F11EDEEFE10021A6EC /* SettingsViewController.swift */; };
+		20144A3A1EE1000B000DDF4B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20144A391EE1000B000DDF4B /* Settings.swift */; };
 		201CA5CA1ED4A40900344E9B /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201CA5C91ED4A40900344E9B /* LoginScreenViewController.swift */; };
 		201CA5CE1ED4B08300344E9B /* ProjectsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201CA5CD1ED4B08300344E9B /* ProjectsTableViewController.swift */; };
 		2047F5481ED39D59004F1E73 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047F5471ED39D59004F1E73 /* APIController.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		201062F11EDEEFE10021A6EC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		20144A391EE1000B000DDF4B /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		201CA5C91ED4A40900344E9B /* LoginScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
 		201CA5CD1ED4B08300344E9B /* ProjectsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTableViewController.swift; sourceTree = "<group>"; };
 		2047F5471ED39D59004F1E73 /* APIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				201CA5C91ED4A40900344E9B /* LoginScreenViewController.swift */,
 				201CA5CD1ED4B08300344E9B /* ProjectsTableViewController.swift */,
 				20C47F5C1ECA07BB00C223C2 /* ViewController.swift */,
+				20144A391EE1000B000DDF4B /* Settings.swift */,
 				201062F11EDEEFE10021A6EC /* SettingsViewController.swift */,
 				2047F5471ED39D59004F1E73 /* APIController.swift */,
 				20FE8F5D1ED5FCDC00DB58FC /* Project.swift */,
@@ -238,6 +241,7 @@
 				20FE8F5E1ED5FCDC00DB58FC /* Project.swift in Sources */,
 				20FE8FE01ED7355B00DB58FC /* User.swift in Sources */,
 				201062F21EDEEFE10021A6EC /* SettingsViewController.swift in Sources */,
+				20144A3A1EE1000B000DDF4B /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -92,7 +92,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSw-Hd-JBi">
-                                <rect key="frame" x="168" y="505" width="38" height="30"/>
+                                <rect key="frame" x="168" y="537" width="38" height="30"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="loginTapped:" destination="1ms-Ui-MiY" eventType="touchUpInside" id="Ss8-ZC-MK8"/>
@@ -108,7 +108,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ja2-zX-kmk">
-                                <rect key="frame" x="158.5" y="560" width="57" height="30"/>
+                                <rect key="frame" x="158.5" y="592" width="57" height="30"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
                                     <action selector="registerTapped:" destination="1ms-Ui-MiY" eventType="touchUpInside" id="ssH-pp-EiY"/>
@@ -118,12 +118,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ExU-Vv-hRN" firstAttribute="top" secondItem="gQu-7T-nTe" secondAttribute="bottom" constant="25" id="MkR-lF-tCw"/>
+                            <constraint firstItem="DvV-5h-AjW" firstAttribute="top" secondItem="uSw-Hd-JBi" secondAttribute="bottom" constant="100" id="NRd-ej-u9T"/>
                             <constraint firstItem="uSw-Hd-JBi" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="P3A-Q9-Z6U"/>
                             <constraint firstItem="ExU-Vv-hRN" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="Q1m-Xz-6Qm"/>
                             <constraint firstItem="ExU-Vv-hRN" firstAttribute="width" secondItem="gQu-7T-nTe" secondAttribute="width" id="QUP-JF-4C4"/>
                             <constraint firstItem="EPA-6u-Xp8" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="T3l-MP-V9Z"/>
                             <constraint firstItem="Ja2-zX-kmk" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="Yk2-Mm-k7A"/>
-                            <constraint firstItem="uSw-Hd-JBi" firstAttribute="top" secondItem="ExU-Vv-hRN" secondAttribute="bottom" constant="150" id="bvR-f1-Ir3"/>
                             <constraint firstItem="gQu-7T-nTe" firstAttribute="top" secondItem="EPA-6u-Xp8" secondAttribute="bottom" constant="25" id="byV-Py-xZr"/>
                             <constraint firstItem="gQu-7T-nTe" firstAttribute="width" secondItem="TeN-JV-AK6" secondAttribute="width" multiplier="0.75" id="gOu-j0-MXo"/>
                             <constraint firstItem="gQu-7T-nTe" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="tqV-eT-DcZ"/>
@@ -154,10 +154,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5QR-Zh-9NO">
-                                <rect key="frame" x="94" y="86" width="187.5" height="31"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5QR-Zh-9NO">
+                                <rect key="frame" x="139" y="86" width="98" height="31"/>
                                 <segments>
-                                    <segment title="Black" width="93.25"/>
+                                    <segment title="Black"/>
                                     <segment title="White"/>
                                 </segments>
                                 <color key="tintColor" red="0.1628" green="0.18186666670000001" blue="0.22" alpha="1" colorSpace="calibratedRGB"/>
@@ -197,7 +197,6 @@
                             <constraint firstItem="5QR-Zh-9NO" firstAttribute="top" secondItem="KIE-zB-ESS" secondAttribute="bottom" constant="20" id="4ya-l5-Dch"/>
                             <constraint firstItem="pvv-ke-gmw" firstAttribute="height" secondItem="5QR-Zh-9NO" secondAttribute="height" id="ARv-Bx-W6A"/>
                             <constraint firstItem="AIr-b9-0aH" firstAttribute="top" secondItem="5QR-Zh-9NO" secondAttribute="bottom" constant="40" id="BiH-W2-Zbk"/>
-                            <constraint firstItem="5QR-Zh-9NO" firstAttribute="width" secondItem="npk-36-NE4" secondAttribute="width" multiplier="0.5" id="CtD-An-fQe"/>
                             <constraint firstItem="pvv-ke-gmw" firstAttribute="width" secondItem="npk-36-NE4" secondAttribute="width" multiplier="0.75" id="GE2-fy-yF4"/>
                             <constraint firstItem="KIE-zB-ESS" firstAttribute="centerX" secondItem="npk-36-NE4" secondAttribute="centerX" id="SFw-nK-13a"/>
                             <constraint firstItem="ldE-G6-Nl8" firstAttribute="top" secondItem="1Ff-nc-V6f" secondAttribute="bottom" constant="60" id="Upe-EB-Get"/>

@@ -35,7 +35,6 @@ class Project
     user1Id = json["user1Id"].intValue
     user2Id = json["user2Id"].intValue
     lines = json["lines"].arrayValue.map { Line(json: $0) }
-    print(lines)
     projectName = json["projectName"].stringValue
   }
   

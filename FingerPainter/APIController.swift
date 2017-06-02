@@ -29,13 +29,17 @@ class APIController
   var userDelegate: APIControllerUserDelegate?
   var projectDelegate: APIControllerProjectDelegate?
   
-  let url = "http://localhost:8080"
+//  let url = "http://localhost:8080"
+  let url = "http://timothys-macbook-pro.local:8080"
   
   func getUsers()
   {
     let sessionURL = "\(url)/getUsers"
     
     Alamofire.request(sessionURL).responseJSON { responseData in
+      
+      print(responseData)
+      
       if let value = responseData.result.value
       {
         let userDictionary = value as! [[String: Any]]
@@ -76,7 +80,7 @@ class APIController
       encoding: self.encoding(.post),
       headers: ["Content-Type": "application/json"]
       ).validate(statusCode: 200...200).responseJSON(completionHandler: { responseData in
-        debugPrint(responseData)
+//        debugPrint(responseData)
         
         if let result = responseData.result.value {
           completionHandler(JSON(result), nil)
@@ -98,7 +102,7 @@ class APIController
       encoding: self.encoding(.post),
       headers: ["Content-Type": "application/json"]
       ).responseJSON(completionHandler: { responseData in
-        debugPrint(responseData)
+//        debugPrint(responseData)
       })
   }
   
@@ -107,8 +111,6 @@ class APIController
     let sessionURL = "\(url)/saveUser"
     let parameters = user.postBody()
     
-    print(parameters)
-    
     Alamofire.request(
       sessionURL,
       method: .post,
@@ -116,7 +118,7 @@ class APIController
       encoding: self.encoding(.post),
       headers: ["Content-Type": "application/json"]
       ).validate(statusCode: 200...200).responseJSON(completionHandler: { responseData in
-        debugPrint(responseData)
+//        debugPrint(responseData)
         
         if let result = responseData.result.value {
           completionHandler(JSON(result), nil)

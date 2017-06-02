@@ -28,7 +28,6 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   override func viewDidAppear(_ animated: Bool)
   {
     APIController.shared.userDelegate = self
-//    User.current = User(username: "", password: "")
   }
   
   override func didReceiveMemoryWarning()
@@ -150,7 +149,6 @@ extension LoginScreenViewController: APIControllerUserDelegate
     }
   }
 }
-
 
 extension LoginScreenViewController         //alerts
 {

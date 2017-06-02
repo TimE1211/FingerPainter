@@ -106,8 +106,7 @@ class ProjectsTableViewController: UITableViewController
   
   @IBAction func joinProjectsTapped(_ sender: UIBarButtonItem)
   {
-    //call api and get project with project id that u paste in via alert
-    let alert = UIAlertController(title: "projectId", message: "Please Enter a UUID for the Project you wish to join then Confirm", preferredStyle: .alert)
+    let alert = UIAlertController(title: "projectId", message: "Please Enter the id for the Project you wish to join then Confirm", preferredStyle: .alert)
     
     alert.addTextField { textField in
       textField.placeholder = "Enter projectId"
@@ -153,16 +152,17 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
   
   func getProjectsForUser(projectDictionary: [[String: Any]])
   {
+    projects.removeAll()
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
       if project.user1Id == User.current.id || project.user2Id == User.current.id
       {
-        projects.removeAll()
         projects.append(project)
       }
     }
     self.tableView.reloadData()
+    print("projects count: \(projects.count)")
   }
   
   func getProjectForprojectId(projectDictionary: [[String: Any]])
@@ -173,6 +173,7 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
         if project.id == projectToJoinId
       {
         Project.current = project
+        projectToJoinId = 0
         performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
       }
     }
@@ -183,7 +184,7 @@ extension ProjectsTableViewController       //alert
 {
   func pleaseEnterANameAlert()
   {
-    let errorAlert = UIAlertController(title: "Error - Incorrect Data", message: "Please name your Project.", preferredStyle: .deviceSpecific)
+    let errorAlert = UIAlertController(title: "Error - Incorrect Data", message: "Please name your Project", preferredStyle: .deviceSpecific)
     
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)
@@ -192,7 +193,7 @@ extension ProjectsTableViewController       //alert
   
   func pleaseEnterDataAlert()
   {
-    let errorAlert = UIAlertController(title: "Error - Incorrect Data", message: "Please a projectId.", preferredStyle: .deviceSpecific)
+    let errorAlert = UIAlertController(title: "Error - Incorrect Data", message: "Please enter a valid Project id or select an existing Project", preferredStyle: .deviceSpecific)
     
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)

@@ -18,8 +18,6 @@ class ViewController: UIViewController
   
   var start: CGPoint?
   var end: CGPoint?
-  var color: String? = "black"
-  var thickness: Double? = 5
   
   var lines = [Line]()
   
@@ -36,7 +34,12 @@ class ViewController: UIViewController
   {
     print(Project.current)
     APIController.shared.projectDelegate = self
-    settingsViewController.settingsDelegate = self
+    
+    if Project.current.user1Id != User.current.id
+    {
+      Project.current.user2Id = User.current.id
+      APIController.shared.update(project: Project.current)
+    }
     
     for aLine in Project.current.lines
     {
@@ -44,16 +47,11 @@ class ViewController: UIViewController
       let endPoint = CGPoint(x: aLine.endx, y: aLine.endy)
       lines.removeAll()
       
-      drawFromPoint(start: startPoint, toPoint: endPoint, with: aLine.color, and: aLine.thickness)
+      drawFromPoint(start: startPoint, toPoint: endPoint, with: ColorOption(rawValue: aLine.color)!, and: aLine.thickness)
       self.start = endPoint
     }
     
     title = "\(Project.current.projectName)"
-    
-    if Project.current.user1Id != User.current.id
-    {
-      Project.current.user2Id = User.current.id
-    }
     
     if timer == nil {
       makeTimer()
@@ -74,7 +72,7 @@ class ViewController: UIViewController
   
   func makeTimer()
   {
-    timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false)
+    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true)
     { timer in
       APIController.shared.getProjects()
     }
@@ -93,11 +91,14 @@ class ViewController: UIViewController
     if let touch = touches.first
     {
       self.end = touch.location(in: view)
-      if let end = end, let start = start, let color = color, let thickness = thickness
+      if let end = end, let start = start
       {
+        let thickness = Settings.shared.lineWidth
+        let color = Settings.shared.lineColor
+        
         drawFromPoint(start: start, toPoint: end, with: color, and: thickness)
       
-        if let line = Line(projectId: Project.current.id, startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color, thickness: thickness)
+        if let line = Line(projectId: Project.current.id, startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color.rawValue, thickness: thickness)
         {
           lines.append(line)
           Project.current.lines = lines
@@ -108,22 +109,17 @@ class ViewController: UIViewController
     }
   }
   
-  func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with color: String, and thickness: Double)
+  func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with colorOption: ColorOption, and thickness: Double)
   {
     UIGraphicsBeginImageContext(canvas.frame.size)
     if let context = UIGraphicsGetCurrentContext()
     {
       canvas.image?.draw(in: CGRect(x: 0, y: 0, width: canvas.frame.size.width, height: canvas.frame.size.height))
-      if color == "white"
-      {
-        context.setStrokeColor(UIColor.white.cgColor)
-      }
-      else
-      {
-        context.setStrokeColor(UIColor.darkGray.cgColor)
-      }
       
+      let color = UIColor.from(colorOption: colorOption)
+      context.setStrokeColor(color.cgColor)
       context.setLineWidth(CGFloat(thickness))
+      
       context.beginPath()
       context.move(to: CGPoint(x: start.x, y: start.y))
       context.addLine(to: CGPoint(x: end.x, y: end.y))
@@ -138,9 +134,20 @@ class ViewController: UIViewController
   {
     self.dismiss(animated: true, completion: nil)
   }
+  
   @IBAction func inviteButtonTapped(_ sender: UIBarButtonItem)
   {
-    APIController.shared.getProjects()
+    let projectId = Project.current.id
+    UIPasteboard.general.string = "\(projectId)"
+    
+    let alert = UIAlertController(title: "Copied", message: "Copied to clipboard: " + "\(projectId)", preferredStyle: .alert)
+    
+    present(alert, animated: true) {
+      Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
+        timer.invalidate()
+        alert.dismiss(animated: true, completion: nil)
+      }
+    }
   }
 }
 
@@ -148,6 +155,7 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
 {
   func apiControllerDidReceive(projectDictionary: [[String : Any]])
   {
+    print("received results")
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
@@ -160,25 +168,7 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
     {
       let startPoint = CGPoint(x: line.startx, y: line.starty)
       let endPoint = CGPoint(x: line.endx, y: line.endy)
-      drawFromPoint(start: startPoint, toPoint: endPoint, with: line.color, and: line.thickness)
+      drawFromPoint(start: startPoint, toPoint: endPoint, with: ColorOption(rawValue: line.color)!, and: line.thickness)
     }
-  }
-}
-
-extension ViewController: SettingsViewControllerDelegate      //changed settings
-{
-  func settingsViewControllerDidSend(color: String)
-  {
-    self.color = color
-  }
-  func settingsViewControllerDidSend(thickness: Double)
-  {
-    self.thickness = thickness
-  }
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    //thickness = starting thickness in setting vc
-//    color = starting color in settings vc
   }
 }
