@@ -44,7 +44,7 @@ class APIController
     }
   }
   
-  func getProjects()
+  func getProjects(completionHandler: APIControllerCompletionHandler? = nil)
   {
     let sessionURL = "\(url)/getProjects"
     
@@ -53,23 +53,36 @@ class APIController
       {
         let projectDictionary = value as! [[String: Any]]
         self.projectDelegate?.apiControllerDidReceive(projectDictionary: projectDictionary)
+        completionHandler?(JSON(value), nil)
+      } else if let error = responseData.result.error {
+        completionHandler?(nil, JSON(error))
+      } else {
+        completionHandler?(nil, nil)
       }
     }
   }
 
-  func create(project: Project)
+  func create(project: Project, completionHandler: @escaping APIControllerCompletionHandler)
   {
     let sessionURL = "\(url)/createProject"
     let parameters = project.postBody()
+    
+    print(parameters)
     
     Alamofire.request(
       sessionURL,
       method: .post,
       parameters: parameters,
-      encoding: URLEncoding.httpBody,
+      encoding: self.encoding(.post),
       headers: ["Content-Type": "application/json"]
-      ).responseJSON(completionHandler: { responseData in
+      ).validate(statusCode: 200...200).responseJSON(completionHandler: { responseData in
         debugPrint(responseData)
+        
+        if let result = responseData.result.value {
+          completionHandler(JSON(result), nil)
+        } else if let error = responseData.result.error {
+          completionHandler(nil, JSON(error))
+        }
       })
   }
   
@@ -82,25 +95,27 @@ class APIController
       sessionURL,
       method: .post,
       parameters: parameters,
-      encoding: URLEncoding.httpBody,
+      encoding: self.encoding(.post),
       headers: ["Content-Type": "application/json"]
       ).responseJSON(completionHandler: { responseData in
         debugPrint(responseData)
       })
   }
   
-  func create(user: User, completionHandler: @escaping APIControllerCompletionHandler)
+  func save(user: User, completionHandler: @escaping APIControllerCompletionHandler)
   {
-    let sessionURL = "\(url)/createUser"
+    let sessionURL = "\(url)/saveUser"
     let parameters = user.postBody()
+    
+    print(parameters)
     
     Alamofire.request(
       sessionURL,
       method: .post,
       parameters: parameters,
-      encoding: URLEncoding.httpBody,
+      encoding: self.encoding(.post),
       headers: ["Content-Type": "application/json"]
-      ).responseJSON(completionHandler: { responseData in
+      ).validate(statusCode: 200...200).responseJSON(completionHandler: { responseData in
         debugPrint(responseData)
         
         if let result = responseData.result.value {
@@ -110,9 +125,9 @@ class APIController
         }
       })
   }
+  
+  func encoding(_ method: HTTPMethod) -> ParameterEncoding {
+    return method == .get ? URLEncoding.default : JSONEncoding.default
+  }
 }
-
-
-
-
 

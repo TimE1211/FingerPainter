@@ -39,7 +39,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="pUH-rG-utC">
                         <leftBarButtonItems>
-                            <barButtonItem title="  &lt;  " id="Mxw-Za-dWE">
+                            <barButtonItem title="Back" id="Mxw-Za-dWE">
                                 <connections>
                                     <action selector="backButtonTapped:" destination="BYZ-38-t0r" id="BU8-mY-Dmn"/>
                                 </connections>
@@ -50,7 +50,11 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" title="Invite" id="oMA-oX-afc"/>
+                        <barButtonItem key="rightBarButtonItem" title="Invite" id="oMA-oX-afc">
+                            <connections>
+                                <action selector="inviteButtonTapped:" destination="BYZ-38-t0r" id="2ak-lr-JwX"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="canvas" destination="2JT-bE-9Ik" id="xW4-xk-2AF"/>

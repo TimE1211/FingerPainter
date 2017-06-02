@@ -12,13 +12,17 @@ import SwiftyJSON
 class ProjectsTableViewController: UITableViewController
 {
   var projects = [Project]()
-  var projectName = String()
   
   var projectToJoinId = Int()
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
+  }
+  
+  override func viewDidAppear(_ animated: Bool)
+  {
+    APIController.shared.projectDelegate = self
     APIController.shared.getProjects()
   }
 
@@ -43,8 +47,6 @@ class ProjectsTableViewController: UITableViewController
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
   {
     let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath)
-
-    title = "My Projects"
     
     let thisProject = projects[indexPath.row]
     cell.textLabel?.text = thisProject.projectName
@@ -77,10 +79,22 @@ class ProjectsTableViewController: UITableViewController
         return
       }
       
-      self.projectName = projectName
-      
       Project.current = Project(user1Id: User.current.id, lines: [], projectName: projectName)
-      self.performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
+      APIController.shared.create(project: Project.current, completionHandler: { result, error in
+        if let result = result
+        {
+          Project.current = Project(json: result)
+          self.performSegue(withIdentifier: "ProjectSegue", sender: Project.current)
+        }
+        else
+        {
+          let errorAlert = UIAlertController(title: "Project could not be saved successfully", message: "Please restart the app and try again", preferredStyle: .alert)
+          let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+          errorAlert.addAction(action)
+          self.present(errorAlert, animated: true, completion: nil)
+        }
+      })
+      
     }
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -144,7 +158,6 @@ extension ProjectsTableViewController: APIControllerProjectDelegate   //api
       let project = Project(json: JSON(aProject))
       if project.user1Id == User.current.id || project.user2Id == User.current.id
       {
-        // current user was found in the project so append to projects array to display project as cell
         projects.removeAll()
         projects.append(project)
       }

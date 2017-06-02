@@ -34,7 +34,8 @@ class Project
     id = json["id"].intValue
     user1Id = json["user1Id"].intValue
     user2Id = json["user2Id"].intValue
-    lines = [Line(json: json["lines"])]
+    lines = json["lines"].arrayValue.map { Line(json: $0) }
+    print(lines)
     projectName = json["projectName"].stringValue
   }
   
@@ -46,7 +47,7 @@ class Project
     projectJsonDictionary["user1Id"] = user1Id
     projectJsonDictionary["user2Id"] = user2Id
     
-    let lineDictionaries = lines.map{ $0.postBody()}
+    let lineDictionaries = lines.map { $0.postBody() }
     projectJsonDictionary["lines"] = lineDictionaries
     
     return projectJsonDictionary
@@ -80,22 +81,27 @@ class Line
   
   init(json: JSON)
   {
-    startx = Double(json["startx"].floatValue)
-    starty = Double(json["starty"].floatValue)
-    endx = Double(json["endx"].floatValue)
-    endy = Double(json["endy"].floatValue)
+    id = json["id"].intValue
+    projectId = json["projectId"].intValue
+    startx = json["startx"].doubleValue
+    starty = json["starty"].doubleValue
+    endx = json["endx"].doubleValue
+    endy = json["endy"].doubleValue
     color = json["color"].stringValue
-    thickness = Double(json["thickness"].floatValue)
+    thickness = json["thickness"].doubleValue
   }
   
   func postBody() -> [String: Any]
   {
     return [
+      "id": id,
+      "projectId": projectId,
       "startx": startx,
       "starty": starty,
       "endx": endx,
       "endy": endy,
-      "color": color
+      "color": color,
+      "thickness": thickness,
     ]
   }
 }

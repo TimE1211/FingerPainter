@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FingerPainter/LoginScreenViewController.swift"
-            timestampString = "517955734.474071"
+            filePath = "FingerPainter/ProjectsTableViewController.swift"
+            timestampString = "518055654.200422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "registerTapped(_:)"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "joinProjectsTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FingerPainter/ProjectsTableViewController.swift"
-            timestampString = "518034835.239057"
+            filePath = "FingerPainter/ViewController.swift"
+            timestampString = "518059716.452147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "joinProjectsTapped(_:)"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "apiControllerDidReceive(projectDictionary:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FingerPainter/ViewController.swift"
+            timestampString = "518059716.452147"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "apiControllerDidReceive(projectDictionary:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FingerPainter/ViewController.swift"
+            timestampString = "518059716.452147"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "touchesMoved(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

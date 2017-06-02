@@ -23,18 +23,20 @@ class ViewController: UIViewController
   
   var lines = [Line]()
   
+  var timer: Timer?
+  
   let settingsViewController = SettingsViewController()
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    
-    title = "\(Project.current.projectName)"
+  }
+  
+  override func viewDidAppear(_ animated: Bool)
+  {
+    print(Project.current)
     APIController.shared.projectDelegate = self
-    
     settingsViewController.settingsDelegate = self
-
-    timer()
     
     for aLine in Project.current.lines
     {
@@ -46,11 +48,23 @@ class ViewController: UIViewController
       self.start = endPoint
     }
     
+    title = "\(Project.current.projectName)"
+    
     if Project.current.user1Id != User.current.id
     {
-      // current user was not found in the array add to projects users array
       Project.current.user2Id = User.current.id
     }
+    
+    if timer == nil {
+      makeTimer()
+    }
+  }
+  
+  override func viewWillDisappear(_ animated: Bool)
+  {
+    super.viewWillDisappear(animated)
+    timer?.invalidate()
+    timer = nil
   }
   
   override func didReceiveMemoryWarning()
@@ -58,9 +72,9 @@ class ViewController: UIViewController
     super.didReceiveMemoryWarning()
   }
   
-  func timer()
+  func makeTimer()
   {
-    Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false)
+    timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false)
     { timer in
       APIController.shared.getProjects()
     }
@@ -88,7 +102,6 @@ class ViewController: UIViewController
           lines.append(line)
           Project.current.lines = lines
           APIController.shared.update(project: Project.current)
-          //updating current proj maybe shouldnt be using save -> update
         }
         self.start = end
       }
@@ -97,7 +110,6 @@ class ViewController: UIViewController
   
   func drawFromPoint(start: CGPoint, toPoint end: CGPoint, with color: String, and thickness: Double)
   {
-    print(color)
     UIGraphicsBeginImageContext(canvas.frame.size)
     if let context = UIGraphicsGetCurrentContext()
     {
@@ -125,6 +137,10 @@ class ViewController: UIViewController
   @IBAction func backButtonTapped(_ sender: UIBarButtonItem)
   {
     self.dismiss(animated: true, completion: nil)
+  }
+  @IBAction func inviteButtonTapped(_ sender: UIBarButtonItem)
+  {
+    APIController.shared.getProjects()
   }
 }
 
