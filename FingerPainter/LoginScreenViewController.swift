@@ -163,7 +163,7 @@ extension LoginScreenViewController         //alerts
   
   func userRegistrationErrorAlert()
   {
-    let errorAlert = UIAlertController(title: "Username already exists/ or User could not be saved successfully", message: "Please enter a different Username", preferredStyle: .alert)
+    let errorAlert = UIAlertController(title: "User could not be saved successfully", message: "Please enter a different Username", preferredStyle: .alert)
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)
     self.present(errorAlert, animated: true, completion: nil)
