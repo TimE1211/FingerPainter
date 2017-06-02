@@ -38,7 +38,10 @@ class ViewController: UIViewController
     if Project.current.user1Id != User.current.id
     {
       Project.current.user2Id = User.current.id
-      APIController.shared.update(project: Project.current)
+      let updatingProject = Project(user1Id: Project.current.user1Id, lines: [], projectName: Project.current.projectName)
+      updatingProject.user2Id = Project.current.user2Id
+      updatingProject.id = Project.current.id
+      APIController.shared.update(project: updatingProject)
     }
     
     for aLine in Project.current.lines
@@ -101,8 +104,14 @@ class ViewController: UIViewController
         if let line = Line(projectId: Project.current.id, startx: Double(start.x), starty: Double(start.y), endx: Double(end.x), endy: Double(end.y), color: color.rawValue, thickness: thickness)
         {
           lines.append(line)
+          let newLine = line
           Project.current.lines = lines
-          APIController.shared.update(project: Project.current)
+          
+          let updatingProject = Project(user1Id: Project.current.user1Id, lines: [newLine], projectName: Project.current.projectName)
+          updatingProject.user2Id = Project.current.user2Id
+          updatingProject.id = Project.current.id
+          
+          APIController.shared.update(project: updatingProject)
         }
         self.start = end
       }
