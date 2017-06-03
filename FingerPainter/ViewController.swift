@@ -164,20 +164,29 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
 {
   func apiControllerDidReceive(projectDictionary: [[String : Any]])
   {
-    print("received results")
     for aProject in projectDictionary
     {
       let project = Project(json: JSON(aProject))
       if project.id == Project.current.id
       {
         lines = project.lines
+//      not pulling down all the lines here
       }
     }
+    
     for line in lines
     {
+//      print(line.color)
       let startPoint = CGPoint(x: line.startx, y: line.starty)
       let endPoint = CGPoint(x: line.endx, y: line.endy)
-      drawFromPoint(start: startPoint, toPoint: endPoint, with: ColorOption(rawValue: line.color)!, and: line.thickness)
+      if let lineColor = ColorOption(rawValue: line.color)
+      {
+        drawFromPoint(start: startPoint, toPoint: endPoint, with: lineColor, and: line.thickness)
+      }
+      else
+      {
+        drawFromPoint(start: startPoint, toPoint: endPoint, with: ColorOption(rawValue: "black")!, and: line.thickness)
+      }
     }
   }
 }

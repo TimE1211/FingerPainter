@@ -99,11 +99,8 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
       APIController.shared.save(user: User.current, completionHandler: { result, error in
         if let result = result
         {
-          
           print(result)
-          
           User.current = User(json: result)
-          
           self.presentSuccessfullyRegisteredAlert()
         }
         else
@@ -117,7 +114,6 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
     
     alert.addAction(confirmAction)
     alert.addAction(cancelAction)
-    
     present(alert, animated: true, completion: nil)
   }
 }
@@ -139,7 +135,7 @@ extension LoginScreenViewController: APIControllerUserDelegate
       }
     }
     
-    if userInfoIsCorrect == true
+    if userInfoIsCorrect
     {
       performSegue(withIdentifier: "LoginSegue", sender: self)
     }
@@ -163,7 +159,7 @@ extension LoginScreenViewController         //alerts
   
   func userRegistrationErrorAlert()
   {
-    let errorAlert = UIAlertController(title: "User could not be saved successfully", message: "Please enter a different Username", preferredStyle: .alert)
+    let errorAlert = UIAlertController(title: "User could not be saved successfully", message: "Please try again", preferredStyle: .alert)
     let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
     errorAlert.addAction(action)
     self.present(errorAlert, animated: true, completion: nil)
