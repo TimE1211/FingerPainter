@@ -75,7 +75,7 @@ class ViewController: UIViewController
   
   func makeTimer()
   {
-    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true)
+    timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true)
     { timer in
       APIController.shared.getProjects()
     }
