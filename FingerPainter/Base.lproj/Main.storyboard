@@ -25,6 +25,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2JT-bE-9Ik">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -40,17 +41,20 @@
                     <navigationItem key="navigationItem" id="pUH-rG-utC">
                         <leftBarButtonItems>
                             <barButtonItem title="Back" id="Mxw-Za-dWE">
+                                <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="backButtonTapped:" destination="BYZ-38-t0r" id="BU8-mY-Dmn"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Settings" id="qum-4W-IJP">
+                            <barButtonItem title=" Settings" id="qum-4W-IJP">
+                                <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <segue destination="vRL-jc-giB" kind="presentation" identifier="LineSettingsSegue" id="jCp-9M-gHT"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" title="Invite" id="oMA-oX-afc">
+                            <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="inviteButtonTapped:" destination="BYZ-38-t0r" id="2ak-lr-JwX"/>
                             </connections>
@@ -62,7 +66,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6872.8000000000002" y="138.98050974512745"/>
+            <point key="canvasLocation" x="6014" y="139"/>
         </scene>
         <!--Login Screen View Controller-->
         <scene sceneID="Sh8-Ye-Si2">
@@ -77,8 +81,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ExU-Vv-hRN">
-                                <rect key="frame" x="47.5" y="325" width="281" height="30"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="47.5" y="318.5" width="281" height="30"/>
+                                <color key="textColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -86,21 +90,21 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to DrawnTogether" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPA-6u-Xp8">
-                                <rect key="frame" x="81" y="224" width="212" height="21"/>
+                                <rect key="frame" x="81" y="227.5" width="212" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSw-Hd-JBi">
-                                <rect key="frame" x="168" y="537" width="38" height="30"/>
+                                <rect key="frame" x="168" y="398.5" width="38" height="30"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="loginTapped:" destination="1ms-Ui-MiY" eventType="touchUpInside" id="Ss8-ZC-MK8"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gQu-7T-nTe">
-                                <rect key="frame" x="47" y="270" width="281" height="30"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="47" y="273.5" width="281" height="30"/>
+                                <color key="textColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -108,17 +112,19 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ja2-zX-kmk">
-                                <rect key="frame" x="158.5" y="592" width="57" height="30"/>
+                                <rect key="frame" x="158.5" y="443.5" width="57" height="30"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
                                     <action selector="registerTapped:" destination="1ms-Ui-MiY" eventType="touchUpInside" id="ssH-pp-EiY"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.67291987769999995" blue="0.21175761009999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ExU-Vv-hRN" firstAttribute="top" secondItem="gQu-7T-nTe" secondAttribute="bottom" constant="25" id="MkR-lF-tCw"/>
-                            <constraint firstItem="DvV-5h-AjW" firstAttribute="top" secondItem="uSw-Hd-JBi" secondAttribute="bottom" constant="100" id="NRd-ej-u9T"/>
+                            <constraint firstItem="ExU-Vv-hRN" firstAttribute="centerY" secondItem="TeN-JV-AK6" secondAttribute="centerY" id="Il0-RA-euG"/>
+                            <constraint firstItem="uSw-Hd-JBi" firstAttribute="top" secondItem="ExU-Vv-hRN" secondAttribute="bottom" constant="50" id="LeC-Ls-GBS"/>
+                            <constraint firstItem="ExU-Vv-hRN" firstAttribute="top" secondItem="gQu-7T-nTe" secondAttribute="bottom" constant="15" id="MkR-lF-tCw"/>
                             <constraint firstItem="uSw-Hd-JBi" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="P3A-Q9-Z6U"/>
                             <constraint firstItem="ExU-Vv-hRN" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="Q1m-Xz-6Qm"/>
                             <constraint firstItem="ExU-Vv-hRN" firstAttribute="width" secondItem="gQu-7T-nTe" secondAttribute="width" id="QUP-JF-4C4"/>
@@ -127,8 +133,7 @@
                             <constraint firstItem="gQu-7T-nTe" firstAttribute="top" secondItem="EPA-6u-Xp8" secondAttribute="bottom" constant="25" id="byV-Py-xZr"/>
                             <constraint firstItem="gQu-7T-nTe" firstAttribute="width" secondItem="TeN-JV-AK6" secondAttribute="width" multiplier="0.75" id="gOu-j0-MXo"/>
                             <constraint firstItem="gQu-7T-nTe" firstAttribute="centerX" secondItem="TeN-JV-AK6" secondAttribute="centerX" id="tqV-eT-DcZ"/>
-                            <constraint firstItem="EPA-6u-Xp8" firstAttribute="top" secondItem="Fi1-db-zaS" secondAttribute="bottom" constant="160" id="wXQ-7c-ym9"/>
-                            <constraint firstItem="Ja2-zX-kmk" firstAttribute="top" secondItem="uSw-Hd-JBi" secondAttribute="bottom" constant="25" id="zKl-1g-5ii"/>
+                            <constraint firstItem="Ja2-zX-kmk" firstAttribute="top" secondItem="uSw-Hd-JBi" secondAttribute="bottom" constant="15" id="zKl-1g-5ii"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="8LI-FO-wKI"/>
@@ -167,7 +172,7 @@
                             </segmentedControl>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="1" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="pvv-ke-gmw">
                                 <rect key="frame" x="44.5" y="197" width="285" height="31"/>
-                                <color key="tintColor" red="0.1628" green="0.18186666670000001" blue="0.22" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="lineThicknessSliderValueChanged:" destination="vRL-jc-giB" eventType="valueChanged" id="pPm-Ei-Ia1"/>
                                 </connections>
@@ -175,24 +180,25 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line Color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIE-zB-ESS">
                                 <rect key="frame" x="148.5" y="45" width="77.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line Thickness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIr-b9-0aH">
                                 <rect key="frame" x="130" y="156" width="114" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ff-nc-V6f">
                                 <rect key="frame" x="168.5" y="577" width="37" height="30"/>
+                                <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="doneButtonTapped:" destination="vRL-jc-giB" eventType="touchUpInside" id="RFp-VR-SqB"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.67291987769999995" blue="0.21175761009999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="5QR-Zh-9NO" firstAttribute="top" secondItem="KIE-zB-ESS" secondAttribute="bottom" constant="20" id="4ya-l5-Dch"/>
                             <constraint firstItem="pvv-ke-gmw" firstAttribute="height" secondItem="5QR-Zh-9NO" secondAttribute="height" id="ARv-Bx-W6A"/>
@@ -216,7 +222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WTu-za-VTo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6873" y="952"/>
+            <point key="canvasLocation" x="5111" y="999"/>
         </scene>
         <!--Projects Table View Controller-->
         <scene sceneID="BQl-gx-8Xn">
@@ -226,6 +232,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="1" green="0.67291987769999995" blue="0.21175761009999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectCell" textLabel="oRZ-zM-epZ" style="IBUITableViewCellStyleDefault" id="sB3-8K-Kyx" customClass="ProjectCell" customModule="FingerPainter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -238,11 +245,12 @@
                                             <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="0.67291987769999995" blue="0.21175761009999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -252,17 +260,20 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="uYE-nr-Fmd">
                         <barButtonItem key="leftBarButtonItem" title="Log Out" id="TjK-cY-7RX">
+                            <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="logOutTapped:" destination="Eux-Fp-rhg" id="DGC-4n-U1R"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="New Project" id="L9q-Fs-c2s">
+                                <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="NewProjectTapped:" destination="Eux-Fp-rhg" id="Otd-qV-Rnh"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Join Project" id="Tu0-Pn-uyI">
+                                <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="joinProjectsTapped:" destination="Eux-Fp-rhg" id="ZDT-Hj-B0I"/>
                                 </connections>
@@ -275,16 +286,21 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5o-yT-l9U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4932" y="138.98050974512745"/>
+            <point key="canvasLocation" x="4044" y="139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x23-Gr-L4C">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c4o-oI-Kmn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yXr-KT-acG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yXr-KT-acG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="0.67291987769999995" blue="0.21175761009999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -293,16 +309,21 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ay9-ip-bLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2053.5999999999999" y="138.98050974512745"/>
+            <point key="canvasLocation" x="2467" y="139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6qL-VP-Onc">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iA0-fG-B6T" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D62-4W-W1F">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="D62-4W-W1F">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="0.67291987769999995" blue="0.21175761009999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -311,16 +332,21 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f19-jt-SQx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3992.8000000000002" y="138.98050974512745"/>
+            <point key="canvasLocation" x="3524" y="139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vBO-a4-6DS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4mx-zm-8Iv" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FS5-Lr-Qyx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FS5-Lr-Qyx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="0.67291987769999995" blue="0.21175761009999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -329,7 +355,8 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uF-my-LYy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5933.6000000000004" y="138.98050974512745"/>
+            <point key="canvasLocation" x="5150" y="139"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.31700247720000002" green="0.34067215899999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

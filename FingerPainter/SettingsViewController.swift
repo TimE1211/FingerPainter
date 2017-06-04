@@ -60,8 +60,8 @@ class SettingsViewController: UIViewController
     Settings.shared.lineColor = selected
     
     UIView.animate(withDuration: 0.25) {
-      let colorOption: ColorOption = (selected == .white) ? .black : selected
-      sender.tintColor = UIColor.from(colorOption: colorOption)
+//      let colorOption: ColorOption = (selected == .white) ? .black : selected
+      sender.tintColor = UIColor.from(colorOption: selected)
     }
   }
   

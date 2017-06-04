@@ -188,5 +188,6 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
         drawFromPoint(start: startPoint, toPoint: endPoint, with: ColorOption(rawValue: "black")!, and: line.thickness)
       }
     }
+    Project.current.lines = lines
   }
 }
