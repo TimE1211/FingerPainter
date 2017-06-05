@@ -25,6 +25,9 @@ class ProjectsTableViewController: UITableViewController
   {
     APIController.shared.projectDelegate = self
     APIController.shared.getProjects()
+//    let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+//    backgroundImage.image = UIImage(named: "colourback_9006.jpg")
+//    self.view.insertSubview(backgroundImage, at: 0)
   }
 
   override func didReceiveMemoryWarning()

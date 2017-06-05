@@ -28,6 +28,10 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   override func viewDidAppear(_ animated: Bool)
   {
     APIController.shared.userDelegate = self
+    super.viewDidLoad()
+    let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+    backgroundImage.image = UIImage(named: "colourback_9006.jpg")
+    self.view.insertSubview(backgroundImage, at: 0)
   }
   
   override func didReceiveMemoryWarning()

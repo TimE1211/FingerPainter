@@ -21,7 +21,11 @@ class SettingsViewController: UIViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    lineThicknessLabel.text = "Line Thickness: \(lineThicknessSlider.value)"
+    let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+    backgroundImage.image = UIImage(named: "colourback_9006.jpg")
+    self.view.insertSubview(backgroundImage, at: 0)
+    
+    lineThicknessLabel.text = "Line Thickness: \(Int(lineThicknessSlider.value))"
     
     if let control = lineColorSegmentedController
     {
@@ -45,7 +49,7 @@ class SettingsViewController: UIViewController
       slider.maximumValue = 20
       slider.minimumValue = 1
       slider.value = Float(Settings.shared.lineWidth)
-      lineThicknessLabel.text = String(Settings.shared.lineWidth)
+      lineThicknessLabel.text = "Line Thickness: " + String(Int(Settings.shared.lineWidth))
     }
   }
 
