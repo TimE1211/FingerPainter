@@ -25,6 +25,10 @@ class ViewController: UIViewController
   
   let settingsViewController = SettingsViewController()
   
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
+  }
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
