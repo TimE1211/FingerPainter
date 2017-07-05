@@ -96,7 +96,7 @@ class APIController
     let sessionURL = "\(url)/getAProject"
     let parameters = projectJsonDictionary
     
-    print(parameters)
+//    print(parameters)
     
     Alamofire.request(
       sessionURL,
@@ -105,9 +105,17 @@ class APIController
       encoding: self.encoding(.post),
       headers: ["Content-Type": "application/json"]
       ).responseJSON(completionHandler: { responseData in
-        //        debugPrint(responseData)
+        if let value = responseData.result.value
+        {
+          let projectDictionary = value as! [[String: Any]]
+          self.projectDelegate?.apiControllerDidReceive(projectDictionary: projectDictionary)
+          completionHandler?(JSON(value), nil)
+        } else if let error = responseData.result.error {
+          completionHandler?(nil, JSON(error))
+        } else {
+          completionHandler?(nil, nil)
+        }
       })
-
   }
 
   func create(project: Project, completionHandler: @escaping APIControllerCompletionHandler)

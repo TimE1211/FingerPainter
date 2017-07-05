@@ -174,7 +174,6 @@ extension ViewController: APIControllerProjectDelegate    //updating lines
       if project.id == Project.current.id
       {
         lines = project.lines
-//      not pulling down all the lines here
       }
     }
     
