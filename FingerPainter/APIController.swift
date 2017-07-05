@@ -32,6 +32,28 @@ class APIController
 //  let url = "http://localhost:8080"
   let url = "http://timothys-macbook-pro.local:8080"
   
+  func save(user: User, completionHandler: @escaping APIControllerCompletionHandler)
+  {
+    let sessionURL = "\(url)/saveUser"
+    let parameters = user.postBody()
+    
+    Alamofire.request(
+      sessionURL,
+      method: .post,
+      parameters: parameters,
+      encoding: self.encoding(.post),
+      headers: ["Content-Type": "application/json"]
+      ).validate(statusCode: 200...200).responseJSON(completionHandler: { responseData in
+        //        debugPrint(responseData)
+        
+        if let result = responseData.result.value {
+          completionHandler(JSON(result), nil)
+        } else if let error = responseData.result.error {
+          completionHandler(nil, JSON(error))
+        }
+      })
+  }
+  
   func getUsers()
   {
     let sessionURL = "\(url)/getUsers"
@@ -64,6 +86,28 @@ class APIController
         completionHandler?(nil, nil)
       }
     }
+  }
+  
+  func getAProject(projectId: Int, completionHandler: APIControllerCompletionHandler? = nil)
+  {
+    var projectJsonDictionary = [String: Any]()
+    projectJsonDictionary["id"] = projectId
+    
+    let sessionURL = "\(url)/getAProject"
+    let parameters = projectJsonDictionary
+    
+    print(parameters)
+    
+    Alamofire.request(
+      sessionURL,
+      method: .post,
+      parameters: parameters,
+      encoding: self.encoding(.post),
+      headers: ["Content-Type": "application/json"]
+      ).responseJSON(completionHandler: { responseData in
+        //        debugPrint(responseData)
+      })
+
   }
 
   func create(project: Project, completionHandler: @escaping APIControllerCompletionHandler)
@@ -103,28 +147,6 @@ class APIController
       headers: ["Content-Type": "application/json"]
       ).responseJSON(completionHandler: { responseData in
 //        debugPrint(responseData)
-      })
-  }
-  
-  func save(user: User, completionHandler: @escaping APIControllerCompletionHandler)
-  {
-    let sessionURL = "\(url)/saveUser"
-    let parameters = user.postBody()
-    
-    Alamofire.request(
-      sessionURL,
-      method: .post,
-      parameters: parameters,
-      encoding: self.encoding(.post),
-      headers: ["Content-Type": "application/json"]
-      ).validate(statusCode: 200...200).responseJSON(completionHandler: { responseData in
-//        debugPrint(responseData)
-        
-        if let result = responseData.result.value {
-          completionHandler(JSON(result), nil)
-        } else if let error = responseData.result.error {
-          completionHandler(nil, JSON(error))
-        }
       })
   }
   

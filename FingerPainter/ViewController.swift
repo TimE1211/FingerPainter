@@ -81,7 +81,7 @@ class ViewController: UIViewController
   {
     timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true)
     { timer in
-      APIController.shared.getProjects()
+      APIController.shared.getAProject(projectId: Project.current.id)
     }
   }
   
