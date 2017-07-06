@@ -16,6 +16,10 @@ class ProjectsTableViewController: UITableViewController
   var projectToJoinId = Int()
   var joinProjectsTappedBool = false
   
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
+  }
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()

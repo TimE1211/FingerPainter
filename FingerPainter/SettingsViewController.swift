@@ -18,6 +18,10 @@ class SettingsViewController: UIViewController
   @IBOutlet weak var lineThicknessLabel: UILabel!
   @IBOutlet weak var lineThicknessSlider: UISlider!
   
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
+  }
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()

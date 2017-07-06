@@ -17,6 +17,10 @@ class LoginScreenViewController: UIViewController, UITextFieldDelegate
   var username = String()
   var password = String()
   
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
+  }
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
