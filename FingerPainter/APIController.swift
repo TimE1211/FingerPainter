@@ -70,6 +70,46 @@ class APIController
     }
   }
   
+  func create(project: Project, completionHandler: @escaping APIControllerCompletionHandler)
+  {
+    let sessionURL = "\(url)/createProject"
+    let parameters = project.postBody()
+    
+    print(parameters)
+    
+    Alamofire.request(
+      sessionURL,
+      method: .post,
+      parameters: parameters,
+      encoding: self.encoding(.post),
+      headers: ["Content-Type": "application/json"]
+      ).validate(statusCode: 200...200).responseJSON(completionHandler: { responseData in
+        //        debugPrint(responseData)
+        
+        if let result = responseData.result.value {
+          completionHandler(JSON(result), nil)
+        } else if let error = responseData.result.error {
+          completionHandler(nil, JSON(error))
+        }
+      })
+  }
+  
+  func update(project: Project)
+  {
+    let sessionURL = "\(url)/updateProject"
+    let parameters = project.postBody()
+    
+    Alamofire.request(
+      sessionURL,
+      method: .post,
+      parameters: parameters,
+      encoding: self.encoding(.post),
+      headers: ["Content-Type": "application/json"]
+      ).responseJSON(completionHandler: { responseData in
+        //        debugPrint(responseData)
+      })
+  }
+  
   func getProjects(completionHandler: APIControllerCompletionHandler? = nil)
   {
     let sessionURL = "\(url)/getProjects"
@@ -115,46 +155,6 @@ class APIController
         } else {
           completionHandler?(nil, nil)
         }
-      })
-  }
-
-  func create(project: Project, completionHandler: @escaping APIControllerCompletionHandler)
-  {
-    let sessionURL = "\(url)/createProject"
-    let parameters = project.postBody()
-    
-    print(parameters)
-    
-    Alamofire.request(
-      sessionURL,
-      method: .post,
-      parameters: parameters,
-      encoding: self.encoding(.post),
-      headers: ["Content-Type": "application/json"]
-      ).validate(statusCode: 200...200).responseJSON(completionHandler: { responseData in
-//        debugPrint(responseData)
-        
-        if let result = responseData.result.value {
-          completionHandler(JSON(result), nil)
-        } else if let error = responseData.result.error {
-          completionHandler(nil, JSON(error))
-        }
-      })
-  }
-  
-  func update(project: Project)
-  {
-    let sessionURL = "\(url)/updateProject"
-    let parameters = project.postBody()
-    
-    Alamofire.request(
-      sessionURL,
-      method: .post,
-      parameters: parameters,
-      encoding: self.encoding(.post),
-      headers: ["Content-Type": "application/json"]
-      ).responseJSON(completionHandler: { responseData in
-//        debugPrint(responseData)
       })
   }
   
