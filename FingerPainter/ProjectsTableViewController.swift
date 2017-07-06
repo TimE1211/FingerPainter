@@ -133,7 +133,8 @@ class ProjectsTableViewController: UITableViewController
       if let projId = Int(projectId)
       {
         self.projectToJoinId = projId
-        APIController.shared.getAProject(projectId: projId)
+//        APIController.shared.getAProject(projectId: projId)
+        APIController.shared.getProjects()
       }
     }
     
